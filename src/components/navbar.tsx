@@ -11,8 +11,10 @@ export default function Navbar() {
   const pathname = usePathname();
   const [isAtTop, setIsAtTop] = useState(true);
   const [isHalfScreen, setIsHalfScreen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     const handleScroll = () => {
       setIsAtTop(window.scrollY <= 15);
       setIsHalfScreen(window.scrollY >= window.innerHeight / 4);
@@ -45,18 +47,20 @@ export default function Navbar() {
           hexaa
         </Link>
         <div className="flex items-center gap-6">
-          <nav
-            className={`font-montreal-mono flex gap-4 text-xs ${pathname !== "/" || isHalfScreen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"} transition-opacity duration-300`}
-          >
-            <Link href="/about">about</Link>
-            {!isMobile && (
-              <>
-                <Link href="/projects">projects</Link>
-                <Link href="/blog">blog</Link>
-              </>
-            )}
-            <Link href="/guestbook">guestbook</Link>
-          </nav>
+          {isMounted && (
+            <nav
+              className={`font-montreal-mono flex gap-4 text-xs ${isHalfScreen || pathname !== "/" ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"} transition-opacity duration-300`}
+            >
+              <Link href="/about">about</Link>
+              {!isMobile && (
+                <>
+                  <Link href="/projects">projects</Link>
+                  <Link href="/blog">blog</Link>
+                </>
+              )}
+              <Link href="/guestbook">guestbook</Link>
+            </nav>
+          )}
           <ThemeSwitch />
         </div>
       </div>

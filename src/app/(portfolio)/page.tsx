@@ -6,16 +6,21 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <div className="spacer-y-4 px-6 pt-8 pb-16 text-center">
-        <p className="text-lg font-medium">Checkpoint 1/5 (20%)</p>
-        <p className="text-muted-foreground text-sm">
-          you&apos;re not supposed to be here. this is the redesign branch.{" "}
-          <Link href="https://hexaa.sh" className="text-blue-400 underline">
-            Head back to the production web.
-          </Link>
+      <div className="flex flex-col items-center justify-center py-18">
+        <h1 className="text-3xl font-medium">
+          This website isn&apos;t ready yet.
+        </h1>
+        <p className="text-center">
+          In the meantime, you can check out my{" "}
+          <Link
+            href="https://hexagonn.my.id"
+            className="text-blue-500 hover:underline"
+          >
+            old website
+          </Link>{" "}
+          instead.
         </p>
       </div>
-      <SocialCard />
     </main>
   );
 }
