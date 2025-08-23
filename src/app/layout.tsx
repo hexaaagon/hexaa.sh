@@ -8,6 +8,7 @@ import {
   Inter,
   Rubik,
 } from "next/font/google";
+import localFont from "next/font/local";
 
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -34,6 +35,27 @@ const rubik = Rubik({
   display: "swap",
 });
 
+const neueMontreal = localFont({
+  src: "../../public/static/fonts/pp-neue-montreal.woff2",
+  variable: "--font-montreal",
+  display: "swap",
+  preload: true,
+  fallback: [
+    "Bricolage Grotesque",
+    "Geist",
+    "Inter",
+    "system-ui",
+    "sans-serif",
+  ],
+});
+const neueMontrealMono = localFont({
+  src: "../../public/static/fonts/pp-neue-montreal-mono.woff2",
+  variable: "--font-montreal-mono",
+  display: "swap",
+  preload: true,
+  fallback: ["Geist Mono", "sans-serif"],
+});
+
 export const metadata: Metadata = {
   title: "Hexaa",
   description: "just a random guy",
@@ -48,7 +70,7 @@ export default function RootLayout({
     /* Suppress Hydration Warning because of Next Themes. */
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${grotesque.variable} ${inter.variable} ${rubik.variable} font-grotesque antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${grotesque.variable} ${/*inter.variable} ${rubik.variable*/ ""} ${neueMontreal.variable} ${neueMontrealMono.variable} font-grotesque antialiased`}
       >
         <ThemeProvider>{children}</ThemeProvider>
       </body>

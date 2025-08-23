@@ -1,3 +1,6 @@
+"use client";
+import { sendGAEvent } from "@next/third-parties/google";
+
 import Link from "next/link";
 import HCWebring from "./hackclub-webring";
 
@@ -9,6 +12,11 @@ export default function Footer() {
         <Link
           href="https://github.com/hexaaagon/personal-web"
           className="hover:text-primary underline transition-colors"
+          onClick={() =>
+            sendGAEvent("event", "buttonClicked", {
+              value: "footer-github",
+            })
+          }
         >
           Github
         </Link>{" "}

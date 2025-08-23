@@ -6,6 +6,7 @@ import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { sendGAEvent } from "@next/third-parties/google";
 
 export default function ThemeSwitch({
   className,
@@ -30,6 +31,9 @@ export default function ThemeSwitch({
       variant="outline"
       onClick={(e) => {
         setTheme(resolvedTheme === "dark" ? "light" : "dark");
+        sendGAEvent("event", "buttonClicked", {
+          value: "theme-switch",
+        });
         onClick?.(e);
       }}
       {...props}

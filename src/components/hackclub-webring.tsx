@@ -1,4 +1,6 @@
 "use client";
+import { sendGAEvent } from "@next/third-parties/google";
+
 import useSWR from "swr";
 import { getWebring } from "@/lib/actions/webring";
 
@@ -26,7 +28,14 @@ export default function HCWebring() {
           {!data ? (
             <ChevronLeft size={14} className="animate-pulse" />
           ) : (
-            <Link href={data.previous.url}>
+            <Link
+              href={data.previous.url}
+              onClick={() =>
+                sendGAEvent("event", "buttonClicked", {
+                  value: "footer-webring-previous",
+                })
+              }
+            >
               <ChevronLeft
                 size={14}
                 className="transition hover:text-blue-300"
@@ -34,7 +43,14 @@ export default function HCWebring() {
               <p className="sr-only">View previous member</p>
             </Link>
           )}
-          <Link href="https://webring.hackclub.com">
+          <Link
+            href="https://webring.hackclub.com"
+            onClick={() =>
+              sendGAEvent("event", "buttonClicked", {
+                value: "footer-webring-main",
+              })
+            }
+          >
             <Image
               src="/static/images/hackclub.svg"
               alt="Hack Club Webring"
@@ -46,7 +62,14 @@ export default function HCWebring() {
           {!data ? (
             <ChevronRight size={14} className="animate-pulse" />
           ) : (
-            <Link href={data.next.url}>
+            <Link
+              href={data.next.url}
+              onClick={() =>
+                sendGAEvent("event", "buttonClicked", {
+                  value: "footer-webring-next",
+                })
+              }
+            >
               <ChevronRight
                 size={14}
                 className="transition hover:text-blue-300"
