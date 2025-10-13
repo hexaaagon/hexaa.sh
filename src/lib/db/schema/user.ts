@@ -1,6 +1,5 @@
-import { nanoid } from "@/lib/utils";
-
 import { pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { nanoid } from "@/lib/utils";
 
 export const user = pgTable("user", {
   provider: text("provider")

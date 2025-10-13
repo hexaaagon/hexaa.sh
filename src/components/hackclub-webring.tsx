@@ -1,19 +1,17 @@
 "use client";
 import { sendGAEvent } from "@next/third-parties/google";
-
-import useSWR from "swr";
-import { getWebring } from "@/lib/actions/webring";
-
-import Link from "next/link";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
+import useSWR from "swr";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { getWebring } from "@/lib/actions/webring";
 
 export default function HCWebring() {
   const { data } = useSWR(

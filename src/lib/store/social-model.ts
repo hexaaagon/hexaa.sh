@@ -1,14 +1,13 @@
-import { action, Action, persist, thunk, Thunk } from "easy-peasy";
-import { SocialWebsocket } from "../websocket/social";
+import { type Action, action, persist, type Thunk, thunk } from "easy-peasy";
 import {
-  DiscordResponse,
+  type DiscordResponse,
   isSpotifySessionData,
   isSpotifyStatusData,
   isSpotifyTrackData,
-  ProcessedSpotifyData,
-  SpotifyLyricsData,
-  SpotifySessionData,
+  type SpotifyLyricsData,
+  type SpotifySessionData,
 } from "@/shared/types/social";
+import { SocialWebsocket } from "../websocket/social";
 import store from "./social";
 
 export type SpotifyState = Omit<SpotifySessionData, "type">;
@@ -52,14 +51,14 @@ const model: StoreModel = persist(
     init: thunk(async (actions) => {
       actions.socialWS();
     }),
-    cleanup: thunk(async (actions, payload, { getState }) => {
+    cleanup: thunk(async (actions, _payload, { getState }) => {
       const state = getState();
       if (state.websocketInstance) {
         state.websocketInstance.close();
         actions.setWebsocketInstance(null);
       }
     }),
-    socialWS: thunk(async (actions, payload, { getState }) => {
+    socialWS: thunk(async (actions, _payload, { getState }) => {
       const currentState = getState();
       if (currentState.websocketInstance) {
         currentState.websocketInstance.close();

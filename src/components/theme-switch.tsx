@@ -1,12 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
+import { sendGAEvent } from "@next/third-parties/google";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-
-import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { sendGAEvent } from "@next/third-parties/google";
+import { cn } from "@/lib/utils";
 
 export default function ThemeSwitch({
   className,

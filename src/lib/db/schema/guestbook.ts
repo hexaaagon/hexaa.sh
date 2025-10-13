@@ -1,7 +1,6 @@
-import { nanoid } from "@/lib/utils";
-
 import { pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { user } from "@/lib/db/schema/user";
+import { nanoid } from "@/lib/utils";
 
 export const guestbookTable = pgTable("guestbook", {
   id: text("id")

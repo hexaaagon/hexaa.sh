@@ -6,7 +6,9 @@
     "dev": "NODE_OPTIONS='--inspect' next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "biome check",
+    "biome:lint": "biome check",
+    "biome:format": "biome format --write",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "bun src/lib/db/migrate.ts",
     "db:drop": "drizzle-kit drop",
@@ -50,14 +52,11 @@
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.1",
     "@tailwindcss/postcss": "^4.1.14",
     "@types/node": "^20.19.21",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "drizzle-kit": "^0.31.5",
-    "eslint": "^9.37.0",
-    "eslint-config-next": "15.5.4",
     "tailwindcss": "^4.1.14",
     "tw-animate-css": "^1.4.0",
     "typescript": "^5.9.3"
@@ -68,6 +67,5 @@
     "esbuild",
     "sharp",
     "unrs-resolver"
-  ],
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  ]
 }

@@ -8,12 +8,12 @@ export class EventEmitter<
     if (!this.events[event]) {
       this.events[event] = [];
     }
-    this.events[event]!.push(callback);
+    this.events[event]?.push(callback);
   }
 
   emit<K extends keyof T>(event: K, ...args: T[K]) {
     if (this.events[event]) {
-      this.events[event]!.forEach((callback) => callback(...args));
+      this.events[event]?.forEach((callback) => callback(...args));
     }
   }
 

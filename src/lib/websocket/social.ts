@@ -1,13 +1,13 @@
-import { EventEmitter } from "../helpers";
 import {
-  ClientWebSocketResponse,
-  ConnectionResponse,
-  DiscordResponse,
-  ErrorResponse,
+  type ClientWebSocketResponse,
+  type ConnectionResponse,
+  type DiscordResponse,
+  type ErrorResponse,
   isSpotifyLyricsData,
-  SpotifyLyricsData,
-  SpotifyResponse,
+  type SpotifyLyricsData,
+  type SpotifyResponse,
 } from "@/shared/types/social";
+import { EventEmitter } from "../helpers";
 
 export interface SocialWebsocketOptions {
   userId: string;

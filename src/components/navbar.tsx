@@ -1,10 +1,9 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
-
-import ThemeSwitch from "./theme-switch";
+import { useEffect, useState } from "react";
 import { useIsMobile } from "./hooks/use-mobile";
+import ThemeSwitch from "./theme-switch";
 
 export default function Navbar() {
   const isMobile = useIsMobile({ breakpoint: 512 });
@@ -29,7 +28,7 @@ export default function Navbar() {
 
   return (
     <header>
-      <div className="absolute top-0 right-0 left-0 -z-50 mx-auto blur-[250px]">
+      <div className="-z-50 absolute top-0 right-0 left-0 mx-auto blur-[250px]">
         <span
           className="absolute top-0 right-0 left-0 m-0 mx-auto h-[25vh] w-[90vw] bg-[#1D1EF0] p-0 transition-all sm:h-[15vh] md:h-[10vh] md:w-[80vw] dark:bg-[#6964ED]/80"
           style={{
@@ -42,14 +41,14 @@ export default function Navbar() {
       >
         <Link
           href="/"
-          className="font-mono text-xs font-medium transition sm:text-base"
+          className="font-medium font-mono text-xs transition sm:text-base"
         >
           hexaa
         </Link>
         <div className="flex items-center gap-6">
           {isMounted && (
             <nav
-              className={`font-montreal-mono flex gap-4 text-xs ${isHalfScreen || pathname !== "/" ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"} transition-opacity duration-300`}
+              className={`flex gap-4 font-montreal-mono text-xs ${isHalfScreen || pathname !== "/" ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"} transition-opacity duration-300`}
             >
               <Link href="/about">about</Link>
               {!isMobile && (
@@ -74,7 +73,7 @@ export function HeroNav({ children }: { children: React.ReactNode }) {
   return (
     <>
       {isMobile && children}
-      <nav className="*:text-foreground/70 font-montreal-mono flex gap-2 pt-2 text-xs">
+      <nav className="flex gap-2 pt-2 font-montreal-mono text-xs *:text-foreground/70">
         <Link href="/about">[about]</Link>
         <Link href="/projects">[projects]</Link>
         <Link href="/blog">[blog]</Link>

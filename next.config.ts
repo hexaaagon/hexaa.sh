@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   experimental: {
     viewTransition: true,
     // lightning css doesn't support postcss yet.
-    // useLightningcss: true, 
+    // useLightningcss: true,
   },
   rewrites: async () => {
     return [

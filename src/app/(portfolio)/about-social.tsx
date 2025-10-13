@@ -1,14 +1,14 @@
 "use client";
-import store, { useStoreState } from "@/lib/store/social";
 import { StoreProvider } from "easy-peasy";
 import { useEffect } from "react";
+import store, { useStoreState } from "@/lib/store/social";
 
 function SocialCard() {
   const state = useStoreState((state) => state);
 
   return (
     <main className="flex flex-col gap-8">
-      <section className="font-montreal-mono flex flex-col gap-4 text-xs *:overflow-x-scroll *:rounded-lg *:bg-black/10 *:p-4 *:px-8 *:dark:bg-black/20">
+      <section className="flex flex-col gap-4 font-montreal-mono text-xs *:overflow-x-scroll *:rounded-lg *:bg-black/10 *:p-4 *:px-8 *:dark:bg-black/20">
         <pre>{JSON.stringify(state, null, 2)}</pre>
       </section>
     </main>

@@ -1,5 +1,5 @@
-import { db, sql } from "@/lib/db/index";
 import { migrate } from "drizzle-orm/neon-http/migrator";
+import { db } from "@/lib/db/index";
 
 const runMigrate = async () => {
   if (!process.env.DATABASE_URL) {
