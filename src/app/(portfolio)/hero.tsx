@@ -1,10 +1,10 @@
 import { HeroNav } from "@/components/navbar";
 import HeroEnd from "./hero-end";
 
-export default function Hero() {
+export default function HeroSection() {
   return (
     <section className="relative flex min-h-[90svh] flex-col">
-      <div className="flex h-[80vh] flex-col justify-around *:transition-all lg:flex-row-reverse lg:items-center lg:justify-between lg:gap-0">
+      <div className="inner mx-auto flex h-[80vh] w-full flex-col justify-around border-separator/10 border-x px-3 *:transition-all lg:flex-row-reverse lg:items-center lg:justify-between lg:gap-0 lg:px-8">
         <span className="flex flex-col items-center text-center *:transition-all lg:items-end lg:pb-64 lg:text-right">
           <HeroNav>
             <h1 className="font-medium font-montreal text-3xl sm:text-4xl lg:text-[2.5rem] lg:leading-14">
@@ -18,7 +18,7 @@ export default function Hero() {
           </HeroNav>
         </span>
         <span>
-          <p className="max-w-[300px] font-montreal-mono text-muted-foreground text-xs sm:text-sm lg:ml-8 lg:pt-52">
+          <p className="max-w-[300px] text-center font-montreal-mono text-muted-foreground text-xs sm:text-sm lg:pt-52">
             &quot;a journey that began as a hobby and evolved into a deep
             commitment to technology and problem-solving.&quot;
           </p>

@@ -4,11 +4,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useIsMobile } from "./hooks/use-mobile";
 import ThemeSwitch from "./theme-switch";
+import { PlusSeparator } from "./ui/plus-separator";
 
 export default function Navbar() {
   const isMobile = useIsMobile({ breakpoint: 512 });
   const pathname = usePathname();
-  const [isAtTop, setIsAtTop] = useState(true);
+  const [_isAtTop, setIsAtTop] = useState(true);
   const [isHalfScreen, setIsHalfScreen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -37,8 +38,17 @@ export default function Navbar() {
         />
       </div>
       <div
-        className={`fixed top-0 right-0 left-0 z-50 flex items-center justify-between border-b-2 px-11 backdrop-blur-lg transition-all duration-300 sm:px-12 md:px-16 lg:px-24 xl:px-32 ${isAtTop ? "border-transparent py-6" : "border-border py-3"}`}
+        className={`fixed top-0 right-0 left-0 z-50 flex items-center justify-between border-separator/10 border-b px-11 py-4 backdrop-blur-lg transition-all duration-300 sm:px-12 md:px-16 lg:px-24 xl:px-32`}
       >
+        <div className="inner absolute right-0 bottom-0 left-0">
+          <PlusSeparator
+            position={["bottom-left", "bottom-right"]}
+            child={{
+              "bottom-left": { className: "-bottom-[5px] -left-[3px]" },
+              "bottom-right": { className: "-bottom-[5px] -right-[3px]" },
+            }}
+          />
+        </div>
         <Link
           href="/"
           className="font-medium font-mono text-xs transition sm:text-base"

@@ -1,25 +1,11 @@
-import Link from "next/link";
-import Hero from "./hero";
+import HeroSection from "./hero";
+import SocialSection from "./about-social";
 
 export default function Home() {
   return (
     <main>
-      <Hero />
-      <div className="flex flex-col items-center justify-center py-18">
-        <h1 className="font-medium text-3xl">
-          This website isn&apos;t ready yet.
-        </h1>
-        <p className="text-center">
-          In the meantime, you can check out my{" "}
-          <Link
-            href="https://hexagonn.my.id"
-            className="text-blue-500 hover:underline"
-          >
-            old website
-          </Link>{" "}
-          instead.
-        </p>
-      </div>
+      <HeroSection />
+      <SocialSection />
     </main>
   );
 }

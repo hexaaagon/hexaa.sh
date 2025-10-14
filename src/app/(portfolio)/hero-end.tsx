@@ -1,35 +1,25 @@
 "use client";
 
+import { PlusSeparator } from "@/components/ui/plus-separator";
 import moment from "moment-timezone";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function HeroEnd() {
-  const [isAtTop, setIsAtTop] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsAtTop(window.scrollY <= 15);
-    };
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   return (
-    <div className="absolute right-0 bottom-4 left-0 w-full">
-      <span
-        className={`relative flex items-end justify-between font-montreal-mono text-xs transition-[opacity] duration-300 ${isAtTop ? "opacity-90 dark:opacity-75" : "pointer-events-none opacity-0"}`}
-      >
-        <Link href="https://time.is/Jakarta" target="_blank">
-          [{isAtTop ? <LocalTime /> : "0:00 AM"}]
-        </Link>
-        <p>— 01</p>
-      </span>
+    <div className="w-full border border-separator/10">
+      <div className="inner relative m-auto border-separator/10 border-x p-4">
+        <span className="relative flex items-end justify-between font-montreal-mono text-xs opacity-90 transition-[opacity] duration-300 dark:opacity-75">
+          <Link href="https://time.is/Jakarta" target="_blank">
+            [<LocalTime />]
+          </Link>
+          <p>— 01</p>
+        </span>
+        <PlusSeparator
+          position={["bottom-left", "bottom-right", "top-left", "top-right"]}
+        />
+      </div>
     </div>
   );
 }

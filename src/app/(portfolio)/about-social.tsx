@@ -1,33 +1,29 @@
-"use client";
-import { StoreProvider } from "easy-peasy";
-import { useEffect } from "react";
-import store, { useStoreState } from "@/lib/store/social";
+// "use client"; - social api info section is currently broken. disabled for now.
+// import store, { useStoreState } from "@/lib/store/social";
 
-function SocialCard() {
-  const state = useStoreState((state) => state);
+function SocialSectionComponent() {
+  // const _state = useStoreState((state) => state);
 
   return (
-    <main className="flex flex-col gap-8">
-      <section className="flex flex-col gap-4 font-montreal-mono text-xs *:overflow-x-scroll *:rounded-lg *:bg-black/10 *:p-4 *:px-8 *:dark:bg-black/20">
-        <pre>{JSON.stringify(state, null, 2)}</pre>
-      </section>
-    </main>
+    <section className="flex flex-col gap-8">
+      <div className="flex flex-col gap-4 font-montreal-mono text-xs *:overflow-x-scroll *:rounded-lg *:bg-black/10 *:p-4 *:px-8 *:dark:bg-black/20"></div>
+    </section>
   );
 }
 
-export default function SocialCardProvider() {
-  useEffect(() => {
-    store.getActions().init();
-
-    return () => {
-      store.getActions().cleanup();
-    };
-  }, []);
+export default function SocialSection() {
+  // useEffect(() => {
+  //   store.getActions().init();
+  //
+  //   return () => {
+  //     store.getActions().cleanup();
+  //   };
+  // }, []);
 
   return (
-    <StoreProvider store={store}>
-      <SocialCard />
-    </StoreProvider>
+    // <StoreProvider store={store}>
+    <SocialSectionComponent />
+    // </StoreProvider>
   );
 }
 
