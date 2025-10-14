@@ -21,22 +21,22 @@ export function PlusSeparator({
     className: tlClassName,
     size: tlSize,
     ...tlChild
-  } = child?.["bottom-left"] || {};
+  } = child?.["top-left"] || {};
   const {
     className: trClassName,
     size: trSize,
     ...trChild
-  } = child?.["bottom-right"] || {};
+  } = child?.["top-right"] || {};
   const {
     className: blClassName,
     size: blSize,
     ...blChild
-  } = child?.["top-left"] || {};
+  } = child?.["bottom-left"] || {};
   const {
     className: brClassName,
     size: brSize,
     ...brChild
-  } = child?.["top-right"] || {};
+  } = child?.["bottom-right"] || {};
 
   return (
     <>
@@ -44,7 +44,7 @@ export function PlusSeparator({
         <Plus
           size={tlSize || size || 8}
           className={cn(
-            "-top-1 -left-1 absolute text-separator",
+            "-top-1 -left-[4.5px] absolute text-separator",
             className,
             tlClassName,
           )}
@@ -56,7 +56,7 @@ export function PlusSeparator({
         <Plus
           size={trSize || size || 8}
           className={cn(
-            "-top-1 -right-1 absolute text-separator",
+            "-top-1 -right-[4.5px] absolute text-separator",
             className,
             trClassName,
           )}
@@ -68,7 +68,7 @@ export function PlusSeparator({
         <Plus
           size={blSize || size || 8}
           className={cn(
-            "-bottom-1 -left-1 absolute text-separator",
+            "-bottom-1 -left-[4.5px] absolute text-separator",
             className,
             blClassName,
           )}
@@ -80,7 +80,7 @@ export function PlusSeparator({
         <Plus
           size={brSize || size || 8}
           className={cn(
-            "-bottom-1 -right-1 absolute text-separator",
+            "-bottom-1 -right-[4.5px] absolute text-separator",
             className,
             brClassName,
           )}

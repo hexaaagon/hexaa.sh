@@ -3,9 +3,9 @@ import HeroEnd from "./hero-end";
 
 export default function HeroSection() {
   return (
-    <section className="relative flex min-h-[90svh] flex-col">
-      <div className="inner mx-auto flex h-[80vh] w-full flex-col justify-around border-separator/10 border-x px-3 *:transition-all lg:flex-row-reverse lg:items-center lg:justify-between lg:gap-0 lg:px-8">
-        <span className="flex flex-col items-center text-center *:transition-all lg:items-end lg:pb-64 lg:text-right">
+    <section className="relative flex flex-col">
+      <div className="inner relative flex h-[80vh] flex-col justify-around border-separator/10 border-x border-t px-4 *:transition-all lg:flex-row lg:items-center lg:justify-between lg:gap-0 lg:px-16">
+        <span className="flex flex-col *:transition-all lg:pb-64">
           <HeroNav>
             <h1 className="font-medium font-montreal text-3xl sm:text-4xl lg:text-[2.5rem] lg:leading-14">
               hey, i&apos;m hexaa 👋
@@ -18,7 +18,7 @@ export default function HeroSection() {
           </HeroNav>
         </span>
         <span>
-          <p className="max-w-[300px] text-center font-montreal-mono text-muted-foreground text-xs sm:text-sm lg:pt-52">
+          <p className="max-w-[350px] text-center font-montreal-mono text-muted-foreground text-xs sm:text-sm md:text-base lg:pt-52 lg:text-end">
             &quot;a journey that began as a hobby and evolved into a deep
             commitment to technology and problem-solving.&quot;
           </p>

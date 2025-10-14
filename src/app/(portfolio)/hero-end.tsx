@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 export default function HeroEnd() {
   return (
-    <div className="w-full border border-separator/10">
+    <div className="border-separator/10 border-t">
       <div className="inner relative m-auto border-separator/10 border-x p-4">
         <span className="relative flex items-end justify-between font-montreal-mono text-xs opacity-90 transition-[opacity] duration-300 dark:opacity-75">
           <Link href="https://time.is/Jakarta" target="_blank">
@@ -16,9 +16,7 @@ export default function HeroEnd() {
           </Link>
           <p>— 01</p>
         </span>
-        <PlusSeparator
-          position={["bottom-left", "bottom-right", "top-left", "top-right"]}
-        />
+        <PlusSeparator position={["top-left", "top-right"]} />
       </div>
     </div>
   );
