@@ -55,6 +55,7 @@ export default function Navbar() {
                   size="icon"
                   className="gap-2 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
                 >
+                  {/** biome-ignore lint/a11y/noSvgWithoutTitle: there's no thing in the lucide icon package */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

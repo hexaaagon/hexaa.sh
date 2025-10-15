@@ -26,7 +26,7 @@ export default function AnimateOnView({
 
     for (const [i, element] of elements.entries()) {
       const htmlElement = element as HTMLElement;
-      const elementDelay = delay + i * 100;
+      const elementDelay = delay + i * 50;
 
       let originalStyleAttr = htmlElement.getAttribute("data-original-style");
       if (originalStyleAttr === null) {
