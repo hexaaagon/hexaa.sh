@@ -4,15 +4,14 @@ import Image from "next/image";
 export default function AboutSection() {
   return (
     <footer className="w-full border-separator/10 border-t">
-      <div className="inner relative flex flex-col justify-center border-separator/10 border-x px-8 pt-4 pb-24">
+      <div className="inner relative flex flex-col justify-center border-separator/10 border-x px-8 py-24 text-sm sm:text-base">
         <Image
-          src="/static/images/typography/hello.apng"
+          src="/static/images/typography/hello.webp"
           alt="hello."
           height={60}
           width={120}
-          className="dark:invert"
+          className="-mt-5 pointer-events-none mb-4 select-none dark:invert"
         />
-        <br />
         <p className="w-full lg:w-7/11">
           i'm hexaa, but my real name is bagas. a 15-year-old student and
           developer as a software engineer. i grew up and played around with
