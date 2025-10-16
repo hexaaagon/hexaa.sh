@@ -26,7 +26,7 @@ export default function AboutSection() {
 
   return (
     <footer className="w-full border-separator/10 border-t">
-      <div className="inner relative flex h-full flex-col border-separator/10 border-x px-8 text-sm sm:text-base md:flex-row md:justify-between">
+      <div className="inner relative flex h-full flex-col border-separator/10 border-x px-2 text-sm sm:px-4 sm:text-base md:flex-row md:justify-between md:px-8">
         <div className="py-24 md:max-w-7/11">
           <Image
             src="/static/images/typography/hello.webp"
@@ -88,8 +88,8 @@ export default function AboutSection() {
             seemed impossible to fix.
           </p>
         </div>
-        <div className="relative m-4 mx-8 rounded-2xl flex w-full max-w-sm items-center justify-center">
-          <div className="flex h-96 w-full items-center justify-center text-xs text-foreground/70 md:h-full">
+        <div className="relative m-4 mx-auto hidden w-full max-w-sm items-center justify-center rounded-2xl md:flex">
+          <div className="flex h-96 w-full items-center justify-center text-foreground/70 text-xs md:h-full">
             ik it's negative space but idfk what to put in here
           </div>
         </div>
