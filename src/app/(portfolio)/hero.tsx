@@ -3,7 +3,7 @@ import HeroEnd from "./hero-end";
 export default function HeroSection() {
   return (
     <section className="relative flex flex-col">
-      <div className="inner relative flex h-[80vh] flex-col justify-around border-separator/10 border-x border-t bg-[url(/static/images/vector/contour_dark.svg)] bg-cover bg-position-[center_top_24rem] bg-no-repeat px-4 *:transition-all sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-0 lg:px-16 dark:bg-[url(/static/images/vector/contour_light.svg)]">
+      <div className="inner relative flex h-[80vh] flex-col justify-around border-separator/10 border-x border-t bg-[url(/static/images/vector/contour_dark.svg)] bg-cover bg-position-[center_top_30svh] bg-no-repeat px-4 *:transition-all sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-0 lg:px-16 dark:bg-[url(/static/images/vector/contour_light.svg)]">
         <span className="flex flex-col *:transition-all lg:pb-64">
           <h1 className="font-medium font-montreal text-3xl sm:text-4xl lg:text-[2.5rem] lg:leading-14">
             hey, i&apos;m hexaa 👋
