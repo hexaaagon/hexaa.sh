@@ -9,7 +9,9 @@
     "lint": "biome check",
     "biome:lint": "biome check",
     "biome:format": "biome format --write",
-    "db:generate": "drizzle-kit generate",
+    "db:generate": "bun run db:generate:auth && bun run db:generate:migrations",
+    "db:generate:auth": "bunx @better-auth/cli generate --config ./src/lib/auth/index.ts --output ./src/lib/db/schema/auth.ts -y",
+    "db:generate:migrations": "drizzle-kit generate",
     "db:migrate": "bun src/lib/db/migrate.ts",
     "db:drop": "drizzle-kit drop",
     "db:pull": "drizzle-kit introspect",
@@ -31,6 +33,7 @@
     "@react-spring/web": "^10.0.3",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
+    "better-auth": "^1.3.27",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "deep-utility-types": "^1.3.1",
@@ -57,6 +60,7 @@
     "vaul": "^1.1.2"
   },
   "devDependencies": {
+    "@better-auth/cli": "^1.3.27",
     "@tailwindcss/postcss": "^4.1.14",
     "@types/node": "^20.19.21",
     "@types/react": "^19.2.2",

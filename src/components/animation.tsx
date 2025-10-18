@@ -1,19 +1,32 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface AnimateOnViewProps {
   delay?: number;
   duration?: number;
+  skipFirstElements?: number;
 }
+
+// Global flag to track if we've navigated (not refreshed)
+let hasNavigated = false;
 
 export default function AnimateOnView({
   children,
   delay = 0,
   duration = 300,
+  skipFirstElements = 0,
   ...props
 }: React.ComponentProps<"div"> & AnimateOnViewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [shouldSkipNavbar, setShouldSkipNavbar] = useState(hasNavigated);
+
+  useEffect(() => {
+    // After this component mounts, mark that we've navigated
+    // So the next navigation will skip the navbar
+    hasNavigated = true;
+    setShouldSkipNavbar(true);
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -22,9 +35,24 @@ export default function AnimateOnView({
       "p, div, h1, h2, h3, h4, h5, h6, span, a, button, section, article, header, footer, main, aside, nav, ul, ol, li",
     );
 
+    console.log(
+      `[AnimateOnView] Total elements: ${elements.length}, Skipping first: ${skipFirstElements}, Should skip navbar: ${shouldSkipNavbar}`,
+    );
+
     const animations: Animation[] = [];
 
     for (const [i, element] of elements.entries()) {
+      // Skip navbar elements only on subsequent navigations (not on fresh page load)
+      if (shouldSkipNavbar && i < skipFirstElements) {
+        console.log(`[AnimateOnView] Skipping element ${i}:`, element.tagName);
+        continue;
+      }
+
+      console.log(
+        `[AnimateOnView] Animating element ${i}:`,
+        element.tagName,
+        element.textContent?.substring(0, 30),
+      );
       const htmlElement = element as HTMLElement;
       const elementDelay = delay + i * 50;
 
@@ -105,7 +133,7 @@ export default function AnimateOnView({
         }
       });
     };
-  }, [delay, duration]);
+  }, [delay, duration, skipFirstElements, shouldSkipNavbar]);
 
   return (
     <div ref={containerRef} {...props}>

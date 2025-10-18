@@ -1,13 +1,16 @@
 "use client";
 import { sendGAEvent } from "@next/third-parties/google";
+import { usePathname } from "next/navigation";
 
 import Link from "next/link";
 import HCWebring from "./hackclub-webring";
 import { PlusSeparator } from "./ui/plus-separator";
 
 export default function Footer() {
+  const pathname = usePathname();
+
   return (
-    <footer className="w-full border-separator/10 border-y">
+    <footer className="h-[50px] w-full border-separator/10 border-y">
       <div className="inner relative flex items-center justify-between border-x p-4">
         <p className="max-w-[60%] text-2xs text-muted-foreground leading-3">
           This website is available on{" "}
@@ -25,7 +28,11 @@ export default function Footer() {
           as open-source.
         </p>
         <div className="flex">
-          <HCWebring />
+          {pathname === "/" ? (
+            <HCWebring />
+          ) : (
+            <p className="font-mono text-2xs">{pathname}</p>
+          )}
         </div>
         <PlusSeparator
           position={["top-left", "top-right"]}

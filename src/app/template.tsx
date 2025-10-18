@@ -8,9 +8,12 @@ export default function RootTemplate({
   children: React.ReactNode;
 }>) {
   return (
-    <AnimateOnView className="relative transition-[padding] duration-300">
+    <AnimateOnView
+      className="relative transition-[padding] duration-300"
+      skipFirstElements={9}
+    >
       <Navbar />
-      <div className="pt-[64px] *:min-h-[calc(100dvh-160px)]">{children}</div>
+      <div className="pt-[64px] *:min-h-[calc(100dvh-115px)]">{children}</div>
       <span className="-z-40 absolute right-0 bottom-2 left-0 h-6 max-w-dvw bg-[#D9D9D9]/40 blur-[100px]" />
       <Footer />
     </AnimateOnView>
