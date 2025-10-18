@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useIsMobile } from "./hooks/use-mobile";
 import ThemeSwitch from "./theme-switch";
@@ -21,6 +21,7 @@ export default function Navbar() {
   const [isMounted, setIsMounted] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     setIsMounted(true);
@@ -39,17 +40,19 @@ export default function Navbar() {
           }}
         />
       </div>
-      <div className="fixed top-0 right-0 left-0 z-50 border-separator/10 border-b px-4 py-4 backdrop-blur-sm transition-all duration-300 sm:px-12 md:px-16 lg:px-24 xl:px-32">
+      <div className="fixed top-0 right-0 left-0 z-50 border-separator/10 border-b p-4 backdrop-blur-sm transition-all duration-300">
         <div className="inner flex items-center justify-between md:px-8">
-          <div className="inner absolute right-0 bottom-0 left-0">
-            <PlusSeparator
-              position={["bottom-left", "bottom-right"]}
-              child={{
-                "bottom-left": { className: "-bottom-[5px] -left-[3px]" },
-                "bottom-right": { className: "-bottom-[5px] -right-[3px]" },
-              }}
-            />
-          </div>
+          {pathname === "/" && (
+            <div className="inner absolute right-0 bottom-0 left-0">
+              <PlusSeparator
+                position={["bottom-left", "bottom-right"]}
+                child={{
+                  "bottom-left": { className: "-bottom-[5px] -left-[3px]" },
+                  "bottom-right": { className: "-bottom-[5px] -right-[3px]" },
+                }}
+              />
+            </div>
+          )}
           <div className="flex items-center gap-1">
             {isMounted && isMobile && (
               <Drawer open={open} onOpenChange={setOpen} direction="top">

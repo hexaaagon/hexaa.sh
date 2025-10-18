@@ -146,6 +146,8 @@
   }
 }
 
-.inner {
-  @apply mx-auto w-11/12 max-w-[92rem];
+@layer components {
+  .inner {
+    @apply mx-auto w-11/12 max-w-[92rem];
+  }
 }

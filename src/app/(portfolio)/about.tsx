@@ -53,8 +53,8 @@ export default function AboutSection() {
           <br />
           <p>
             if you're curious, i started coding when i was 11. at the time, i
-            was bored of just playing minecraft every day and sitting at the
-            chair at all times, chatting with my friends. so i began exploring
+            was bored of just playing minecraft every day, chatting with my
+            friends, sitting at the chair at all times. so i began exploring
             discord bot templates. i wondered, "what if i could make one
             myself?" and that's what inspired me to start coding. since then,
             i've invested over{" "}
