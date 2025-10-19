@@ -26,6 +26,19 @@ export default function Footer() {
             Github
           </Link>{" "}
           as open-source.
+          {process.env.VERCEL_GIT_COMMIT_SHA && (
+            <Link
+              href={`https://github.com/${process.env.VERCEL_GIT_REPO_OWNER}/${process.env.VERCEL_GIT_REPO_SLUG}/commit/${process.env.VERCEL_GIT_COMMIT_SHA}`}
+              className="underline transition-colors hover:text-primary"
+              onClick={() =>
+                sendGAEvent("event", "buttonClicked", {
+                  value: "footer-github-version",
+                })
+              }
+            >
+              {process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7)}
+            </Link>
+          )}
         </p>
         <div className="flex">
           {pathname === "/" ? (
