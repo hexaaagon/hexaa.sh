@@ -20,6 +20,9 @@ export async function submitMessage(
   message: string,
   props: { threadId?: string; anonymous?: boolean } = {},
 ) {
+  if (message.trim().length === 0) return "empty-message";
+  if (message.length > 1024) return "message-too-long";
+
   const verified = await verifyTurnstileToken(turnstileToken);
   if (!verified) return "turnstile-failed";
 

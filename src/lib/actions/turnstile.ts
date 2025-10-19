@@ -1,14 +1,10 @@
 "use server";
-import { headers } from "next/headers";
-import { ipAddress } from "@vercel/functions";
-
 const verifyEndpoint =
   "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 const secret = process.env.TURNSTILE_SECRET_KEY as string;
 
 export async function verifyTurnstileToken(token: string, remoteip?: string) {
-  const headersList = await headers();
-  const ip = remoteip || ipAddress(headersList);
+  const ip = remoteip;
 
   const res = await fetch(verifyEndpoint, {
     method: "POST",

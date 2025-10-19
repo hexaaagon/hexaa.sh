@@ -22,7 +22,7 @@ declare global {
       GITHUB_CLIENT_SECRET: string;
       DISCORD_CLIENT_ID: string;
       DISCORD_CLIENT_SECRET: string;
-      TURNSTILE_SITE_KEY: string;
+      NEXT_PUBLIC_TURNSTILE_SITE_KEY: string;
       TURNSTILE_SECRET_KEY: string;
 
       // Vercel-provided system vars

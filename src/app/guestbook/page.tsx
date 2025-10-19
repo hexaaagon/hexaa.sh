@@ -1,29 +1,36 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { Turnstile } from "@marsidev/react-turnstile";
 
-import useSWR from "swr/immutable";
+import useSWR from "swr";
 import { getMessages, submitMessage } from "@/lib/actions/guestbook";
 import { authClient } from "@/lib/auth/client";
 
 import { SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
-import { PlusSeparator } from "@/components/ui/plus-separator";
-import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
-import { ButtonGroup } from "@/components/ui/button-group";
 import { SendHorizonal } from "lucide-react";
+import { toast } from "sonner";
+
+import { Button } from "@/components/ui/button";
+import { ButtonGroup } from "@/components/ui/button-group";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { PlusSeparator } from "@/components/ui/plus-separator";
 
 export default function GuestbookPage() {
-  // biome-ignore lint/correctness/noUnusedVariables: <explanation>
   const [message, setMessage] = useState("");
-  // biome-ignore lint/correctness/noUnusedVariables: <explanation>
   const [sending, setSending] = useState(false);
-  // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-  const [turnstileDialogVisible, setTurnstileDialogVisible] = useState(false);
-  // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [isTurnstileDialogVisible, setIsTurnstileDialogVisible] =
+    useState(false);
 
-  const { data: guestbook } = useSWR("guestbook-messages", getMessages);
+  const { data: guestbook, mutate: mutateGuestbook } = useSWR(
+    "guestbook-messages",
+    getMessages,
+  );
   const { data: session } = useSWR("auth-session", () =>
     authClient.getSession(),
   );
@@ -57,24 +64,32 @@ export default function GuestbookPage() {
     };
   }, []);
 
-  // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-  async function sendMessageGuestbook() {
+  async function sendMessageGuestbook(turnstileToken?: string) {
     if (sending) return;
 
+    if (message.trim().length === 0) {
+      toast.error("Message cannot be empty.");
+      return;
+    } else if (message.length > 1024) {
+      toast.error("Message is too long.");
+      return;
+    }
+
     if (!turnstileToken) {
-      setTurnstileDialogVisible(true);
+      setIsTurnstileDialogVisible(true);
       return;
     }
 
     setSending(true);
     const submitPromise = submitMessage(turnstileToken, message).then(() => {
-      window.location.reload();
+      mutateGuestbook();
     });
 
     toast.promise(submitPromise, {
       loading: "Sending message...",
       success: (_res) => {
         setMessage("");
+        setSending(false);
         return "Message sent!";
       },
       error: (err) => {
@@ -85,7 +100,7 @@ export default function GuestbookPage() {
   }
 
   return (
-    <main className="-mb-16 mt-16">
+    <main className="mt-16">
       <div className="border-separator/10 border-t">
         <div className="inner relative flex max-w-[64rem] border-separator/10 border-x">
           <div className="hidden flex-col lg:flex">
@@ -136,108 +151,7 @@ export default function GuestbookPage() {
             data-lenis-prevent
             className="inner relative flex h-[32rem] max-w-[64rem] touch-pan-y flex-col overflow-y-scroll border-separator/10 border-x"
           >
-            <div className="flex grow flex-col">
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
-              <p>{JSON.stringify(guestbook)}</p>
+            <div className="flex grow flex-col font-mono">
               <p>{JSON.stringify(guestbook)}</p>
             </div>
           </div>
@@ -251,11 +165,12 @@ export default function GuestbookPage() {
                     className="h-full grow rounded bg-background p-4 outline-none focus:border-0 focus:ring-0"
                     placeholder="Type your message here."
                     value={message}
+                    disabled={sending}
                     onChange={(e) => setMessage(e.target.value)}
                   />
                 </div>
               ) : (
-                <div>
+                <div className="flex h-full flex-col items-center justify-center gap-4">
                   <p className="text-muted-foreground text-sm">
                     Sign in to comment and react. Don't worry, your data is
                     safe.
@@ -295,10 +210,16 @@ export default function GuestbookPage() {
                 {Number(1024).toLocaleString()} characters
               </p>
               <ButtonGroup>
-                <Button variant="outline">Default</Button>
-                <Button variant="outline">Button</Button>
-                <Button variant="outline">Group</Button>
-                <Button variant="outline" size="icon">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    sendMessageGuestbook();
+                  }}
+                  disabled={
+                    sending || message.length === 0 || message.length > 1024
+                  }
+                >
+                  Send
                   <SendHorizonal />
                 </Button>
               </ButtonGroup>
@@ -306,6 +227,32 @@ export default function GuestbookPage() {
           </div>
         </div>
       </div>
+      <Dialog
+        open={isTurnstileDialogVisible}
+        onOpenChange={setIsTurnstileDialogVisible}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              Are you a human? Please complete the challenge below.
+            </DialogTitle>
+          </DialogHeader>
+          <Turnstile
+            className="mx-auto"
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+            onSuccess={async (token) => {
+              setIsTurnstileDialogVisible(false);
+
+              await delay(1000);
+              sendMessageGuestbook(token);
+            }}
+          />
+        </DialogContent>
+      </Dialog>
     </main>
   );
+}
+
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
