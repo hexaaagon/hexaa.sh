@@ -12,6 +12,7 @@ import {
   guestbookTable,
   guestbookReactionTable,
 } from "@/lib/db/schema/guestbook";
+import { user as userTable } from "../db/schema/auth";
 
 // === User Actions === //
 
@@ -22,6 +23,7 @@ export async function submitMessage(
 ) {
   if (message.trim().length === 0) return "empty-message";
   if (message.length > 1024) return "message-too-long";
+  if (message.split("\n").length > 3) return "message-too-many-lines";
 
   const verified = await verifyTurnstileToken(turnstileToken);
   if (!verified) return "turnstile-failed";
@@ -165,6 +167,10 @@ export async function reactMessage(
 
 export type MessageWithReactions = typeof guestbookTable.$inferSelect & {
   reactions: (typeof guestbookReactionTable.$inferSelect)[];
+  user: Omit<
+    typeof userTable.$inferSelect,
+    "email" | "emailVerified" | "createdAt" | "updatedAt"
+  >;
 };
 
 export async function getMessages(): Promise<MessageWithReactions[]> {
@@ -181,9 +187,20 @@ export async function getMessages(): Promise<MessageWithReactions[]> {
       .from(guestbookReactionTable)
       .where(eq(guestbookReactionTable.guestbookId, message.id));
 
+    const user = await db
+      .select()
+      .from(userTable)
+      .where(eq(userTable.id, message.userId))
+      .limit(1);
+
     messages.push({
       ...message,
       reactions,
+      user: {
+        id: user[0].id,
+        name: user[0].name,
+        image: user[0].image,
+      },
     });
   }
 

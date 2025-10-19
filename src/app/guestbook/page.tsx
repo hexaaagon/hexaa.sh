@@ -8,9 +8,10 @@ import { getMessages, submitMessage } from "@/lib/actions/guestbook";
 import { authClient } from "@/lib/auth/client";
 
 import { SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
-import { SendHorizonal } from "lucide-react";
+import { Crown, SendHorizonal } from "lucide-react";
 import { toast } from "sonner";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import {
@@ -20,6 +21,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { PlusSeparator } from "@/components/ui/plus-separator";
+
+// hexaa's user ID
+// yeah ik it's hardcoded, i'm lazy asf
+const authorUserId = "euvPPRy7QJWB9UlcLz8gqDVav4byXGYg";
 
 export default function GuestbookPage() {
   const [message, setMessage] = useState("");
@@ -72,6 +77,9 @@ export default function GuestbookPage() {
       return;
     } else if (message.length > 1024) {
       toast.error("Message is too long.");
+      return;
+    } else if (message.split("\n").length > 3) {
+      toast.error("Message cannot have more than 3 lines.");
       return;
     }
 
@@ -151,11 +159,54 @@ export default function GuestbookPage() {
             data-lenis-prevent
             className="inner relative flex h-[32rem] max-w-[64rem] touch-pan-y flex-col overflow-y-scroll border-separator/10 border-x"
           >
-            <div className="flex grow flex-col font-mono">
-              <p>{JSON.stringify(guestbook)}</p>
+            <div className="flex grow flex-col">
+              {(guestbook || []).map((msg) => (
+                <div
+                  key={msg.id}
+                  className="border-separator/10 border-b last:border-0"
+                >
+                  <div className="flex gap-4 px-8 py-3">
+                    <div className="relative size-10 flex-shrink-0 overflow-hidden rounded-full bg-muted">
+                      {msg.user.image ? (
+                        <Image
+                          src={msg.user.image}
+                          alt={msg.user.name || "Guestbook User Avatar"}
+                          fill
+                          className="object-cover"
+                        />
+                      ) : (
+                        <span className="absolute inset-0 grid place-items-center text-2xl text-muted-foreground">
+                          {msg.user.name
+                            ? msg.anonymous
+                              ? "?"
+                              : msg.user.name.charAt(0).toUpperCase()
+                            : "G"}
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex grow flex-col">
+                      <span className="flex gap-2">
+                        <p className="font-semibold text-sm">
+                          {msg.user.name || "Anonymous User"}
+                        </p>
+                        {msg.userId === authorUserId && (
+                          <Badge
+                            variant="secondary"
+                            className="flex items-center gap-1 text-2xs"
+                          >
+                            <Crown />
+                            Author
+                          </Badge>
+                        )}
+                      </span>
+                      <p className="whitespace-pre-wrap">{msg.message}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-          <div className="border-separator/10 border-t border-dashed">
+          <div className="border-separator/10 border-y border-dashed">
             <div className="inner relative h-[8rem] max-w-[64rem] overflow-hidden border-separator/10 border-x border-dashed">
               <span className="absolute top-0 left-0 size-16 bg-muted-foreground/100 blur-[100px]" />
               <span className="absolute right-2 bottom-2 size-16 bg-muted-foreground/30 blur-[50px]" />
@@ -201,30 +252,32 @@ export default function GuestbookPage() {
               )}
             </div>
           </div>
-          <div className="border-separator/10 border-y border-dashed">
-            <div className="inner relative flex max-w-[64rem] items-center justify-between gap-4 overflow-hidden border-separator/10 border-x border-dashed px-4 py-3">
-              <p
-                className={`text-sm transition duration-300 ${message.length > 1024 ? "text-destructive" : "text-muted-foreground"}`}
-              >
-                {message.length.toLocaleString()}/
-                {Number(1024).toLocaleString()} characters
-              </p>
-              <ButtonGroup>
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    sendMessageGuestbook();
-                  }}
-                  disabled={
-                    sending || message.length === 0 || message.length > 1024
-                  }
+          {session?.data?.user && (
+            <div className="border-separator/10 border-b border-dashed">
+              <div className="inner relative flex max-w-[64rem] items-center justify-between gap-4 overflow-hidden border-separator/10 border-x border-dashed px-4 py-3">
+                <p
+                  className={`text-sm transition duration-300 ${message.length > 1024 ? "text-destructive" : "text-muted-foreground"}`}
                 >
-                  Send
-                  <SendHorizonal />
-                </Button>
-              </ButtonGroup>
+                  {message.length.toLocaleString()}/
+                  {Number(1024).toLocaleString()} characters
+                </p>
+                <ButtonGroup>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      sendMessageGuestbook();
+                    }}
+                    disabled={
+                      sending || message.length === 0 || message.length > 1024
+                    }
+                  >
+                    Send
+                    <SendHorizonal />
+                  </Button>
+                </ButtonGroup>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
       <Dialog

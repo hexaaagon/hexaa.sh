@@ -6,6 +6,20 @@ const nextConfig: NextConfig = {
     // lightning css doesn't support postcss yet.
     // useLightningcss: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+        pathname: "/u/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.discordapp.com",
+        pathname: "/avatars/**",
+      },
+    ],
+  },
   rewrites: async () => {
     return [
       {
@@ -18,10 +32,6 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/blog",
-        destination: "/error-pages/page-unavailable",
-      },
-      {
-        source: "/guestbook",
         destination: "/error-pages/page-unavailable",
       },
     ];
