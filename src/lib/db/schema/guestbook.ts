@@ -1,4 +1,4 @@
-import { boolean, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, pgTable, text, timestamp, jsonb } from "drizzle-orm/pg-core";
 import { user } from "./auth";
 import { nanoid } from "@/lib/utils";
 
@@ -17,14 +17,12 @@ export const guestbookTable = pgTable("guestbook_message", {
 
   threadId: text("thread_id"),
 
-  editHistory: text("edit_history")
-    .$type<
-      {
-        message: string;
-        createdAt: Date;
-      }[]
-    >()
-    .array(),
+  editHistory: jsonb("edit_history").array().$type<
+    {
+      message: string;
+      createdAt: Date;
+    }[]
+  >(),
   editedAt: timestamp(),
 
   createdAt: timestamp()
@@ -42,7 +40,7 @@ export const guestbookReactionTable = pgTable("guestbook_reaction", {
     .references(() => guestbookTable.id, {
       onDelete: "cascade",
     }),
-  userIds: text("user_id").notNull().array(),
+  userIds: text("user_id").array().default([]),
   emoji: text("emoji").notNull(),
 
   lastUpdatedAt: timestamp()

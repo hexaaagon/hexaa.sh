@@ -1,6 +1,6 @@
 {
-  "id": "2c7b3879-a714-4297-9a81-264679371977",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "501eca55-38af-4c14-8e32-516ff36a107d",
+  "prevId": "2c7b3879-a714-4297-9a81-264679371977",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -331,7 +331,8 @@
           "name": "user_id",
           "type": "text[]",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "default": "'{}'"
         },
         "emoji": {
           "name": "emoji",
