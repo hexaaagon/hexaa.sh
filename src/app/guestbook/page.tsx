@@ -158,12 +158,16 @@ export default function GuestbookPage() {
             main={{ className: "-top-[5px]" }}
             position={["top-left", "top-right"]}
           />
+          <PlusSeparator
+            main={{ className: "-bottom-[5px]" }}
+            position={["bottom-left", "bottom-right"]}
+          />
         </div>
         <div className="border-separator/10 border-t">
           <div
             ref={scrollContainerRef}
             data-lenis-prevent
-            className="inner relative flex h-[32rem] max-w-[64rem] touch-pan-y flex-col overflow-y-scroll border-separator/10 border-x"
+            className="inner relative flex h-[32rem] max-w-[64rem] touch-pan-y flex-col overflow-y-auto border-separator/10 border-x"
           >
             <div className="flex grow flex-col">
               {(guestbook || []).map((msg) => (
@@ -225,6 +229,30 @@ export default function GuestbookPage() {
             </div>
           </div>
           <div className="border-separator/10 border-y border-dashed">
+            <div className="inner absolute right-0 left-0 mx-auto h-[8rem] w-full max-w-[64rem]">
+              <PlusSeparator
+                position={[
+                  "top-left",
+                  "top-right",
+                  "bottom-left",
+                  "bottom-right",
+                ]}
+                child={{
+                  "top-left": {
+                    className: "-left-[3px] z-10",
+                  },
+                  "top-right": {
+                    className: "-right-[3px] z-10",
+                  },
+                  "bottom-left": {
+                    className: "-left-[3px] -bottom-[5px] z-10",
+                  },
+                  "bottom-right": {
+                    className: "-right-[3px] -bottom-[5px] z-10",
+                  },
+                }}
+              />
+            </div>
             <div className="inner relative h-[8rem] max-w-[64rem] overflow-hidden border-separator/10 border-x border-dashed">
               <span className="absolute top-0 left-0 size-16 bg-muted-foreground/100 blur-[100px]" />
               <span className="absolute right-2 bottom-2 size-16 bg-muted-foreground/30 blur-[50px]" />
@@ -272,7 +300,18 @@ export default function GuestbookPage() {
           </div>
           {session?.data?.user && (
             <div className="border-separator/10 border-b border-dashed">
-              <div className="inner relative flex max-w-[64rem] items-center justify-between gap-4 overflow-hidden border-separator/10 border-x border-dashed px-4 py-3">
+              <div className="inner relative flex max-w-[64rem] items-center justify-between gap-4 border-separator/10 border-x border-dashed px-4 py-3">
+                <PlusSeparator
+                  position={["bottom-left", "bottom-right"]}
+                  child={{
+                    "bottom-left": {
+                      className: "-bottom-[5px] z-10",
+                    },
+                    "bottom-right": {
+                      className: "-bottom-[5px] z-10",
+                    },
+                  }}
+                />
                 <p
                   className={`text-sm transition duration-300 ${message.length > 1024 ? "text-destructive" : "text-muted-foreground"}`}
                 >
