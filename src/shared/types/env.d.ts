@@ -26,28 +26,28 @@ declare global {
       TURNSTILE_SECRET_KEY: string;
 
       // Vercel-provided system vars
-      VERCEL_ENV: "production" | "preview" | "development";
-      VERCEL_TARGET_ENV: string;
-      VERCEL_URL: string;
-      VERCEL_BRANCH_URL: string;
-      VERCEL_PROJECT_PRODUCTION_URL: string;
-      VERCEL_REGION: string;
-      VERCEL_DEPLOYMENT_ID: string;
-      VERCEL_PROJECT_ID: string;
-      VERCEL_AUTOMATION_BYPASS_SECRET?: string;
+      NEXT_PUBLIC_VERCEL_ENV: "production" | "preview" | "development";
+      NEXT_PUBLIC_VERCEL_TARGET_ENV: string;
+      NEXT_PUBLIC_VERCEL_URL: string;
+      NEXT_PUBLIC_VERCEL_BRANCH_URL: string;
+      NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL: string;
+      NEXT_PUBLIC_VERCEL_REGION: string;
+      NEXT_PUBLIC_VERCEL_DEPLOYMENT_ID: string;
+      NEXT_PUBLIC_VERCEL_PROJECT_ID: string;
+      NEXT_PUBLIC_VERCEL_AUTOMATION_BYPASS_SECRET?: string;
 
       // Git metadata
-      VERCEL_GIT_PROVIDER: "github" | "gitlab" | "bitbucket";
-      VERCEL_GIT_REPO_SLUG: string;
-      VERCEL_GIT_REPO_OWNER: string;
-      VERCEL_GIT_REPO_ID: string;
-      VERCEL_GIT_COMMIT_REF: string;
-      VERCEL_GIT_COMMIT_SHA: string;
-      VERCEL_GIT_COMMIT_MESSAGE: string;
-      VERCEL_GIT_COMMIT_AUTHOR_LOGIN: string;
-      VERCEL_GIT_COMMIT_AUTHOR_NAME: string;
-      VERCEL_GIT_PREVIOUS_SHA?: string;
-      VERCEL_GIT_PULL_REQUEST_ID?: string;
+      NEXT_PUBLIC_VERCEL_GIT_PROVIDER: "github" | "gitlab" | "bitbucket";
+      NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG: string;
+      NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER: string;
+      NEXT_PUBLIC_VERCEL_GIT_REPO_ID: string;
+      NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF: string;
+      NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA: string;
+      NEXT_PUBLIC_VERCEL_GIT_COMMIT_MESSAGE: string;
+      NEXT_PUBLIC_VERCEL_GIT_COMMIT_AUTHOR_LOGIN: string;
+      NEXT_PUBLIC_VERCEL_GIT_COMMIT_AUTHOR_NAME: string;
+      NEXT_PUBLIC_VERCEL_GIT_PREVIOUS_SHA?: string;
+      NEXT_PUBLIC_VERCEL_GIT_PULL_REQUEST_ID?: string;
     }
   }
 }
