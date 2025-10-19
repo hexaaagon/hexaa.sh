@@ -1,6 +1,7 @@
 "use client";
-import Image from "next/image";
+import moment from "moment";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { Turnstile } from "@marsidev/react-turnstile";
 
 import useSWR from "swr";
@@ -21,6 +22,11 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { PlusSeparator } from "@/components/ui/plus-separator";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 // hexaa's user ID
 // yeah ik it's hardcoded, i'm lazy asf
@@ -166,7 +172,7 @@ export default function GuestbookPage() {
                   className="border-separator/10 border-b last:border-0"
                 >
                   <div className="flex gap-4 px-8 py-3">
-                    <div className="relative size-10 flex-shrink-0 overflow-hidden rounded-full bg-muted">
+                    <div className="relative size-12 flex-shrink-0 overflow-hidden rounded-full bg-muted">
                       {msg.user.image ? (
                         <Image
                           src={msg.user.image}
@@ -184,9 +190,9 @@ export default function GuestbookPage() {
                         </span>
                       )}
                     </div>
-                    <div className="flex grow flex-col">
-                      <span className="flex gap-2">
-                        <p className="font-semibold text-sm">
+                    <div className="flex grow flex-col gap-2">
+                      <span className="line-clamp-1 flex items-center gap-2 truncate">
+                        <p className="font-semibold text-lg">
                           {msg.user.name || "Anonymous User"}
                         </p>
                         {msg.userId === authorUserId && (
@@ -198,8 +204,20 @@ export default function GuestbookPage() {
                             Author
                           </Badge>
                         )}
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <p className="text-muted-foreground text-sm">
+                              • {moment(msg.createdAt).fromNow()}
+                            </p>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>{moment(msg.createdAt).format("LLLL")}</p>
+                          </TooltipContent>
+                        </Tooltip>
                       </span>
-                      <p className="whitespace-pre-wrap">{msg.message}</p>
+                      <p className="whitespace-pre-wrap rounded-b-2xl rounded-tr-2xl bg-accent p-2 px-4">
+                        {msg.message}
+                      </p>
                     </div>
                   </div>
                 </div>
