@@ -9,9 +9,19 @@ import { getMessages, submitMessage } from "@/lib/actions/guestbook";
 import { authClient } from "@/lib/auth/client";
 
 import { SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
-import { Crown, SendHorizonal } from "lucide-react";
+import { Crown, LogOut, SendHorizonal } from "lucide-react";
 import { toast } from "sonner";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
@@ -37,6 +47,7 @@ export default function GuestbookPage() {
   const [sending, setSending] = useState(false);
   const [isTurnstileDialogVisible, setIsTurnstileDialogVisible] =
     useState(false);
+  const [isSignOutDialogVisible, setIsSignOutDialogVisible] = useState(false);
 
   const { data: guestbook, mutate: mutateGuestbook } = useSWR(
     "guestbook-messages",
@@ -301,17 +312,40 @@ export default function GuestbookPage() {
           {session?.data?.user && (
             <div className="border-separator/10 border-b border-dashed">
               <div className="inner relative flex max-w-[64rem] items-center justify-between gap-4 border-separator/10 border-x border-dashed px-4 py-3">
-                <PlusSeparator
-                  position={["bottom-left", "bottom-right"]}
-                  child={{
-                    "bottom-left": {
-                      className: "-bottom-[5px] z-10",
-                    },
-                    "bottom-right": {
-                      className: "-bottom-[5px] z-10",
-                    },
-                  }}
-                />
+                <span className="flex items-center gap-2">
+                  <p className="text-muted-foreground text-sm">Logged in as</p>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Badge
+                        variant="secondary"
+                        className="flex items-center gap-1.5"
+                      >
+                        {session.data.user.image ? (
+                          <div className="relative size-6 overflow-hidden rounded-full bg-muted">
+                            <Image
+                              src={session.data.user.image}
+                              alt={session.data.user.name || "User Avatar"}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                        ) : (
+                          <div className="grid size-6 place-items-center rounded-full bg-muted text-muted-foreground">
+                            {session.data.user.name
+                              ? session.data.user.name.charAt(0).toUpperCase()
+                              : "U"}
+                          </div>
+                        )}
+                        <p className="font-medium">
+                          {session.data.user.name || "Anonymous User"}
+                        </p>
+                      </Badge>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{session.data.user.email}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </span>
                 <p
                   className={`text-sm transition duration-300 ${message.length > 1024 ? "text-destructive" : "text-muted-foreground"}`}
                 >
@@ -319,6 +353,13 @@ export default function GuestbookPage() {
                   {Number(1024).toLocaleString()} characters
                 </p>
                 <ButtonGroup>
+                  <Button
+                    variant="destructive"
+                    onClick={() => setIsSignOutDialogVisible(true)}
+                  >
+                    <LogOut />
+                    Sign Out
+                  </Button>
                   <Button
                     variant="outline"
                     onClick={() => {
@@ -332,11 +373,24 @@ export default function GuestbookPage() {
                     <SendHorizonal />
                   </Button>
                 </ButtonGroup>
+                <PlusSeparator
+                  position={["bottom-left", "bottom-right"]}
+                  child={{
+                    "bottom-left": {
+                      className: "-bottom-[5px] z-10",
+                    },
+                    "bottom-right": {
+                      className: "-bottom-[5px] z-10",
+                    },
+                  }}
+                />
               </div>
             </div>
           )}
         </div>
       </div>
+
+      {/* Turnstile Captcha Dialog */}
       <Dialog
         open={isTurnstileDialogVisible}
         onOpenChange={setIsTurnstileDialogVisible}
@@ -359,6 +413,44 @@ export default function GuestbookPage() {
           />
         </DialogContent>
       </Dialog>
+
+      {/* Sign Out Confirmation Dialog */}
+      <AlertDialog
+        open={isSignOutDialogVisible}
+        onOpenChange={setIsSignOutDialogVisible}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete your
+              account and remove your data from our servers.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setIsSignOutDialogVisible(false)}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                setIsSignOutDialogVisible(false);
+
+                const signOutPromise = authClient.signOut().then(() => {
+                  window.location.reload();
+                });
+
+                toast.promise(signOutPromise, {
+                  loading: "Signing out...",
+                  success: "Signed out successfully.",
+                  error: "Failed to sign out.",
+                });
+              }}
+            >
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </main>
   );
 }

@@ -29,6 +29,7 @@
     "@next/third-parties": "^15.5.4",
     "@p5-wrapper/next": "^2.0.0",
     "@p5-wrapper/react": "^4.4.2",
+    "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-popover": "^1.1.15",
     "@radix-ui/react-separator": "^1.1.7",
