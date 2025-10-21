@@ -23,6 +23,18 @@ Feel free to use this website as a reference, for inspiration, or as a template,
 
 If you find this website helpful, please consider leaving a rating. 😎👍🏻
 
+## Tech Stack
+
+- Next.js 15
+- React 19
+- Typescript 5
+- TailwindCSS 4
+- Drizzle-orm (using Neon)
+- SWR
+- Framer Motion
+- Lucide Icon & React Icons Pack
+- Biome Linter & Formatter
+
 ## Special Thanks to
 
 <div>
