@@ -23,7 +23,7 @@ Feel free to use this website as a reference, for inspiration, or as a template,
 
 If you find this website helpful, please consider leaving a rating. 😎👍🏻
 
-## Tech Stack
+## Tech Stack 
 
 - Next.js 15
 - React 19

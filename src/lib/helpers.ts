@@ -11,17 +11,26 @@ export class EventEmitter<
     this.events[event]?.push(callback);
   }
 
+  once<K extends keyof T>(event: K, callback: (...args: T[K]) => void) {
+    const wrappedCallback = (...args: T[K]) => {
+      callback(...args);
+      this.removeListener(event, wrappedCallback);
+    };
+    this.on(event, wrappedCallback);
+  }
+
   emit<K extends keyof T>(event: K, ...args: T[K]) {
     if (this.events[event]) {
       this.events[event]?.forEach((callback) => callback(...args));
     }
   }
 
-  removeAllListeners<K extends keyof T>(event?: K) {
-    if (event) {
-      delete this.events[event];
-    } else {
-      this.events = {};
+  removeListener<K extends keyof T>(
+    event: K,
+    callback: (...args: T[K]) => void,
+  ) {
+    if (this.events[event]) {
+      this.events[event] = this.events[event]?.filter((cb) => cb !== callback);
     }
   }
 }

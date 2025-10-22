@@ -6,7 +6,7 @@ import { verifyTurnstileToken } from "@/lib/actions/turnstile";
 import emojiRegex from "emoji-regex";
 import stringLength from "string-length";
 
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 import { db } from "@/lib/db";
 import {
   guestbookTable,
@@ -93,13 +93,19 @@ export async function editMessage(id: string, message: string) {
 }
 
 export async function reactMessage(
-  turnstileToken: string,
   action: "add" | "remove",
   id: string,
   emoji: string,
+  turnstileToken?: string,
 ) {
-  const verified = await verifyTurnstileToken(turnstileToken);
-  if (!verified) return "turnstile-failed";
+  if (action === "add") {
+    if (turnstileToken) {
+      const verified = await verifyTurnstileToken(turnstileToken);
+      if (!verified) return "turnstile-failed";
+    } else {
+      return "turnstile-failed";
+    }
+  }
 
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -159,6 +165,8 @@ export async function reactMessage(
       }
     }
   }
+
+  return "success";
 }
 
 // === User Actions === //
@@ -166,7 +174,12 @@ export async function reactMessage(
 // === Server Actions === //
 
 export type MessageWithReactions = typeof guestbookTable.$inferSelect & {
-  reactions: (typeof guestbookReactionTable.$inferSelect)[];
+  reactions: (typeof guestbookReactionTable.$inferSelect & {
+    users: Omit<
+      typeof userTable.$inferSelect,
+      "email" | "emailVerified" | "createdAt" | "updatedAt"
+    >[];
+  })[];
   user: Omit<
     typeof userTable.$inferSelect,
     "email" | "emailVerified" | "createdAt" | "updatedAt"
@@ -193,9 +206,33 @@ export async function getMessages(): Promise<MessageWithReactions[]> {
       .where(eq(userTable.id, message.userId))
       .limit(1);
 
+    const reactionUsers: MessageWithReactions["reactions"][0]["users"] = [];
+
+    for (const reaction of reactions) {
+      const users = await db
+        .select()
+        .from(userTable)
+        .where(
+          (reaction?.userIds || []).length > 0
+            ? inArray(userTable.id, reaction.userIds || [])
+            : eq(userTable.id, ""),
+        );
+
+      for (const user of users) {
+        reactionUsers.push({
+          id: user.id,
+          name: user.name,
+          image: user.image,
+        });
+      }
+    }
+
     messages.push({
       ...message,
-      reactions,
+      reactions: reactions.map((reaction) => ({
+        users: reactionUsers.filter((u) => reaction.userIds?.includes(u.id)),
+        ...reaction,
+      })),
       user: {
         id: user[0].id,
         name: user[0].name,

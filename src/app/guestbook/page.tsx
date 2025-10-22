@@ -4,13 +4,23 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Turnstile } from "@marsidev/react-turnstile";
 
-import useSWR from "swr";
-import { getMessages, submitMessage } from "@/lib/actions/guestbook";
+import useSWR, { type KeyedMutator } from "swr";
+import {
+  getMessages,
+  type MessageWithReactions,
+  reactMessage,
+  submitMessage,
+} from "@/lib/actions/guestbook";
 import { authClient } from "@/lib/auth/client";
 
 import { SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
-import { Crown, LogOut, SendHorizonal } from "lucide-react";
+import { Crown, LogOut, SendHorizonal, SmilePlus } from "lucide-react";
 import { toast } from "sonner";
+
+import type {
+  guestbookReactionTable,
+  guestbookTable,
+} from "@/lib/db/schema/guestbook";
 
 import {
   AlertDialog,
@@ -31,12 +41,24 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  EmojiPicker,
+  EmojiPickerContent,
+  EmojiPickerFooter,
+  EmojiPickerSearch,
+} from "@/components/ui/emoji-picker";
 import { PlusSeparator } from "@/components/ui/plus-separator";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { EventEmitter } from "@/lib/helpers";
 
 // hexaa's user ID
 // yeah ik it's hardcoded, i'm lazy asf
@@ -45,10 +67,14 @@ const authorUserId = "euvPPRy7QJWB9UlcLz8gqDVav4byXGYg";
 export default function GuestbookPage() {
   const [message, setMessage] = useState("");
   const [sending, setSending] = useState(false);
-  const [isTurnstileDialogVisible, setIsTurnstileDialogVisible] =
-    useState(false);
+  const [isTurnstileDialogVisible, setIsTurnstileDialogVisible] = useState<
+    false | "message" | "reaction"
+  >(false);
   const [isSignOutDialogVisible, setIsSignOutDialogVisible] = useState(false);
 
+  const [reactionListVisible, setReactionListVisible] = useState<
+    false | string
+  >(false);
   const { data: guestbook, mutate: mutateGuestbook } = useSWR(
     "guestbook-messages",
     getMessages,
@@ -101,7 +127,7 @@ export default function GuestbookPage() {
     }
 
     if (!turnstileToken) {
-      setIsTurnstileDialogVisible(true);
+      setIsTurnstileDialogVisible("message");
       return;
     }
 
@@ -233,6 +259,33 @@ export default function GuestbookPage() {
                       <p className="whitespace-pre-wrap rounded-b-2xl rounded-tr-2xl bg-accent p-2 px-4">
                         {msg.message}
                       </p>
+                      <div className="flex items-center gap-1">
+                        {msg.reactions.map((reaction) => (
+                          <ReactionBadge
+                            type="existing"
+                            key={reaction.id}
+                            details={reaction}
+                            currentUserId={session?.data?.user?.id || ""}
+                            messageDetails={msg}
+                            setIsTurnstileDialogVisible={
+                              setIsTurnstileDialogVisible
+                            }
+                            setSending={setSending}
+                            mutateGuestbook={mutateGuestbook}
+                          />
+                        ))}
+                        <ReactionBadge
+                          type="new"
+                          messageDetails={msg}
+                          reactionListVisible={reactionListVisible}
+                          setReactionListVisible={setReactionListVisible}
+                          setIsTurnstileDialogVisible={
+                            setIsTurnstileDialogVisible
+                          }
+                          setSending={setSending}
+                          mutateGuestbook={mutateGuestbook}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -311,7 +364,7 @@ export default function GuestbookPage() {
           </div>
           {session?.data?.user && (
             <div className="border-separator/10 border-b border-dashed">
-              <div className="inner relative flex max-w-[64rem] items-center justify-between gap-4 border-separator/10 border-x border-dashed px-4 py-3">
+              <div className="inner relative flex max-w-[64rem] flex-col items-center justify-between gap-4 border-separator/10 border-x border-dashed px-4 py-3 md:flex-row">
                 <span className="flex items-center gap-2">
                   <p className="text-muted-foreground text-sm">Logged in as</p>
                   <Tooltip>
@@ -392,8 +445,8 @@ export default function GuestbookPage() {
 
       {/* Turnstile Captcha Dialog */}
       <Dialog
-        open={isTurnstileDialogVisible}
-        onOpenChange={setIsTurnstileDialogVisible}
+        open={isTurnstileDialogVisible !== false}
+        onOpenChange={(open) => open && setIsTurnstileDialogVisible(false)}
       >
         <DialogContent>
           <DialogHeader>
@@ -408,7 +461,11 @@ export default function GuestbookPage() {
               setIsTurnstileDialogVisible(false);
 
               await delay(1000);
-              sendMessageGuestbook(token);
+              if (isTurnstileDialogVisible === "message") {
+                sendMessageGuestbook(token);
+              } else if (isTurnstileDialogVisible === "reaction") {
+                reactionEvent.emit("turnstile-success", token);
+              }
             }}
           />
         </DialogContent>
@@ -423,8 +480,8 @@ export default function GuestbookPage() {
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
+              You will be signed out of your account. You can sign in again
+              later.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -457,4 +514,181 @@ export default function GuestbookPage() {
 
 function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function ReactionBadge(
+  data:
+    | {
+        type: "new";
+        messageDetails: typeof guestbookTable.$inferSelect;
+
+        reactionListVisible: false | string;
+        setReactionListVisible: (value: false | string) => void;
+        setIsTurnstileDialogVisible: (
+          value: false | "message" | "reaction",
+        ) => void;
+        setSending: (value: boolean) => void;
+
+        mutateGuestbook: KeyedMutator<MessageWithReactions[]>;
+      }
+    | {
+        type: "existing";
+        details: typeof guestbookReactionTable.$inferSelect;
+        currentUserId: string;
+
+        messageDetails: typeof guestbookTable.$inferSelect;
+        setIsTurnstileDialogVisible: (
+          value: false | "message" | "reaction",
+        ) => void;
+        setSending: (value: boolean) => void;
+
+        mutateGuestbook: KeyedMutator<MessageWithReactions[]>;
+      },
+) {
+  if (data.type === "new") {
+    return (
+      <Popover
+        open={data.reactionListVisible === data.messageDetails.id}
+        onOpenChange={(open) => {
+          data.setReactionListVisible(open ? data.messageDetails.id : false);
+        }}
+      >
+        <PopoverTrigger asChild>
+          <Badge
+            variant="secondary"
+            className="flex h-6 cursor-pointer items-center gap-1 rounded-2xl p-0 px-3 text-xs hover:bg-secondary"
+            asChild
+          >
+            <Button
+              onClick={() => {
+                data.setReactionListVisible(data.messageDetails.id);
+              }}
+            >
+              <span className="-m-4 p-4 transition duration-500">
+                <SmilePlus />
+              </span>
+            </Button>
+          </Badge>
+        </PopoverTrigger>
+        <PopoverContent className="w-fit p-0" data-lenis-prevent>
+          <EmojiPicker
+            className="h-[342px]"
+            onEmojiSelect={({ emoji }) => {
+              data.setReactionListVisible(false);
+              sendReactionEmoji(data, emoji);
+
+              data.setIsTurnstileDialogVisible("reaction");
+            }}
+            data-lenis-prevent
+          >
+            <EmojiPickerSearch />
+            <EmojiPickerContent />
+            <EmojiPickerFooter />
+          </EmojiPicker>
+        </PopoverContent>
+      </Popover>
+    );
+  } else if (data.type === "existing") {
+    const emoji = data.details.emoji;
+    const count = data.details.userIds ? data.details.userIds.length : 0;
+
+    if (count === 0) return null;
+
+    return (
+      <Badge
+        variant={
+          data.details.userIds?.includes(data.currentUserId || "")
+            ? "default"
+            : "secondary"
+        }
+        className={`flex h-6 cursor-pointer items-center gap-1 rounded-2xl p-0 px-3 text-xs ${data.details.userIds?.includes(data.currentUserId || "") ? "hover:bg-primary" : "hover:bg-secondary"}`}
+        asChild
+      >
+        <Button
+          onClick={() => {
+            if (data.details.userIds?.includes(data.currentUserId || "")) {
+              const reactMessagePromise = reactMessage(
+                "remove",
+                data.details.guestbookId,
+                emoji,
+              );
+
+              toast.promise(reactMessagePromise, {
+                loading: "Removing reaction...",
+                success: "Reaction removed!",
+                error: "Failed to remove reaction.",
+                finally: () => {
+                  data.setSending(false);
+                  data.mutateGuestbook();
+                },
+              });
+            } else {
+              sendReactionEmoji(data, emoji);
+              data.setIsTurnstileDialogVisible("reaction");
+            }
+          }}
+        >
+          <span className="-m-4 p-4 transition duration-500 hover:invert">
+            {emoji}
+          </span>
+          <span>{count}</span>
+        </Button>
+      </Badge>
+    );
+  }
+}
+
+const reactionEvent = new EventEmitter();
+
+async function sendReactionEmoji(
+  data: Parameters<typeof ReactionBadge>["0"],
+  emoji: string,
+) {
+  const waitForTurnstile = new Promise<string>((resolve) => {
+    reactionEvent.once("turnstile-success", (token: string) => {
+      resolve(token);
+    });
+  });
+
+  await new Promise<void>((resolve) => {
+    toast.promise(waitForTurnstile, {
+      success: (_token) => {
+        resolve();
+        return `Captcha completed!`;
+      },
+      loading: "Waiting for captcha completion...",
+      error: "Captcha was not completed.",
+    });
+  });
+
+  const reactionPromise = reactMessage(
+    "add",
+    data.messageDetails.id,
+    emoji,
+    await waitForTurnstile,
+  ).then((res) => {
+    if (res === "success") {
+      return "Reaction added!";
+    } else if (res === "turnstile-failed") {
+      throw new Error("Captcha verification failed. Please try again.");
+    } else if (res === "not-authenticated") {
+      throw new Error("You must be signed in to react.");
+    } else if (res === "invalid-emoji") {
+      throw new Error("Invalid emoji. Please select a valid emoji.");
+    } else if (res === "emoji-too-long") {
+      throw new Error("Emoji is too long. Please select a shorter emoji.");
+    }
+  });
+
+  toast.promise(reactionPromise, {
+    loading: "Adding reaction...",
+    success: (msg) => msg,
+    error: (err) => err.message,
+    finally: () => {
+      data.setSending(false);
+      data.mutateGuestbook();
+    },
+  });
+
+  data.setSending(true);
 }
