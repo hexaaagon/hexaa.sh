@@ -25,7 +25,7 @@ If you find this website helpful, please consider leaving a rating. 😎👍🏻
 
 ## Tech Stack 
 
-- Next.js 15
+- Next.js 16
 - React 19
 - Typescript 5
 - TailwindCSS 4
