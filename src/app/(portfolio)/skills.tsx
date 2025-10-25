@@ -438,7 +438,6 @@ export default function SkillsSection() {
               <div ref={marqueeRef}>
                 <Marquee
                   className="mx-1 font-medium font-montreal text-xl md:text-2xl lg:text-3xl [&>*>button]:mx-1"
-                  repeat={1}
                   style={
                     {
                       "--duration": `${Object.keys(skillsContent).length * BASE_TIMING}s`,
@@ -503,9 +502,6 @@ export default function SkillsSection() {
                   })}
                 </Marquee>
               </div>
-              <p className="z-10 mr-2 text-right text-2xs text-muted-foreground">
-                * Click at one of the role to see the details
-              </p>
 
               <div className="pointer-events-none absolute top-0 bottom-0 left-0 w-1/4 bg-gradient-to-r from-background"></div>
               <div className="pointer-events-none absolute top-0 right-0 bottom-0 w-1/4 bg-gradient-to-l from-background"></div>
