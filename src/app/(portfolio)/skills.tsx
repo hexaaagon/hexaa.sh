@@ -438,6 +438,7 @@ export default function SkillsSection() {
               <div ref={marqueeRef}>
                 <Marquee
                   className="mx-1 font-medium font-montreal text-xl md:text-2xl lg:text-3xl [&>*>button]:mx-1"
+                  repeat={1}
                   style={
                     {
                       "--duration": `${Object.keys(skillsContent).length * BASE_TIMING}s`,

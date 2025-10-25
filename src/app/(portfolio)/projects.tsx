@@ -24,6 +24,7 @@ export default function ProjectSection() {
               alt="Dither"
               fill
               className="-z-10 absolute top-0 left-0 h-full w-full object-cover object-right opacity-30 invert dark:invert-0"
+              fetchPriority="low"
             />
             <PlusSeparator position={["top-left", "top-right"]} />
             <h2 className="bg-gradient-to-b from-foreground to-foreground/50 bg-clip-text font-montreal font-semibold text-transparent text-xl sm:text-2xl lg:text-3xl">

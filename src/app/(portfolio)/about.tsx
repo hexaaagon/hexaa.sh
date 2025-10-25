@@ -34,6 +34,8 @@ export default function AboutSection() {
             height={60}
             width={120}
             className="-mt-5 pointer-events-none mb-4 select-none dark:invert"
+            fetchPriority="high"
+            unoptimized
           />
           <p>
             i'm hexaa, but my real name is bagas. i am a{" "}
