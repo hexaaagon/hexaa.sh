@@ -5,16 +5,17 @@ import moment from "moment-timezone";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import BauhausGenerator from "@/components/bauhaus-generator";
 
 export default function HeroEnd() {
   return (
     <div className="border-separator/10 border-t">
       <div className="inner relative m-auto border-separator/10 border-x p-4">
-        <span className="relative flex items-end justify-between font-montreal-mono text-xs opacity-90 transition-[opacity] duration-300 dark:opacity-75">
+        <span className="relative flex items-center justify-between font-montreal-mono text-xs opacity-90 transition-[opacity] duration-300 dark:opacity-75">
           <Link href="https://time.is/Jakarta" target="_blank">
             [<LocalTime />]
           </Link>
-          <p>— 01</p>
+          <BauhausGenerator />
         </span>
         <PlusSeparator position={["top-left", "top-right"]} />
       </div>

@@ -18,7 +18,7 @@ import {
   Fragment,
 } from "react";
 
-// Constants outside component to prevent re-creation
+// constants outside component to prevent re-creation
 const BASE_TIMING = 7.5;
 
 const skillsContent: Record<
