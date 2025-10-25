@@ -20,7 +20,12 @@ export default function SoonSection() {
         <Button asChild className="mt-4">
           <Link href="/guestbook">Visit Guestbook - Siege Week 7</Link>
         </Button>
-        <PlusSeparator position={["top-left", "top-right"]} />
+        <PlusSeparator
+          main={{
+            className: "-top-[4px]",
+          }}
+          position={["top-left", "top-right"]}
+        />
       </div>
     </main>
   );

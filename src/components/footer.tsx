@@ -10,7 +10,9 @@ export default function Footer() {
   const pathname = usePathname();
 
   return (
-    <footer className="h-[50px] w-full border-separator/10 border-y">
+    <footer className="relative h-[50px] w-full border-separator/10 border-y">
+      <span className="-z-40 absolute right-0 bottom-2 left-0 h-6 max-w-dvw bg-[#D9D9D9]/40 blur-[80px]" />
+
       <div className="inner relative flex items-center justify-between border-x p-4">
         <p className="max-w-[60%] text-2xs text-muted-foreground leading-3">
           This website is available on{" "}

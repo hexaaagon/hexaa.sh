@@ -25,7 +25,7 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <footer className="w-full border-separator/10 border-t">
+    <main className="w-full border-separator/10 border-t">
       <div className="inner relative flex h-full flex-col border-separator/10 border-x px-2 text-sm sm:px-4 sm:text-base md:flex-row md:justify-between md:px-8">
         <div className="py-24 md:max-w-7/11">
           <Image
@@ -95,7 +95,7 @@ export default function AboutSection() {
         </div>
         <PlusSeparator position={["top-left", "top-right"]} />
       </div>
-    </footer>
+    </main>
   );
 }
 

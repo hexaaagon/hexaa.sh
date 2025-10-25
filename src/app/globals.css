@@ -52,6 +52,8 @@
   --text-3xs: 0.625rem;
   --text-4xs: 0.5625rem;
   --text-5xs: 0.5rem;
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
 }
 
 :root {
@@ -149,5 +151,22 @@
 @layer components {
   .inner {
     @apply mx-auto w-11/12 max-w-[92rem];
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
   }
 }
