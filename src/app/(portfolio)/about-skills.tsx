@@ -512,7 +512,7 @@ export default function SkillsSection() {
         </div>
       </section>
       <section className="w-full border-separator/10 border-t">
-        <div className="inner relative flex h-full flex-col border-separator/10 border-x py-1">
+        <div className="inner relative flex h-full flex-col border-separator/10 border-x">
           {!isInViewport ? (
             // render a placeholder of the same measured height to avoid layout shift while the
             // heavy content is offscreen. keep the last measured height if available.
@@ -526,7 +526,7 @@ export default function SkillsSection() {
               {/* Animated Skills Content */}
               <div
                 ref={contentRef}
-                className="relative min-h-[300px] overflow-hidden px-4 py-8 md:px-8 lg:px-16"
+                className="relative h-full min-h-[300px] overflow-hidden px-4 py-8 md:px-8 lg:px-16"
               >
                 <AnimatePresence mode="wait">
                   {currentContent && (
@@ -554,6 +554,8 @@ export default function SkillsSection() {
                     </motion.div>
                   )}
                 </AnimatePresence>
+                <div className="pointer-events-none absolute bottom-0 left-0 h-14 w-1/8 min-w-18 bg-muted-foreground blur-[150px]"></div>
+                <div className="pointer-events-none absolute right-0 bottom-0 h-14 w-1/8 min-w-18 bg-muted-foreground blur-[150px]"></div>
               </div>
 
               {/* Progress Bar - Bottom Right */}
@@ -586,6 +588,7 @@ export default function SkillsSection() {
                   </div>
                 </div>
               </div>
+
               <PlusSeparator position={["top-left", "top-right"]} />
             </>
           )}

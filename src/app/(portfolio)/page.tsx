@@ -1,6 +1,7 @@
 import HeroSection from "./hero";
 import AboutSection from "./about";
-import ProjectSection from "./projects";
+// soon™
+// import ProjectSection from "./projects";
 import SoonSection from "./soon";
 
 export default function Home() {
@@ -8,7 +9,7 @@ export default function Home() {
     <main>
       <HeroSection />
       <AboutSection />
-      <ProjectSection />
+      {/* <ProjectSection /> */}
       <SoonSection />
     </main>
   );

@@ -48,7 +48,7 @@ export default function Navbar() {
                 position={["bottom-left", "bottom-right"]}
                 child={{
                   "bottom-left": { className: "-bottom-[5px] -left-[3px]" },
-                  "bottom-right": { className: "-bottom-[5px] -right-[3px]" },
+                  "bottom-right": { className: "-bottom-[5px] -right-[4px]" },
                 }}
               />
             </div>

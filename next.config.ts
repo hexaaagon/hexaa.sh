@@ -1,11 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  experimental: {
-    viewTransition: true,
-    // lightning css doesn't support postcss yet.
-    // useLightningcss: true,
-  },
   images: {
     remotePatterns: [
       {
