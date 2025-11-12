@@ -5,6 +5,7 @@ import { verifyTurnstileToken } from "@/lib/actions/turnstile";
 
 import emojiRegex from "emoji-regex";
 import stringLength from "string-length";
+import { LRUCache } from "lru-cache";
 
 import { eq, inArray } from "drizzle-orm";
 import { db } from "@/lib/db";
@@ -13,6 +14,12 @@ import {
   guestbookReactionTable,
 } from "@/lib/db/schema/guestbook";
 import { user as userTable } from "../db/schema/auth";
+
+// LRU Cache with 5 minute TTL for guestbook messages
+const guestbookCache = new LRUCache<string, MessageWithReactions[]>({
+  max: 100, // Maximum number of cache entries
+  ttl: 1000 * 60 * 5, // 5 minutes in milliseconds
+});
 
 // === User Actions === //
 
@@ -42,6 +49,9 @@ export async function submitMessage(
   };
 
   await db.insert(guestbookTable).values(guestbook);
+
+  // Invalidate cache after new message
+  guestbookCache.delete("guestbook:messages");
 
   return "success";
 }
@@ -75,7 +85,7 @@ export async function editMessage(id: string, message: string) {
             },
           ]
         : [
-            ...oldMessage[0].editHistory!,
+            ...(oldMessage[0].editHistory || []),
             {
               message: message,
               createdAt: new Date(),
@@ -88,6 +98,9 @@ export async function editMessage(id: string, message: string) {
     .update(guestbookTable)
     .set(guestbook)
     .where(eq(guestbookTable.id, id));
+
+  // Invalidate cache after edit
+  guestbookCache.delete("guestbook:messages");
 
   return "success";
 }
@@ -166,6 +179,9 @@ export async function reactMessage(
     }
   }
 
+  // Invalidate cache after reaction change
+  guestbookCache.delete("guestbook:messages");
+
   return "success";
 }
 
@@ -187,6 +203,14 @@ export type MessageWithReactions = typeof guestbookTable.$inferSelect & {
 };
 
 export async function getMessages(): Promise<MessageWithReactions[]> {
+  const cacheKey = "guestbook:messages";
+
+  // Check if data is in cache
+  const cached = guestbookCache.get(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
   const dbMessages = await db
     .select()
     .from(guestbookTable)
@@ -241,7 +265,15 @@ export async function getMessages(): Promise<MessageWithReactions[]> {
     });
   }
 
+  // Store in cache
+  guestbookCache.set(cacheKey, messages);
+
   return messages;
+}
+
+export async function clearGuestbookCache() {
+  guestbookCache.clear();
+  return { success: true, message: "Guestbook cache cleared" };
 }
 
 // === Server Actions === //

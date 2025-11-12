@@ -25,6 +25,9 @@ declare global {
       NEXT_PUBLIC_TURNSTILE_SITE_KEY: string;
       TURNSTILE_SECRET_KEY: string;
 
+      // Hexaa's Thingy
+      WORKFLOW_PASSWORD_HASH: string;
+
       // Vercel-provided system vars
       NEXT_PUBLIC_VERCEL_ENV: "production" | "preview" | "development";
       NEXT_PUBLIC_VERCEL_TARGET_ENV: string;

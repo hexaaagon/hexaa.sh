@@ -45,6 +45,7 @@
     "deep-utility-types": "^1.3.1",
     "drizzle-orm": "^0.44.6",
     "drizzle-zod": "^0.8.3",
+    "dub": "^0.68.0",
     "easy-peasy": "^6.1.0",
     "emoji-regex": "^10.6.0",
     "frimousse": "^0.3.0",
@@ -71,6 +72,7 @@
   "devDependencies": {
     "@better-auth/cli": "^1.3.27",
     "@tailwindcss/postcss": "^4.1.14",
+    "@types/bun": "^1.3.2",
     "@types/node": "^20.19.21",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
