@@ -16,6 +16,7 @@ declare global {
       STACK_SECRET_SERVER_KEY: string;
       NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: string;
 
+      // Auth
       BETTER_AUTH_SECRET: string;
       BETTER_AUTH_URL: string;
       GITHUB_CLIENT_ID: string;
@@ -24,6 +25,9 @@ declare global {
       DISCORD_CLIENT_SECRET: string;
       NEXT_PUBLIC_TURNSTILE_SITE_KEY: string;
       TURNSTILE_SECRET_KEY: string;
+
+      // Dub.co
+      DUB_API_KEY: string;
 
       // Hexaa's Thingy
       WORKFLOW_PASSWORD_HASH: string;

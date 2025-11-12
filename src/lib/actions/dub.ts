@@ -2,12 +2,14 @@
 import { Dub } from "dub";
 import { LRUCache } from "lru-cache";
 
-const dub = new Dub();
+const dub = new Dub({
+  token: process.env.DUB_API_KEY || "",
+});
 
 // LRU Cache with 1 day TTL
 const linkCache = new LRUCache<
   string,
-  Awaited<ReturnType<typeof dub.links.get>>
+  Awaited<ReturnType<typeof dub.links.get>> | false
 >({
   max: 500, // Maximum number of items in cache
   ttl: 1000 * 60 * 60 * 24, // 1 day in milliseconds
@@ -21,10 +23,12 @@ export async function getLinkInfo(domain = "go.hexaa.sh", key: string) {
     return cached;
   }
 
-  const linkInfo = await dub.links.get({
-    domain,
-    key,
-  });
+  const linkInfo = await dub.links
+    .get({
+      domain,
+      key,
+    })
+    .catch((): false => false);
 
   linkCache.set(cacheKey, linkInfo);
 
