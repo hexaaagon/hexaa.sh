@@ -154,10 +154,10 @@
   }
 
   /* Last row center for 3-column grid (mobile) */
-  .last-row-center > :last-child:nth-child(3n-2) {
+  .last-row-center > :last-child:nth-child(3n - 2) {
     grid-column-end: 5;
   }
-  .last-row-center > :last-child:nth-child(3n-1) {
+  .last-row-center > :last-child:nth-child(3n - 1) {
     grid-column-end: -2;
   }
   .last-row-center > :nth-last-child(2):nth-child(3n + 1) {
@@ -166,16 +166,16 @@
 
   /* Reset last-row-center on larger screens when not needed */
   @media (min-width: 640px) {
-    .sm\:last-row-reset > :last-child:nth-child(3n-2),
-    .sm\:last-row-reset > :last-child:nth-child(3n-1),
+    .sm\:last-row-reset > :last-child:nth-child(3n - 2),
+    .sm\:last-row-reset > :last-child:nth-child(3n - 1),
     .sm\:last-row-reset > :nth-last-child(2):nth-child(3n + 1) {
       grid-column-end: auto;
     }
   }
 
   @media (min-width: 768px) {
-    .md\:last-row-reset > :last-child:nth-child(3n-2),
-    .md\:last-row-reset > :last-child:nth-child(3n-1),
+    .md\:last-row-reset > :last-child:nth-child(3n - 2),
+    .md\:last-row-reset > :last-child:nth-child(3n - 1),
     .md\:last-row-reset > :nth-last-child(2):nth-child(3n + 1) {
       grid-column-end: auto;
     }
