@@ -20,6 +20,7 @@ export async function getLinkInfo(domain = "go.hexaa.sh", key: string) {
 
   const cached = linkCache.get(cacheKey);
   if (cached) {
+    console.log("cached", cached);
     return cached;
   }
 
@@ -32,6 +33,7 @@ export async function getLinkInfo(domain = "go.hexaa.sh", key: string) {
 
   linkCache.set(cacheKey, linkInfo);
 
+  console.log("fetched", linkInfo);
   return linkInfo;
 }
 
