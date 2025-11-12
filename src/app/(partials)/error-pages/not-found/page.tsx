@@ -21,9 +21,25 @@ import { Separator } from "@/components/ui/separator";
 
 export default function NotFound() {
   const pathname = usePathname().replace(/^\//, "");
-  const { data, isLoading } = useSWR("dub-links", () =>
-    getLinkInfo("go.hexaa.sh", pathname),
+  const { data, isLoading } = useSWR(
+    pathname ? `dub-links:${pathname}` : null,
+    () => getLinkInfo("go.hexaa.sh", pathname),
   );
+
+  // If pathname is empty, show 404 immediately (shouldn't happen, but just in case)
+  if (!pathname) {
+    return (
+      <main className="flex flex-col items-center justify-center">
+        <p>404 - no page found</p>
+        <Link
+          className="font-mono text-sky-700 transition-all hover:underline sm:text-sm dark:text-sky-600"
+          href="/"
+        >
+          [go back?]
+        </Link>
+      </main>
+    );
+  }
 
   if (isLoading) {
     return (
