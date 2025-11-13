@@ -19,29 +19,26 @@ import type { LinkSchema } from "dub/models/components";
 import { DubRedirectCard } from "@/components/dub-redirect-card";
 import { Separator } from "@/components/ui/separator";
 
+// Force dynamic rendering - don't cache this page
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function NotFound() {
   const pathname = usePathname().replace(/^\//, "");
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Ensure we're on client side before making API calls
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const shouldFetch = isMounted && pathname;
   const { data, isLoading } = useSWR(
-    pathname ? `dub-links:${pathname}` : null,
+    shouldFetch ? `dub-links:${pathname}` : null,
     () => getLinkInfo("go.hexaa.sh", pathname),
   );
 
-  // If pathname is empty, show 404 immediately (shouldn't happen, but just in case)
-  if (!pathname) {
-    return (
-      <main className="flex flex-col items-center justify-center">
-        <p>404 - no page found</p>
-        <Link
-          className="font-mono text-sky-700 transition-all hover:underline sm:text-sm dark:text-sky-600"
-          href="/"
-        >
-          [go back?]
-        </Link>
-      </main>
-    );
-  }
-
-  if (isLoading) {
+  if (!isMounted || isLoading) {
     return (
       <Empty className="gap-0">
         <EmptyHeader>
@@ -58,8 +55,7 @@ export default function NotFound() {
     );
   }
 
-  // if link not found
-  if (!data) {
+  if (!data || !pathname) {
     return (
       <main className="flex flex-col items-center justify-center">
         <p>404 - no page found</p>
