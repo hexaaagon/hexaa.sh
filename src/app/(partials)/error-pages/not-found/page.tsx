@@ -19,9 +19,7 @@ import type { LinkSchema } from "dub/models/components";
 import { DubRedirectCard } from "@/components/dub-redirect-card";
 import { Separator } from "@/components/ui/separator";
 
-// Force dynamic rendering - don't cache this page
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 export default function NotFound() {
   const pathname = usePathname().replace(/^\//, "");
