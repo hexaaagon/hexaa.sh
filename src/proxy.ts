@@ -23,8 +23,6 @@ export async function proxy(request: NextRequest) {
   }
 
   try {
-    console.log("fetching dub link info for key:", pathname);
-
     const dubResponse = await betterFetch(
       `https://api.dub.co/links/info?domain=go.hexaa.sh&key=${pathname}`,
       {
@@ -34,17 +32,11 @@ export async function proxy(request: NextRequest) {
       },
     );
 
-    console.log(
-      `Dub API response status for key "${pathname}": ${dubResponse.error}`,
-    );
-
     if (!dubResponse.data) {
       return NextResponse.next();
     }
 
     const linkData = dubResponse.data as LinkSchema;
-
-    console.log(linkData);
 
     if (linkData?.url) {
       const searchParams = request.nextUrl.searchParams;
