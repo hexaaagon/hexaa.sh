@@ -12,6 +12,7 @@ export interface ProjectItem {
   unmaintained?: boolean;
 }
 
+const url = process.env.BETTER_AUTH_URL || "https://hexaa.sh/";
 export const projectsData: ProjectItem[] = [
   {
     title: "Hack Club Merch",
@@ -23,7 +24,7 @@ export const projectsData: ProjectItem[] = [
       <Badge key="draft">Draft</Badge>,
       <Badge key="hack-club">Hack Club</Badge>,
     ],
-    link: "https://hexaa.sh/merch",
+    link: `${url}/merch?utm_source=personal_website`,
     repo: "https://github.com/hexaaagon/hackclub-merch",
   },
   {
@@ -36,8 +37,8 @@ export const projectsData: ProjectItem[] = [
       <Badge key="draft">Draft</Badge>,
       <Badge key="hack-club">Hack Club</Badge>,
     ],
-    link: "https://hexaa.sh/hackography",
-    repo: "https://hexaa.sh/hackography",
+    link: `${url}/hackography?utm_source=personal_website`,
+    repo: `${url}/hackography`,
     unmaintained: true,
   },
   {
@@ -50,7 +51,7 @@ export const projectsData: ProjectItem[] = [
       <Badge key="garuda-hacks">Garuda Hacks 6.0</Badge>,
       <Badge key="education">Education</Badge>,
     ],
-    link: "https://claisse.hexaa.sh",
+    link: `${url}/claisse?utm_source=personal_website`,
     repo: "https://github.com/hexaaagon/claisse",
     unmaintained: true,
   },
@@ -63,7 +64,7 @@ export const projectsData: ProjectItem[] = [
       <Badge key="personal">Personal</Badge>,
       <Badge key="pastebin">Pastebin</Badge>,
     ],
-    link: "https://pastebon.hexaa.lol",
+    link: `${url}/pastebon?utm_source=personal_website`,
     repo: "https://github.com/hexaaagon/pastebon",
   },
   {
@@ -75,7 +76,7 @@ export const projectsData: ProjectItem[] = [
       <Badge key="personal">Personal</Badge>,
       <Badge key="chatbot">Chatbot</Badge>,
     ],
-    link: "https://simple-chatbot.scb-b72.workers.dev/",
+    link: `${url}/simple-chatbot?utm_source=personal_website`,
     repo: "https://github.com/hexaaagon/simple-chatbot",
   },
   {
@@ -88,7 +89,7 @@ export const projectsData: ProjectItem[] = [
       <Badge key="wakatime">Wakatime</Badge>,
       <Badge key="hackatime">Hackatime</Badge>,
     ],
-    link: "https://wackanel.hexaa.sh",
+    link: `${url}/wackanel?utm_source=personal_website`,
     repo: "https://github.com/hexaaagon/wackanel",
     unmaintained: true,
   },

@@ -157,28 +157,28 @@ function RedirectWithCountdown({
     return () => clearInterval(timer);
   }, [url, searchParams]);
 
-  const hash = typeof window !== "undefined" ? window.location.hash : "";
-  const params = new URLSearchParams(searchParams.toString());
+  const [redirectUrl, setRedirectUrl] = useState("");
 
-  // Remove internal params
-  params.delete("url");
-  params.delete("key");
-  params.delete("title");
-  params.delete("description");
-  params.delete("image");
+  useEffect(() => {
+    const hash = window.location.hash;
+    const params = new URLSearchParams(searchParams.toString());
 
-  // Add referrer for the clickable link as well
-  if (
-    typeof window !== "undefined" &&
-    document.referrer &&
-    !params.has("ref") &&
-    !params.has("referrer")
-  ) {
-    params.set("ref", document.referrer);
-  }
+    // Remove internal params
+    params.delete("url");
+    params.delete("key");
+    params.delete("title");
+    params.delete("description");
+    params.delete("image");
 
-  const paramsString = params.toString();
-  const redirectUrl = `${url}${paramsString ? `?${paramsString}` : ""}${hash}`;
+    // Add referrer for the clickable link as well
+    if (document.referrer && !params.has("ref") && !params.has("referrer")) {
+      params.set("ref", document.referrer);
+    }
+
+    const paramsString = params.toString();
+    const computedUrl = `${url}${paramsString ? `?${paramsString}` : ""}${hash}`;
+    setRedirectUrl(computedUrl);
+  }, [url, searchParams]);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-8 p-4 md:flex-row md:gap-12">
@@ -210,12 +210,14 @@ function RedirectWithCountdown({
         <p className="font-medium text-lg text-neutral-700 dark:text-neutral-300">
           Redirecting in {countdown} second{countdown > 1 ? "s" : ""}...
         </p>
-        <Link
-          className="inline-block font-mono text-blue-600 text-sm transition-colors hover:underline dark:text-blue-400"
-          href={redirectUrl}
-        >
-          [redirect now?]
-        </Link>
+        {redirectUrl && (
+          <Link
+            className="inline-block font-mono text-blue-600 text-sm transition-colors hover:underline dark:text-blue-400"
+            href={redirectUrl}
+          >
+            [redirect now?]
+          </Link>
+        )}
       </div>
     </div>
   );

@@ -1,9 +1,21 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 
 import type { ProjectItem } from "@/content/projects";
 
 import { cn } from "@/lib/utils";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export function ProjectCard({
   project,
@@ -72,15 +84,45 @@ export function ProjectCard({
               [github]
             </Link>
           )}
-          {project.link && (
-            <Link
-              href={project.link}
-              target="_blank"
-              className="font-medium text-blue-600 text-sm transition-all hover:underline dark:text-blue-400"
-            >
-              [live demo]
-            </Link>
-          )}
+          {project.link &&
+            (project.unmaintained ? (
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <button
+                    type="button"
+                    className="font-medium text-blue-600 text-sm transition-all hover:underline dark:text-blue-400"
+                  >
+                    [live demo]
+                  </button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Unmaintained project</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      The project <b>{project.title}</b> is no longer maintained
+                      and the live demo may be <b>outdated or non-functional</b>
+                      . Are you sure you want to continue?
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction asChild>
+                      <Link href={project.link} target="_blank">
+                        Continue
+                      </Link>
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            ) : (
+              <Link
+                href={project.link}
+                target="_blank"
+                className="font-medium text-blue-600 text-sm transition-all hover:underline dark:text-blue-400"
+              >
+                [live demo]
+              </Link>
+            ))}
         </div>
       </div>
     </div>

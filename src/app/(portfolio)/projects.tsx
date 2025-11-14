@@ -58,7 +58,7 @@ export default function ProjectSection() {
             <div className="size-8 border-separator/10 border-t border-l sm:size-14"></div>
           </div>
 
-          <div className="absolute right-0 bottom-0 left-0 h-32 w-full bg-gradient-to-b from-transparent to-background"></div>
+          <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-32 w-full bg-gradient-to-b from-transparent to-background"></div>
           <PlusSeparator position={["top-left", "top-right"]} />
         </div>
         <div className="inner relative border-separator/10 border-x p-2">
