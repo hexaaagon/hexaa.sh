@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
         hostname: "cdn.discordapp.com",
         pathname: "/avatars/**",
       },
+      {
+        protocol: "https",
+        hostname: "**", // Allow all HTTPS images for Dub link previews
+      },
     ],
   },
   rewrites: async () => {
