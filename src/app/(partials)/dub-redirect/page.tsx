@@ -29,18 +29,72 @@ function DubRedirectContent() {
   const description = searchParams.get("description");
   const image = searchParams.get("image");
 
-  // If no Dub link data, redirect to 404
-  if (!dubLink) {
-    if (typeof window !== "undefined") {
+  const metaTitle = title || `go.hexaa.sh/${dubKey || ""}`;
+  const metaDescription =
+    description || "You're being redirected to your destination...";
+  const metaImage = image || "/static/images/og-image.png";
+
+  // Update document metadata
+  useEffect(() => {
+    if (!dubLink) {
       window.location.href = "/";
+      return;
     }
+
+    document.title = metaTitle;
+
+    // Update or create meta tags
+    const updateMeta = (property: string, content: string) => {
+      let meta = document.querySelector(
+        `meta[property="${property}"]`,
+      ) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement("meta");
+        meta.setAttribute("property", property);
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    const updateMetaName = (name: string, content: string) => {
+      let meta = document.querySelector(
+        `meta[name="${name}"]`,
+      ) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement("meta");
+        meta.setAttribute("name", name);
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    // Open Graph
+    updateMeta("og:title", metaTitle);
+    updateMeta("og:description", metaDescription);
+    updateMeta("og:image", metaImage);
+    if (originUrl) updateMeta("og:url", originUrl);
+    updateMeta("og:type", "website");
+
+    // Twitter
+    updateMetaName("twitter:card", "summary_large_image");
+    updateMetaName("twitter:title", metaTitle);
+    updateMetaName("twitter:description", metaDescription);
+    updateMetaName("twitter:image", metaImage);
+
+    // General
+    updateMetaName("description", metaDescription);
+    updateMetaName("robots", "noindex, follow");
+  }, [dubLink, metaTitle, metaDescription, metaImage, originUrl]);
+
+  // If no Dub link data, show nothing while redirecting
+  if (!dubLink) {
     return null;
   }
 
   return (
     <RedirectWithCountdown
       url={dubLink}
-      originUrl={originUrl || ""}
+      originUrl={originUrl || dubLink}
       shortKey={dubKey || ""}
       title={title}
       description={description}
