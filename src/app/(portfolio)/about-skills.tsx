@@ -1,14 +1,4 @@
 "use client";
-
-import Star12 from "@/components/stars/s12";
-import Star15 from "@/components/stars/s15";
-import Star28 from "@/components/stars/s28";
-import Star3 from "@/components/stars/s3";
-import Star40 from "@/components/stars/s40";
-import { Marquee } from "@/components/ui/marquee";
-import { PlusSeparator } from "@/components/ui/plus-separator";
-import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "motion/react";
 import {
   useState,
   useEffect,
@@ -17,182 +7,20 @@ import {
   useCallback,
   Fragment,
 } from "react";
-import { LanguagesTools, type ToolItem } from "@/components/languages-tools";
-import * as icon from "@icons-pack/react-simple-icons";
-import { CustomIcons } from "@/components/icons";
-import { FileVideoCamera } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { cn } from "@/lib/utils";
 
-// constants outside component to prevent re-creation
+import Star12 from "@/components/stars/s12";
+import Star15 from "@/components/stars/s15";
+import Star28 from "@/components/stars/s28";
+import Star3 from "@/components/stars/s3";
+import Star40 from "@/components/stars/s40";
+import { Marquee } from "@/components/ui/marquee";
+import { PlusSeparator } from "@/components/ui/plus-separator";
+
+import { skillsContent } from "@/content/skills";
+
 const BASE_TIMING = 7.5;
-
-// Tool definitions for each skill category
-const frontendTools: ToolItem[] = [
-  { name: "TypeScript", Icon: icon.SiTypescript, hex: icon.SiTypescriptHex },
-  { name: "React", Icon: icon.SiReact, hex: icon.SiReactHex },
-  {
-    name: "Next.js",
-    Icon: icon.SiNextdotjs,
-    hex: icon.SiNextdotjsHex,
-    classNames: {
-      icon: "group-hover:invert dark:group-hover:invert-0",
-    },
-  },
-  { name: "Svelte", Icon: icon.SiSvelte, hex: icon.SiSvelteHex },
-  {
-    name: "Tailwind CSS",
-    Icon: icon.SiTailwindcss,
-    hex: icon.SiTailwindcssHex,
-  },
-];
-
-const backendTools: ToolItem[] = [
-  {
-    name: "Bun",
-    Icon: icon.SiBun,
-    hex: icon.SiBunHex,
-    classNames: {
-      icon: "group-hover:invert dark:group-hover:invert-0",
-    },
-  },
-  { name: "Node.js", Icon: icon.SiNodedotjs, hex: icon.SiNodedotjsHex },
-  { name: "TypeScript", Icon: icon.SiTypescript, hex: icon.SiTypescriptHex },
-  { name: "PostgreSQL", Icon: icon.SiPostgresql, hex: icon.SiPostgresqlHex },
-  {
-    name: "Drizzle ORM",
-    Icon: icon.SiDrizzle,
-    hex: icon.SiDrizzleHex,
-    classNames: {
-      icon: "dark:group-hover:invert",
-    },
-  },
-  { name: "Docker", Icon: icon.SiDocker, hex: icon.SiDockerHex },
-];
-
-const graphicTools: ToolItem[] = [
-  { name: "Figma", Icon: icon.SiFigma, hex: icon.SiFigmaHex },
-  { name: "Canva", Icon: icon.SiCanva, hex: icon.SiCanvaHex },
-  {
-    name: "Alight Motion",
-    Icon: FileVideoCamera,
-    hex: "#000020",
-    classNames: {
-      icon: "group-hover:invert dark:group-hover:invert-0",
-    },
-  },
-];
-
-const uiuxTools: ToolItem[] = [
-  { name: "Figma", Icon: icon.SiFigma, hex: icon.SiFigmaHex },
-  { name: "Framer", Icon: icon.SiFramer, hex: icon.SiFramerHex },
-  { name: "LottieFiles", Icon: icon.SiLottiefiles, hex: icon.SiLottiefilesHex },
-];
-
-const mobileTools: ToolItem[] = [
-  { name: "React Native", Icon: icon.SiReact, hex: icon.SiReactHex },
-  {
-    name: "Expo",
-    Icon: CustomIcons.expo,
-    hex: "#000020",
-    classNames: {
-      icon: "group-hover:invert dark:group-hover:invert-0",
-    },
-  },
-  {
-    name: "Lynx",
-    Icon: CustomIcons.lynx,
-    hex: "#000020",
-    classNames: {
-      icon: "group-hover:invert dark:group-hover:invert-0",
-    },
-  },
-];
-
-const skillsContent: Record<
-  string,
-  {
-    title: string;
-    element: React.ReactNode;
-  }
-> = {
-  frontend: {
-    title: "Frontend Development",
-    element: (
-      <div className="flex flex-col gap-6">
-        <p className="text-muted-foreground">
-          Crafting responsive and interactive user interfaces with modern web
-          technologies. Specializing in React ecosystem and component-driven
-          architecture.
-        </p>
-        <LanguagesTools
-          items={frontendTools}
-          variant="default"
-          className="justify-center"
-        />
-      </div>
-    ),
-  },
-  backend: {
-    title: "Backend Development",
-    element: (
-      <div className="flex flex-col gap-6">
-        <p className="text-muted-foreground">
-          Building scalable server-side applications and APIs with Node.js.
-          Experience with both SQL and NoSQL databases, focusing on performance
-          and security.
-        </p>
-        <LanguagesTools items={backendTools} className="justify-center" />
-      </div>
-    ),
-  },
-  graphic: {
-    title: "Graphic Designer",
-    element: (
-      <div className="flex flex-col gap-6">
-        <p className="text-muted-foreground">
-          Creating visual identities, illustrations, and digital art. Bringing
-          creative visions to life.
-        </p>
-        <LanguagesTools
-          items={graphicTools}
-          variant="default"
-          className="justify-center"
-        />
-      </div>
-    ),
-  },
-  uiux: {
-    title: "UI/UX Designer",
-    element: (
-      <div className="flex flex-col gap-6">
-        <p className="text-muted-foreground">
-          Designing intuitive user experiences and beautiful interfaces. Focused
-          on user-centered design principles and modern design systems.
-        </p>
-        <LanguagesTools
-          items={uiuxTools}
-          variant="default"
-          className="justify-center"
-        />
-      </div>
-    ),
-  },
-  mobile: {
-    title: "Mobile Development",
-    element: (
-      <div className="flex flex-col gap-6">
-        <p className="text-muted-foreground">
-          Developing cross-platform mobile applications. Experience with modern
-          frameworks for iOS and Android development.
-        </p>
-        <LanguagesTools
-          items={mobileTools}
-          variant="default"
-          className="justify-center"
-        />
-      </div>
-    ),
-  },
-};
 
 export default function SkillsSection() {
   const [selectedSkill, setSelectedSkill] = useState<string | null>("graphic");
@@ -434,45 +262,64 @@ export default function SkillsSection() {
   }, [mode, selectedSkill, cleanupTimers, skillKeys]);
 
   // measure content height so we can render a placeholder of the same size
-  // Measure the heavy content's height (not the wrapper) so when we render the
-  // placeholder we keep the last known content size even if the wrapper's
-  // children are replaced by the placeholder.
+  // Measure when visible, and capture final measurement before going out of view
   useEffect(() => {
+    if (!isInViewport) return; // only measure when visible
     const el = contentRef.current;
     if (!el) return;
-    // initial measurement
-    const h0 = el.getBoundingClientRect().height || null;
-    setMeasuredHeight(h0);
-    if (DEBUG) console.log("[DEBUG] initial measuredHeight:", h0);
-    const ro = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        const h = entry.contentRect.height;
+
+    const measure = () => {
+      const h = el.getBoundingClientRect().height;
+      if (h > 0) {
         setMeasuredHeight(h);
-        if (DEBUG) console.log("[DEBUG] ResizeObserver height:", h);
+        if (DEBUG) console.log("[DEBUG] measuredHeight updated:", h);
       }
+    };
+
+    // initial measurement
+    measure();
+
+    const ro = new ResizeObserver(() => {
+      measure();
     });
     ro.observe(el);
-    return () => ro.disconnect();
-  }, []); // contentRef is stable for lifecycle; avoid extra re-runs
+
+    return () => {
+      // take final measurement before cleanup
+      measure();
+      ro.disconnect();
+    };
+  }, [isInViewport]);
 
   // measure marquee height separately so the top section's placeholder can use an
   // accurate height rather than the content panel's height
   useEffect(() => {
+    if (!isInViewport) return; // only measure when visible
     const el = marqueeRef.current;
     if (!el) return;
-    const h0 = el.getBoundingClientRect().height || null;
-    setMeasuredMarqueeHeight(h0);
-    if (DEBUG) console.log("[DEBUG] initial measuredMarqueeHeight:", h0);
-    const ro = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        const h = entry.contentRect.height;
+
+    const measure = () => {
+      const h = el.getBoundingClientRect().height;
+      if (h > 0) {
         setMeasuredMarqueeHeight(h);
-        if (DEBUG) console.log("[DEBUG] Marquee ResizeObserver height:", h);
+        if (DEBUG) console.log("[DEBUG] measuredMarqueeHeight updated:", h);
       }
+    };
+
+    // initial measurement
+    measure();
+
+    const ro = new ResizeObserver(() => {
+      measure();
     });
     ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
+
+    return () => {
+      // take final measurement before cleanup
+      measure();
+      ro.disconnect();
+    };
+  }, [isInViewport]);
 
   // (IntersectionObserver handled above; avoid a second observer to prevent duplicate callbacks)
 
@@ -574,7 +421,7 @@ export default function SkillsSection() {
             // heavy content is offscreen. keep the last measured height if available.
             <div
               aria-hidden="true"
-              style={{ height: measuredMarqueeHeight ?? measuredHeight ?? 300 }}
+              style={{ height: measuredMarqueeHeight ?? 80 }}
               className="w-full"
             />
           ) : (

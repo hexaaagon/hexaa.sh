@@ -1,64 +1,18 @@
 "use client";
 
 import * as React from "react";
-import {
-  SiJavascript,
-  SiTypescript,
-  SiReact,
-  SiNextdotjs,
-  SiNodedotjs,
-  SiPython,
-  SiGo,
-  SiRust,
-  SiTailwindcss,
-  SiPostgresql,
-  SiMongodb,
-  SiDocker,
-  SiGit,
-  SiVercel,
-  SiFigma,
-  SiBun,
-} from "@icons-pack/react-simple-icons";
 import { cn } from "@/lib/utils";
-
-interface ToolItem {
-  name: string;
-  Icon: React.ComponentType<{ className?: string; size?: number | string }>;
-  hex: string;
-  classNames?: {
-    icon?: string;
-    container?: string;
-  };
-}
-
-const tools: ToolItem[] = [
-  { name: "JavaScript", Icon: SiJavascript, hex: "#F7DF1E" },
-  { name: "TypeScript", Icon: SiTypescript, hex: "#3178C6" },
-  { name: "React", Icon: SiReact, hex: "#61DAFB" },
-  { name: "Next.js", Icon: SiNextdotjs, hex: "#000000" },
-  { name: "Node.js", Icon: SiNodedotjs, hex: "#339933" },
-  { name: "Python", Icon: SiPython, hex: "#3776AB" },
-  { name: "Go", Icon: SiGo, hex: "#00ADD8" },
-  { name: "Rust", Icon: SiRust, hex: "#000000" },
-  { name: "Tailwind CSS", Icon: SiTailwindcss, hex: "#06B6D4" },
-  { name: "PostgreSQL", Icon: SiPostgresql, hex: "#4169E1" },
-  { name: "MongoDB", Icon: SiMongodb, hex: "#47A248" },
-  { name: "Docker", Icon: SiDocker, hex: "#2496ED" },
-  { name: "Git", Icon: SiGit, hex: "#F05032" },
-  { name: "Vercel", Icon: SiVercel, hex: "#000000" },
-  { name: "Figma", Icon: SiFigma, hex: "#F24E1E" },
-  { name: "Bun", Icon: SiBun, hex: "#FBF0DF" },
-];
+import type { ToolItem } from "@/content/skills";
 
 interface LanguagesToolsProps {
   className?: string;
-  items?: ToolItem[];
+  items: ToolItem[];
   variant?: "default" | "compact";
 }
 
 export function LanguagesTools({
   className,
-  items = tools,
+  items,
   variant = "default",
 }: LanguagesToolsProps) {
   const [hoveredIndex, setHoveredIndex] = React.useState<number | null>(null);
@@ -185,4 +139,3 @@ export function LanguagesTools({
 }
 
 export type { ToolItem };
-export { tools };

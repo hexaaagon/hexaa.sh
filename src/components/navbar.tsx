@@ -19,12 +19,26 @@ const navItems = [
 export default function Navbar() {
   const isMobile = useIsMobile({ breakpoint: 512 });
   const [isMounted, setIsMounted] = useState(false);
+  const [isAtTop, setIsAtTop] = useState(true);
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
     setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    setIsMounted(true);
+    const handleScroll = () => {
+      setIsAtTop(window.scrollY <= 15);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (
@@ -40,7 +54,9 @@ export default function Navbar() {
           }}
         />
       </div>
-      <div className="fixed top-0 right-0 left-0 z-50 border-separator/10 border-b p-4 backdrop-blur-sm transition-all duration-300">
+      <div
+        className={`fixed top-0 right-0 left-0 z-50 border-separator/10 border-b p-4 backdrop-blur-sm transition-all duration-300 ${!isAtTop && "bg-background/80 dark:bg-background/60"}`}
+      >
         <div className="inner flex items-center justify-between md:px-8">
           {pathname === "/" && (
             <div className="inner absolute right-0 bottom-0 left-0">

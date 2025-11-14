@@ -95,7 +95,7 @@ export default function AboutSection() {
           </div>
           <div className="relative m-4 mx-auto hidden w-full max-w-sm items-center justify-center rounded-2xl md:flex">
             <div className="flex h-96 w-full items-center justify-center text-foreground/70 text-xs md:h-full">
-              ik it's negative space but idfk what to put in here
+              ik it's a blank space but idfk what to put in here
             </div>
           </div>
           <PlusSeparator position={["top-left", "top-right"]} />
