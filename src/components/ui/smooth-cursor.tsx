@@ -1,8 +1,8 @@
 "use client";
 
+import { motion, useReducedMotion, useSpring } from "motion/react";
+import { type JSX, useEffect, useRef, useState } from "react";
 import { useIsMobile } from "@/components/hooks/use-mobile";
-import { motion, useSpring, useReducedMotion } from "motion/react";
-import { FC, JSX, useEffect, useRef, useState } from "react";
 
 interface Position {
   x: number;
@@ -94,7 +94,7 @@ export function SmoothCursor({
       checkIfOverElement(e);
 
       const speed = Math.sqrt(
-        Math.pow(velocity.current.x, 2) + Math.pow(velocity.current.y, 2),
+        velocity.current.x ** 2 + velocity.current.y ** 2,
       );
 
       cursorX.set(currentPos.x);
@@ -164,10 +164,7 @@ export function SmoothCursor({
     scale,
     disableRotation,
     isMobile,
-    hasMoved,
     prefersReducedMotion,
-    isOverPointer,
-    disableSmooth,
   ]);
 
   if (isMobile || !hasMoved) {

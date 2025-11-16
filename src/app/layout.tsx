@@ -2,11 +2,10 @@ import "./globals.css";
 
 import type { Metadata } from "next";
 import {
+  Bricolage_Grotesque,
   Geist,
   Geist_Mono,
-  Bricolage_Grotesque,
-  Inter,
-  Rubik,
+  Instrument_Serif,
 } from "next/font/google";
 import localFont from "next/font/local";
 
@@ -24,15 +23,10 @@ const grotesque = Bricolage_Grotesque({
   variable: "--font-grotesque",
   subsets: ["latin"],
 });
-const inter = Inter({
-  variable: "--font-inter",
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
   subsets: ["latin"],
-  display: "swap",
-});
-const rubik = Rubik({
-  variable: "--font-rubik",
-  subsets: ["latin"],
-  display: "swap",
+  weight: "400",
 });
 
 const neueMontreal = localFont({
@@ -70,7 +64,8 @@ export default function RootLayout({
     /* Suppress Hydration Warning because of Next Themes. */
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${grotesque.variable} ${/*inter.variable} ${rubik.variable*/ ""} ${neueMontreal.variable} ${neueMontrealMono.variable} font-grotesque antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${grotesque.variable} ${instrumentSerif.variable} ${neueMontreal.variable} ${neueMontrealMono.variable} font-grotesque antialiased`}
+        suppressHydrationWarning
       >
         <ThemeProvider>{children}</ThemeProvider>
       </body>

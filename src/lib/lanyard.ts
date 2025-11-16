@@ -1,4 +1,4 @@
-import { ExtendedLanyardData, LanyardData } from "@/shared/types/lanyard";
+import type { ExtendedLanyardData, LanyardData } from "@/shared/types/lanyard";
 import { EventEmitter } from "./helpers";
 
 export interface LanyardWebsocketOptions {

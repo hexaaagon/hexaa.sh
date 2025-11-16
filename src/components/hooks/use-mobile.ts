@@ -1,28 +1,29 @@
-import { useEffect, useState } from "react";
+import * as React from "react";
 
-const MOBILE_BREAKPOINT = 768;
+interface UseIsMobileOptions {
+  breakpoint?: number;
+}
 
-export function useIsMobile(
-  { breakpoint } = { breakpoint: MOBILE_BREAKPOINT },
-) {
-  const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
+export function useIsMobile(options?: UseIsMobileOptions) {
+  const breakpoint = options?.breakpoint ?? 768;
+  const [isMobile, setIsMobile] = React.useState<boolean | undefined>(
+    undefined,
+  );
 
-  useEffect(() => {
-    const isTouchDevice =
-      "ontouchstart" in window ||
-      navigator.maxTouchPoints > 0 ||
-      (navigator as any).msMaxTouchPoints > 0;
-
+  React.useEffect(() => {
     const mql = window.matchMedia(`(max-width: ${breakpoint - 1}px)`);
 
-    const checkMobile = () => {
-      setIsMobile(isTouchDevice || window.innerWidth < breakpoint);
+    const onChange = (event: MediaQueryListEvent | MediaQueryList) => {
+      setIsMobile(event.matches);
     };
 
-    mql.addEventListener("change", checkMobile);
-    checkMobile();
+    // Set initial value
+    onChange(mql);
 
-    return () => mql.removeEventListener("change", checkMobile);
+    // Listen for changes
+    mql.addEventListener("change", onChange);
+
+    return () => mql.removeEventListener("change", onChange);
   }, [breakpoint]);
 
   return !!isMobile;

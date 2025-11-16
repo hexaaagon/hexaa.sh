@@ -1,10 +1,23 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  experimental: {
-    viewTransition: true,
-    // lightning css doesn't support postcss yet.
-    // useLightningcss: true, 
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+        pathname: "/u/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.discordapp.com",
+        pathname: "/avatars/**",
+      },
+      {
+        protocol: "https",
+        hostname: "**", // Allow all HTTPS images for Dub link previews
+      },
+    ],
   },
   rewrites: async () => {
     return [
@@ -18,10 +31,6 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/blog",
-        destination: "/error-pages/page-unavailable",
-      },
-      {
-        source: "/guestbook",
         destination: "/error-pages/page-unavailable",
       },
     ];

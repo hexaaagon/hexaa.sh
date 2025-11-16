@@ -5,8 +5,15 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1748173687790,
-      "tag": "0000_handy_joystick",
+      "when": 1760841741798,
+      "tag": "0000_equal_nightmare",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1760845199890,
+      "tag": "0001_sweet_mad_thinker",
       "breakpoints": true
     }
   ]

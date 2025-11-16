@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+  <h1>personal-web / hexaa.sh</h1>
+  <p>🔥 A personal website built from scratch using Next.js, TypeScript, Tailwind CSS, SWR, Drizzle, and Neon Postgres</p>
+</div>
 
-## Getting Started
+<br />
 
-First, run the development server:
+[![Hexaa.sh screenshot](./.github/assets/screenshot.png)](https://hexaa.sh/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<div align="center">
+  <a href="https://hexaa.sh" target="_blank">hexaa.sh</a>
+  &nbsp;
+  <a href="https://redesign.hexaa.sh" target="_blank">redesign.hexaa.sh (development)</a>
+</div>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Introduction
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This is my third portfolio website, built from scratch using Next.js, Drizzle ORM, and other helpful tools.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Please note that this portfolio website is not 100% complete. It continues to evolve with improvements, bug fixes, visual enhancements, and more. This website is where I share what I've learned and offer insights to others.
 
-## Learn More
+Feel free to use this website as a reference, for inspiration, or as a template, following the provided license. You can access the source code to customize it to your needs.
 
-To learn more about Next.js, take a look at the following resources:
+If you find this website helpful, please consider leaving a rating. 😎👍🏻
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Next.js 16
+- React 19
+- Typescript 5
+- TailwindCSS 4
+- Drizzle-orm (using Neon)
+- SWR
+- Framer Motion
+- Lucide Icon & React Icons Pack
+- Biome Linter & Formatter
 
-## Deploy on Vercel
+## Special Thanks to
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<div>
+  <a href="https://siege.hackclub.com/?ref=432">
+    <img src="https://siege.hackclub.com/assets/logo-55998110.webp" alt="Hack Club Logo" height="48"></img>
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://hackclub.com">
+    <img src="https://assets.hackclub.com/flag-standalone.svg" alt="Hack Club Logo" height="48"></img>
+  </a>
+</div>
