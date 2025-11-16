@@ -17,7 +17,7 @@ export default function Footer() {
         <p className="max-w-[60%] text-2xs text-muted-foreground leading-3">
           This website is available on{" "}
           <Link
-            href="https://github.com/hexaaagon/personal-web"
+            href="https://github.com/hexaaagon/hexaa.sh"
             className="underline transition-colors hover:text-primary"
             onClick={() =>
               sendGAEvent("event", "buttonClicked", {

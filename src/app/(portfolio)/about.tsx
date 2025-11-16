@@ -29,8 +29,8 @@ export default function AboutSection() {
   return (
     <>
       <main className="w-full border-separator/10 border-t">
-        <div className="inner relative flex h-full flex-col border-separator/10 border-x px-2 text-sm sm:px-4 sm:text-base md:flex-row md:justify-between md:px-8">
-          <div className="py-24 md:max-w-7/11">
+        <div className="inner relative flex h-full flex-col border-separator/10 border-x px-2 text-sm sm:px-4 sm:text-base lg:flex-row lg:justify-between lg:px-8">
+          <div className="py-24 lg:max-w-7/11">
             <Image
               src="/static/images/typography/hello.webp"
               alt="hello."
@@ -93,8 +93,8 @@ export default function AboutSection() {
               seemed impossible to fix.
             </p>
           </div>
-          <div className="relative m-4 mx-auto hidden w-full max-w-sm items-center justify-center rounded-2xl md:flex">
-            <div className="flex h-96 w-full items-center justify-center text-foreground/70 text-xs md:h-full">
+          <div className="relative m-4 mx-auto hidden w-full max-w-sm items-center justify-center rounded-2xl lg:flex">
+            <div className="flex h-96 w-full items-center justify-center text-foreground/70 text-xs lg:h-full">
               ik it's a blank space but idfk what to put in here
             </div>
           </div>

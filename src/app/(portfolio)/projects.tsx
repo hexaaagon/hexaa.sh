@@ -26,7 +26,7 @@ export default function ProjectSection() {
               <div className="hidden size-8 border-separator/10 border-b border-l sm:size-14 lg:block"></div>
               <div className="size-8 border-separator/10 border-b border-l sm:size-14"></div>
             </div>
-            <div className="group relative flex h-[8rem] flex-col justify-center gap-4 overflow-hidden px-5 sm:h-[12rem] sm:px-10 md:px-18">
+            <div className="group relative flex flex-col justify-center gap-4 overflow-hidden px-5 py-8 sm:px-10 md:px-18">
               <Image
                 src="/static/images/br-dither-gradient.png"
                 alt="Dither"
@@ -58,7 +58,7 @@ export default function ProjectSection() {
             <div className="size-8 border-separator/10 border-t border-l sm:size-14"></div>
           </div>
 
-          <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-32 w-full bg-gradient-to-b from-transparent to-background"></div>
+          <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-[70%] w-full bg-gradient-to-b from-transparent to-background"></div>
           <PlusSeparator position={["top-left", "top-right"]} />
         </div>
         <div className="inner relative border-separator/10 border-x p-2">

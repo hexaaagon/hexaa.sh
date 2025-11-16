@@ -43,7 +43,7 @@ export default function SkillsSection() {
   const skillKeys = useMemo(() => Object.keys(skillsContent), []);
 
   // debug switch - toggle to false to remove logs
-  const DEBUG = true;
+  const DEBUG = false;
 
   // visibility + measurement
   const wrapperRef = useRef<HTMLDivElement | null>(null);
