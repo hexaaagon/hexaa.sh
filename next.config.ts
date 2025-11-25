@@ -1,3 +1,4 @@
+import { createMDX } from "fumadocs-mdx/next";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -29,13 +30,11 @@ const nextConfig: NextConfig = {
         source: "/projects",
         destination: "/error-pages/page-unavailable",
       },
-      {
-        source: "/blog",
-        destination: "/error-pages/page-unavailable",
-      },
     ];
   },
   allowedDevOrigins: ["192.168.1.*"],
 };
 
-export default nextConfig;
+const withMDX = createMDX();
+
+export default withMDX(nextConfig);

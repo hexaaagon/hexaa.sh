@@ -8,13 +8,18 @@ import ThemeSwitch from "./theme-switch";
 import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from "./ui/drawer";
 import { PlusSeparator } from "./ui/plus-separator";
 import { Button } from "./ui/button";
+import { Separator } from "./ui/separator";
+import { Undo } from "lucide-react";
 
+const backItems = ["/blog/*"];
 const navItems = [
   { href: "/about", title: "about" },
   { href: "/projects", title: "projects" },
   { href: "/blog", title: "blog" },
   { href: "/guestbook", title: "guestbook" },
 ];
+const separatorItems = ["/", "/blog"];
+const shadeExcludeItems = ["/blog/*"];
 
 export default function Navbar() {
   const isMobile = useIsMobile({ breakpoint: 512 });
@@ -43,22 +48,24 @@ export default function Navbar() {
 
   return (
     <header>
-      <div
-        className="-z-50 absolute top-0 right-0 left-0 mx-auto"
-        style={{ filter: "blur(clamp(200px, 10vw, 250px))" }}
-      >
-        <span
-          className="absolute top-0 right-0 left-0 m-0 mx-auto h-[25vh] w-[90vw] bg-[#1D1EF0] p-0 transition-all sm:h-[15vh] md:h-[10vh] md:w-[80vw] dark:bg-[#6964ED]/80"
-          style={{
-            clipPath: "polygon(0% 51%, 50% 0%, 100% 51%, 100% 100%, 0% 100%)",
-          }}
-        />
-      </div>
+      {matchPath(pathname, shadeExcludeItems) ? null : (
+        <div
+          className="-z-50 absolute top-0 right-0 left-0 mx-auto"
+          style={{ filter: "blur(clamp(200px, 10vw, 250px))" }}
+        >
+          <span
+            className="absolute top-0 right-0 left-0 m-0 mx-auto h-[25vh] w-[90vw] bg-[#1D1EF0] p-0 transition-all sm:h-[15vh] md:h-[10vh] md:w-[80vw] dark:bg-[#6964ED]/80"
+            style={{
+              clipPath: "polygon(0% 51%, 50% 0%, 100% 51%, 100% 100%, 0% 100%)",
+            }}
+          />
+        </div>
+      )}
       <div
         className={`fixed top-0 right-0 left-0 z-50 border-separator/10 border-b p-4 backdrop-blur-sm transition-all duration-300 ${!isAtTop && "bg-background/80 dark:bg-background/60"}`}
       >
         <div className="inner flex items-center justify-between md:px-8">
-          {pathname === "/" && (
+          {matchPath(pathname, separatorItems) && (
             <div className="inner absolute right-0 bottom-0 left-0">
               <PlusSeparator
                 position={["bottom-left", "bottom-right"]}
@@ -69,7 +76,7 @@ export default function Navbar() {
               />
             </div>
           )}
-          <div className="flex items-center gap-1">
+          <div className="flex h-4 items-center gap-1">
             {isMounted && isMobile && (
               <Drawer open={open} onOpenChange={setOpen} direction="top">
                 <DrawerTrigger asChild>
@@ -124,6 +131,18 @@ export default function Navbar() {
             >
               hexaa
             </Link>
+            {matchPath(pathname, backItems) && (
+              <>
+                <Separator orientation="vertical" className="mr-0 ml-2" />
+                <button
+                  type="button"
+                  className="py-2 pr-2 pl-4"
+                  onClick={() => router.back()}
+                >
+                  <Undo size={16} />
+                </button>
+              </>
+            )}
           </div>
           <div className="flex items-center gap-6">
             {isMounted && !isMobile && (
@@ -140,4 +159,30 @@ export default function Navbar() {
       </div>
     </header>
   );
+}
+
+function matchPath(pathname: string, patterns: string[]): boolean {
+  return patterns.some((pattern) => {
+    if (pattern === pathname) return true;
+
+    if (pattern.includes("/**")) {
+      const basePattern = pattern.replace("/**", "");
+      return pathname.startsWith(basePattern);
+    }
+
+    if (pattern.includes("/*")) {
+      const regexPattern = pattern
+        .split("/")
+        .map((segment) => {
+          if (segment === "*") return "[^/]+";
+          return segment.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        })
+        .join("/");
+
+      const regex = new RegExp(`^${regexPattern}$`);
+      return regex.test(pathname);
+    }
+
+    return false;
+  });
 }

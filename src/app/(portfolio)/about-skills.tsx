@@ -18,7 +18,7 @@ import Star40 from "@/components/stars/s40";
 import { Marquee } from "@/components/ui/marquee";
 import { PlusSeparator } from "@/components/ui/plus-separator";
 
-import { skillsContent } from "@/content/skills";
+import { skillsContent } from "@/content/portfolio/skills";
 
 const BASE_TIMING = 7.5;
 

@@ -8,7 +8,11 @@
   "files": {
     "ignoreUnknown": true,
     "includes": [
-      "**",
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.js",
+      "**/*.jsx",
+      "**/*.json",
       "!node_modules",
       "!.next",
       "!dist",

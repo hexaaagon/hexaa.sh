@@ -1,6 +1,6 @@
 import { ProjectCard } from "@/components/project";
 import { PlusSeparator } from "@/components/ui/plus-separator";
-import { projectsData } from "@/content/projects";
+import { projectsData } from "@/content/portfolio/projects";
 import Image from "next/image";
 
 export default function ProjectSection() {
