@@ -19,8 +19,8 @@ export default async function Page(props: PageProps<"/blog/[slug]">) {
       <section className="prose flex items-center justify-between">
         <div className="not-prose mb-8 flex flex-row gap-4 text-sm">
           <div>
-            <p className="mb-1 text-fd-muted-foreground">Written by</p>
-            <p className="mb-1 text-fd-muted-foreground text-sm">At</p>
+            <p className="text-fd-muted-foreground">Written by</p>
+            <p className="text-fd-muted-foreground text-sm">At</p>
           </div>
           <div>
             <p className="font-medium">{page.data.author}</p>

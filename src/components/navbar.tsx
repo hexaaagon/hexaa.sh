@@ -76,7 +76,7 @@ export default function Navbar() {
               />
             </div>
           )}
-          <div className="flex h-4 items-center gap-1">
+          <div className="flex items-center gap-1">
             {isMounted && isMobile && (
               <Drawer open={open} onOpenChange={setOpen} direction="top">
                 <DrawerTrigger asChild>
@@ -132,16 +132,12 @@ export default function Navbar() {
               hexaa
             </Link>
             {matchPath(pathname, backItems) && (
-              <>
+              <Link href="/blog" className="flex h-4 items-center">
                 <Separator orientation="vertical" className="mr-0 ml-2" />
-                <button
-                  type="button"
-                  className="py-2 pr-2 pl-4"
-                  onClick={() => router.back()}
-                >
+                <button type="button" className="py-2 pr-2 pl-4">
                   <Undo size={16} />
                 </button>
-              </>
+              </Link>
             )}
           </div>
           <div className="flex items-center gap-6">
