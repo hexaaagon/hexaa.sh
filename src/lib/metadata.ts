@@ -1,4 +1,5 @@
 import type { Metadata } from "next/types";
+import type { BlogPage } from "./source";
 
 export function createMetadata(override: Metadata): Metadata {
   return {
@@ -30,5 +31,14 @@ export function createMetadata(override: Metadata): Metadata {
       },
       ...override.alternates,
     },
+  };
+}
+
+export function getBlogPageImage(page: BlogPage) {
+  const segments = [...page.slugs, "image.webp"];
+
+  return {
+    segments,
+    url: `/og/blog/${segments.join("/")}`,
   };
 }
