@@ -1,51 +1,14 @@
 "use client";
+import Link from "next/link";
 import { sendGAEvent } from "@next/third-parties/google";
 import { usePathname } from "next/navigation";
 
-import Link from "next/link";
-import HCWebring from "./hackclub-webring";
-import { PlusSeparator } from "./ui/plus-separator";
-
-import { AtSign } from "lucide-react";
-import { SiGithub, SiInstagram, SiX } from "@icons-pack/react-simple-icons";
 import { useThemeStore } from "@/lib/store/site-theme";
 
-const socials = [
-  {
-    name: "Email",
-    href: "mailto:me@hexagonn.my.id",
-    icon: AtSign,
-  },
-  {
-    name: "GitHub",
-    href: "https://github.com/hexaaagon",
-    icon: SiGithub,
-  },
-  {
-    name: "X (Twitter)",
-    href: "https://twitter.com/Scoooolzs",
-    icon: SiX,
-  },
-  {
-    name: "Instagram",
-    href: "https://www.instagram.com/hxgn.scoooolzs",
-    icon: SiInstagram,
-  },
-];
+import HCWebring from "@/components/hackclub-webring";
+import { PlusSeparator } from "@/components/ui/plus-separator";
 
-const pages = {
-  explore: [
-    { name: "home", href: "/" },
-    { name: "projects", href: "/projects" },
-    { name: "blog", href: "/blog" },
-    { name: "guestbook", href: "/guestbook" },
-  ],
-  personal: [
-    { name: "about me", href: "/about" },
-    { name: "projects", href: "/projects" },
-  ],
-  meta: [{ name: "sitemap", href: "/sitemap.xml" }],
-};
+import { socials, pages } from "@/content/navigation/footer";
 
 export default function Footer() {
   const { cycleMode } = useThemeStore();
@@ -89,10 +52,10 @@ export default function Footer() {
           </div>
           <div className="flex flex-col gap-4">
             <span className="font-bold text-foreground-primary/80 text-lg">
-              Explore
+              Personal
             </span>
             <nav className="flex flex-col gap-1 font-medium font-mono text-blue-600 text-foreground-text text-sm transition-all *:hover:underline dark:text-blue-400">
-              {pages.explore.map((page) => (
+              {pages.personal.map((page) => (
                 <Link key={page.name} href={page.href}>
                   [{page.name}]
                 </Link>
@@ -101,10 +64,10 @@ export default function Footer() {
           </div>
           <div className="flex flex-col gap-4">
             <span className="font-bold text-foreground-primary/80 text-lg">
-              Personal
+              Explore
             </span>
             <nav className="flex flex-col gap-1 font-medium font-mono text-blue-600 text-foreground-text text-sm transition-all *:hover:underline dark:text-blue-400">
-              {pages.personal.map((page) => (
+              {pages.explore.map((page) => (
                 <Link key={page.name} href={page.href}>
                   [{page.name}]
                 </Link>

@@ -1,25 +1,28 @@
 "use client";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useIsMobile } from "./hooks/use-mobile";
-import ThemeSwitch from "./theme-switch";
 
-import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from "./ui/drawer";
-import { PlusSeparator } from "./ui/plus-separator";
-import { Button } from "./ui/button";
-import { Separator } from "./ui/separator";
+import { useIsMobile } from "@/components/hooks/use-mobile";
+import ThemeSwitch from "@/components/theme-switch";
+
 import { Undo } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { PlusSeparator } from "@/components/ui/plus-separator";
+import { Separator } from "@/components/ui/separator";
 
-const backItems = ["/blog/*"];
-const navItems = [
-  { href: "/about", title: "about" },
-  { href: "/projects", title: "projects" },
-  { href: "/blog", title: "blog" },
-  { href: "/guestbook", title: "guestbook" },
-];
-const separatorItems = ["/", "/blog"];
-const shadeExcludeItems = ["/blog/*"];
+import {
+  backItems,
+  navItems,
+  separatorItems,
+  shadeExcludeItems,
+} from "@/content/navigation/navbar";
 
 export default function Navbar() {
   const isMobile = useIsMobile({ breakpoint: 512 });

@@ -27,10 +27,6 @@ const nextConfig: NextConfig = {
         source: "/about",
         destination: "/error-pages/page-unavailable",
       },
-      {
-        source: "/projects",
-        destination: "/error-pages/page-unavailable",
-      },
     ];
   },
   allowedDevOrigins: ["192.168.1.*"],
