@@ -8,6 +8,7 @@ import { PlusSeparator } from "./ui/plus-separator";
 
 import { AtSign } from "lucide-react";
 import { SiGithub, SiInstagram, SiX } from "@icons-pack/react-simple-icons";
+import { useThemeStore } from "@/lib/store/site-theme";
 
 const socials = [
   {
@@ -47,6 +48,7 @@ const pages = {
 };
 
 export default function Footer() {
+  const { cycleMode } = useThemeStore();
   const pathname = usePathname();
 
   return (
@@ -61,7 +63,10 @@ export default function Footer() {
               hex.
             </Link>
             <p className="text-muted-foreground text-sm">
-              yet another portfolio site
+              yet another portfolio site.{" "}
+              <button type="button" onClick={() => cycleMode()}>
+                it's winter!
+              </button>
             </p>
             <div className="flex items-center gap-2.5">
               {socials.map((social) => (
