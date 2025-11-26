@@ -8,7 +8,7 @@ export function HeaderBanner() {
   const isMobile = useIsMobile();
 
   return (
-    <section className="w-full border-separator/10 border-t">
+    <section className="w-full border-separator/10 border-b">
       <div className="inner relative flex border-separator/10 border-x">
         <PlusSeparator
           position={["top-left", "top-right", "bottom-left", "bottom-right"]}

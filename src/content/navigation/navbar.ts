@@ -5,5 +5,5 @@ export const navItems = [
   { href: "/blog", title: "blog" },
   { href: "/guestbook", title: "guestbook" },
 ];
-export const separatorItems = ["/", "/blog"];
+export const separatorItems = ["/", "/projects", "/blog"];
 export const shadeExcludeItems = ["/blog/*"];

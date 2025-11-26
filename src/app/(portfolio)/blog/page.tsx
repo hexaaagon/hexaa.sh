@@ -13,9 +13,12 @@ export default function BlogPage() {
   );
 
   return (
-    <main className="mt-16">
-      <HeaderBanner />
+    <main>
       <section className="w-full border-separator/10 border-y">
+        <div className="inner relative flex h-16 gap-2 border-separator/10 border-x"></div>
+      </section>
+      <HeaderBanner />
+      <section className="w-full border-separator/10 border-b">
         <div className="inner relative grid grid-cols-1 gap-2 border-separator/10 border-x px-2 py-16 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
             <Link
