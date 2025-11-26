@@ -10,7 +10,8 @@ var blog = defineCollections({
   dir: "src/content/blog",
   schema: frontmatterSchema.extend({
     author: z.string(),
-    date: z.iso.date().or(z.date())
+    date: z.iso.date().or(z.date()),
+    image: z.string().optional()
   }),
   async: true
 });
