@@ -19,14 +19,19 @@ import {
 
 export function ProjectCard({
   project,
+  classNames,
 }: {
   project: ProjectItem;
   classNames?: {
     container?: string;
+    imageWrapper?: string;
+    image?: string;
+    content?: string;
     title?: string;
     description?: string;
-    image?: string;
+    links?: string;
     buttons?: {
+      combined?: string;
       github?: string;
       live?: string;
     };
@@ -36,21 +41,30 @@ export function ProjectCard({
     <div
       className={cn(
         "group rou relative overflow-hidden rounded-xs border border-separator/10 bg-background transition-all hover:border-foreground/20",
+        classNames?.container,
       )}
     >
       {/* Image Section */}
-      <div className="relative h-64 w-full overflow-hidden">
+      <div
+        className={cn(
+          "relative h-64 w-full overflow-hidden",
+          classNames?.imageWrapper,
+        )}
+      >
         <Image
           src={project.image}
           alt={project.title}
           fill
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          className={cn(
+            "object-cover transition-transform duration-300 group-hover:scale-105",
+            classNames?.image,
+          )}
           unoptimized={!project.image.endsWith(".gif")}
         />
       </div>
 
       {/* Content Section */}
-      <div className="flex flex-col gap-4 p-6">
+      <div className={cn("flex flex-col gap-4 p-6", classNames?.content)}>
         {/* Badges */}
         {project.badge && project.badge.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
@@ -63,23 +77,33 @@ export function ProjectCard({
           className={cn(
             "font-semibold text-lg leading-tight md:text-xl",
             project.title.includes("-") && "font-mono",
+            classNames?.title,
           )}
         >
           {project.title}
         </h2>
 
         {/* Description */}
-        <p className="max-w-lg text-muted-foreground text-sm leading-relaxed">
+        <p
+          className={cn(
+            "max-w-lg text-muted-foreground text-sm leading-relaxed",
+            classNames?.description,
+          )}
+        >
           {project.description}
         </p>
 
         {/* Links */}
-        <div className="flex gap-4 pt-2 font-mono">
+        <div className={cn("flex gap-4 pt-2 font-mono", classNames?.links)}>
           {project.repo && (
             <Link
               href={project.repo}
               target="_blank"
-              className="font-medium text-blue-600 text-sm transition-all hover:underline dark:text-blue-400"
+              className={cn(
+                "font-medium text-blue-600 text-sm transition-all hover:underline dark:text-blue-400",
+                classNames?.buttons?.combined,
+                classNames?.buttons?.github,
+              )}
             >
               [github]
             </Link>
@@ -90,7 +114,11 @@ export function ProjectCard({
                 <AlertDialogTrigger asChild>
                   <button
                     type="button"
-                    className="font-medium text-blue-600 text-sm transition-all hover:underline dark:text-blue-400"
+                    className={cn(
+                      "font-medium text-blue-600 text-sm transition-all hover:underline dark:text-blue-400",
+                      classNames?.buttons?.combined,
+                      classNames?.buttons?.live,
+                    )}
                   >
                     [live demo]
                   </button>

@@ -2,6 +2,7 @@ import { ProjectCard } from "@/components/project";
 import { PlusSeparator } from "@/components/ui/plus-separator";
 import { projectsData } from "@/content/portfolio/projects";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ProjectSection() {
   return (
@@ -62,10 +63,31 @@ export default function ProjectSection() {
           <PlusSeparator position={["top-left", "top-right"]} />
         </div>
         <div className="inner relative border-separator/10 border-x p-2">
-          <section className="grid grid-cols-1 gap-2 md:grid-cols-2">
-            {projectsData.map((project) => (
-              <ProjectCard key={project.title} project={project} />
+          <section className="relative grid grid-cols-1 gap-2 md:grid-cols-2">
+            {projectsData.slice(0, 4).map((project, idx) => (
+              <ProjectCard
+                key={project.title}
+                project={project}
+                classNames={{
+                  container:
+                    idx === 2
+                      ? "md:max-h-full md:-mb-[30%] md:pointer-events-none md:overflow-h-hidden md:border-b-transparent"
+                      : idx === 3
+                        ? "max-h-full -mb-[30%] pointer-events-none overflow-h-hidden border-b-transparent"
+                        : "",
+                }}
+              />
             ))}
+            <div className="absolute right-0 bottom-0 left-0 h-64 w-full bg-linear-to-b from-transparent to-background"></div>
+          </section>
+          <section className="flex flex-col items-center justify-center py-8">
+            <p>check out more projects at</p>
+            <Link
+              href="/projects"
+              className="font-mono text-blue-600 hover:underline dark:text-blue-400"
+            >
+              [/projects]
+            </Link>
           </section>
         </div>
       </main>
