@@ -32,6 +32,11 @@ declare global {
       // Hexaa's Thingy
       WORKFLOW_PASSWORD_HASH: string;
 
+      // Last.fm API
+      LASTFM_API_KEY: string;
+      LASTFM_API_SECRET: string;
+      LASTFM_USERNAME: string;
+
       // Vercel-provided system vars
       NEXT_PUBLIC_VERCEL_ENV: "production" | "preview" | "development";
       NEXT_PUBLIC_VERCEL_TARGET_ENV: string;

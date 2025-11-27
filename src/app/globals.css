@@ -30,6 +30,7 @@
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
+  --color-social-spotify: var(--social-spotify);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -85,6 +86,13 @@
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
+  --social-spotify: oklch(0.7416 0.1414 154.36);
+
+  *::selection,
+  *::-moz-selection,
+  *::-webkit-selection {
+    background: oklch(76.676% 0.00009 271.152);
+  }
 }
 
 .dark {
@@ -120,24 +128,7 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.552 0.016 285.938);
-
-  /* Prose typography variables for dark mode */
-  --tw-prose-body: var(--foreground);
-  --tw-prose-headings: var(--foreground);
-  --tw-prose-lead: var(--muted-foreground);
-  --tw-prose-links: var(--primary);
-  --tw-prose-bold: var(--foreground);
-  --tw-prose-counters: var(--muted-foreground);
-  --tw-prose-bullets: var(--muted-foreground);
-  --tw-prose-hr: var(--border);
-  --tw-prose-quotes: var(--foreground);
-  --tw-prose-quote-borders: var(--border);
-  --tw-prose-captions: var(--muted-foreground);
-  --tw-prose-code: var(--foreground);
-  --tw-prose-pre-code: var(--foreground);
-  --tw-prose-pre-bg: var(--muted);
-  --tw-prose-th-borders: var(--border);
-  --tw-prose-td-borders: var(--border);
+  --social-spotify: oklch(0.2672 0.0469 169.57);
 
   ::selection,
   ::-moz-selection,

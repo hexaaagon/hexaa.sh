@@ -6,7 +6,11 @@ export const routePatterns = [
   /^dub-redirect$/,
   /^error-pages\/not-found$/,
   /^error-pages\/page-unavailable$/,
+  /^blog\/[^\/]+$/,
+  /^blog$/,
+  /^blog\/rss.xml$/,
   /^$/,
+  /^projects$/,
   /^_global-error$/,
   /^_not-found$/,
   /^api\/admin-workflow\/cache-delete\/all$/,
@@ -15,6 +19,7 @@ export const routePatterns = [
   /^api\/auth\/.*$/,
   /^favicon.ico$/,
   /^guestbook$/,
+  /^og\/blog\/.*$/,
 ] as const;
 
 export function isDefinedRoute(pathname: string): boolean {
