@@ -17,8 +17,8 @@ import type {
   StaticLyric,
   SyllableLyric,
 } from "@/shared/types/lyrics";
-import { Separator } from "./ui/separator";
 import Link from "next/link";
+import { ProgressCircle } from "./ui/progress";
 
 const _codeActivities = {
   b9478d1586304a13: "Visual Studio Code",
@@ -216,16 +216,22 @@ export default function SocialBento() {
               <Link
                 href={`https://open.spotify.com/track/${status?.spotify.track_id}`}
                 target="_blank"
-                className="relative col-span-2 h-38 w-full rounded-2xl border bg-social-spotify p-4 transition hover:scale-105 xl:w-98"
+                className="relative col-span-2 h-38 w-full rounded-2xl border bg-social-spotify p-4 pt-2 transition hover:scale-105 xl:w-98"
               >
                 <header className="mb-2 flex items-center gap-2">
-                  <Image
-                    src={status?.spotify.album_art_url}
-                    alt="Album Art"
-                    width={32}
-                    height={32}
-                    className="rounded-full"
-                  />
+                  <ProgressCircle
+                    size={38}
+                    strokeWidth={2}
+                    value={(trackDurationProgress / trackDuration) * 100}
+                  >
+                    <Image
+                      src={status?.spotify.album_art_url}
+                      alt="Album Art"
+                      width={32}
+                      height={32}
+                      className="m-auto rounded-full"
+                    />
+                  </ProgressCircle>
                   <div className="flex flex-col *:line-clamp-1">
                     <p className="font-medium text-xs">
                       {status?.spotify.song}
@@ -235,12 +241,7 @@ export default function SocialBento() {
                     </p>
                   </div>
                 </header>
-                <span className="absolute top-2 right-2.5 inline-flex h-3.5 items-center gap-1 text-3xs">
-                  {new Date(trackDurationProgress * 1000)
-                    .toISOString()
-                    .substr(14, 5)}
-                  /{new Date(trackDuration * 1000).toISOString().substr(14, 5)}
-                  <Separator orientation="vertical" className="mx-0.5" />
+                <span className="absolute top-2 right-2.5 inline-flex items-center gap-1 text-3xs">
                   Listening on
                   <SiSpotify size={14} className="pr-0.5" />
                 </span>
