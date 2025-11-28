@@ -2,10 +2,6 @@
 import { LastFmClient } from "lastfm-client-ts";
 import type { Lyrics } from "@/shared/types/lyrics";
 
-const lastfm = new LastFmClient({
-  apiKey: process.env.LASTFM_API_KEY,
-});
-
 export async function getLyrics(trackId?: string) {
   if (!trackId) return "no-track-id";
 
@@ -21,7 +17,12 @@ export async function getLyrics(trackId?: string) {
   return data;
 }
 
-export async function getLastMusicPlayed(limit = 5) {
+export async function getRecentTrackPlayed(limit = 5) {
+  const lastfm = new LastFmClient({
+    apiKey: process.env.LASTFM_API_KEY,
+    baseUrl: "https://ws.audioscrobbler.com/2.0/",
+  });
+
   const data = await lastfm.user.getRecentTracks({
     user: process.env.LASTFM_USERNAME,
     limit,
