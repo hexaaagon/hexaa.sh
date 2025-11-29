@@ -7,14 +7,14 @@ export function createMetadata(override: Metadata): Metadata {
     openGraph: {
       title: override.title ?? undefined,
       description: override.description ?? undefined,
-      url: "https://fumadocs.dev",
+      url: "https://hexaa.sh",
       images: "/banner.png",
-      siteName: "Fumadocs",
+      siteName: "hexaa's blog.",
       ...override.openGraph,
     },
     twitter: {
       card: "summary_large_image",
-      creator: "@fuma_nama",
+      creator: "@Scoooolzs",
       title: override.title ?? undefined,
       description: override.description ?? undefined,
       images: "/banner.png",
@@ -25,7 +25,7 @@ export function createMetadata(override: Metadata): Metadata {
         "application/rss+xml": [
           {
             title: "Fumadocs Blog",
-            url: "https://fumadocs.dev/blog/rss.xml",
+            url: "https://hexaa.sh/blog/rss.xml",
           },
         ],
       },

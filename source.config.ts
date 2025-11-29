@@ -12,6 +12,7 @@ export const blog = defineCollections({
     author: z.string(),
     date: z.iso.date().or(z.date()),
     image: z.string().optional(),
+    hashtags: z.array(z.string().startsWith("#")).optional(),
   }),
   async: true,
 });

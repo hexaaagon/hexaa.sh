@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { InlineTOC } from "fumadocs-ui/components/inline-toc";
+import { InlineTOC } from "@/components/inline-toc";
 import { blog } from "@/lib/source";
 import { createMetadata, getBlogPageImage } from "@/lib/metadata";
 import { ShareButton } from "./page.client";
 import { getMDXComponents } from "@/components/mdx-components";
 import path from "node:path";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 export default async function Page(props: PageProps<"/blog/[slug]">) {
   const params = await props.params;
@@ -17,14 +18,14 @@ export default async function Page(props: PageProps<"/blog/[slug]">) {
 
   const image = {
     url: page.data.image || getBlogPageImage(page).url,
+    invertable: !page.data.image,
     width: 1200,
     height: 630,
   };
 
   return (
-    <article className="mx-auto flex w-full max-w-[800px] flex-col px-4 py-8">
+    <article className="mx-auto flex w-full max-w-[800px] flex-col px-4 py-16">
       <h1 className="mb-4 font-semibold text-3xl">{page.data.title}</h1>
-      <p className="mb-8 text-muted-foreground">{page.data.description}</p>
       <section className="prose dark:prose-invert flex items-center justify-between">
         <div className="not-prose mb-8 flex flex-row gap-4 text-sm">
           <div>
@@ -50,10 +51,13 @@ export default async function Page(props: PageProps<"/blog/[slug]">) {
         alt="Blog Post Image"
         width={image.width}
         height={image.height}
-        className="prose mb-2 rounded-md"
+        className={cn(
+          "prose mb-2 rounded-md",
+          image.invertable && "invert-100 dark:invert-0",
+        )}
       />
       <div className="prose dark:prose-invert min-w-0 flex-1">
-        <InlineTOC items={toc} />
+        <InlineTOC items={toc} className="mt-2 mb-4" />
         <Mdx components={getMDXComponents()} />
       </div>
     </article>

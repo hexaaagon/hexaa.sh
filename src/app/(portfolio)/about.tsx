@@ -13,7 +13,6 @@ import { wakaTimeData } from "@/lib/actions/wakatime";
 import { cn } from "@/lib/utils";
 
 import SkillsSection from "./about-skills";
-import SocialBento from "@/components/social-bento";
 
 export default function AboutSection() {
   const wakatimeStats = useSWR("wakatime", wakaTimeData);
@@ -93,9 +92,6 @@ export default function AboutSection() {
               into coding, brainstorming, and even struggling through bugs that
               seemed impossible to fix.
             </p>
-          </div>
-          <div className="relative mx-auto mb-4 flex w-full items-center justify-center xl:mb-0 xl:w-auto">
-            <SocialBento />
           </div>
           <PlusSeparator position={["top-left", "top-right"]} />
         </div>

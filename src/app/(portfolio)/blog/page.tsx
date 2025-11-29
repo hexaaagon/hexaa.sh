@@ -4,6 +4,10 @@ import { blog } from "@/lib/source";
 import { PlusSeparator } from "@/components/ui/plus-separator";
 import Link from "next/link";
 import { HeaderBanner } from "./banner.client";
+import Image from "next/image";
+import { getBlogPageImage } from "@/lib/metadata";
+import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
 export default function BlogPage() {
   const posts = [...blog.getPages()].sort(
@@ -24,96 +28,47 @@ export default function BlogPage() {
             <Link
               key={post.url}
               href={post.url}
-              className="group relative flex flex-col gap-2 overflow-hidden rounded-xs border border-separator/10 bg-background p-6 transition-all hover:border-foreground/20"
+              className="group relative flex flex-col overflow-hidden rounded-xs border border-separator/10 bg-background pb-6 transition *:px-6 hover:border-foreground/20"
             >
-              <p className="font-medium">{post.data.title}</p>
-              <p className="text-fd-muted-foreground text-sm">
+              <span className="relative h-64 w-full">
+                <Image
+                  src={post.data.image || getBlogPageImage(post).url}
+                  alt={post.data.title}
+                  fill
+                  className={cn(
+                    "mb-4 rounded-xs object-cover",
+                    !post.data.image && "invert-100 dark:invert-0",
+                  )}
+                />
+              </span>
+              <p className="mt-5 font-medium text-lg leading-5">
+                {post.data.title}
+              </p>
+              <p className="text-fd-muted-foreground text-sm leading-6">
                 {post.data.description}
               </p>
 
-              <p className="mt-auto pt-4 text-brand text-xs">
-                {new Date(post.data.date ?? getName(post.path)).toDateString()}
-              </p>
-            </Link>
-          ))}
-          {posts.map((post) => (
-            <Link
-              key={post.url}
-              href={post.url}
-              className="group relative flex flex-col gap-2 overflow-hidden rounded-xs border border-separator/10 bg-background p-6 transition-all hover:border-foreground/20"
-            >
-              <p className="font-medium">{post.data.title}</p>
-              <p className="text-fd-muted-foreground text-sm">
-                {post.data.description}
-              </p>
-
-              <p className="mt-auto pt-4 text-brand text-xs">
-                {new Date(post.data.date ?? getName(post.path)).toDateString()}
-              </p>
-            </Link>
-          ))}
-          {posts.map((post) => (
-            <Link
-              key={post.url}
-              href={post.url}
-              className="group relative flex flex-col gap-2 overflow-hidden rounded-xs border border-separator/10 bg-background p-6 transition-all hover:border-foreground/20"
-            >
-              <p className="font-medium">{post.data.title}</p>
-              <p className="text-fd-muted-foreground text-sm">
-                {post.data.description}
-              </p>
-
-              <p className="mt-auto pt-4 text-brand text-xs">
-                {new Date(post.data.date ?? getName(post.path)).toDateString()}
-              </p>
-            </Link>
-          ))}
-          {posts.map((post) => (
-            <Link
-              key={post.url}
-              href={post.url}
-              className="group relative flex flex-col gap-2 overflow-hidden rounded-xs border border-separator/10 bg-background p-6 transition-all hover:border-foreground/20"
-            >
-              <p className="font-medium">{post.data.title}</p>
-              <p className="text-fd-muted-foreground text-sm">
-                {post.data.description}
-              </p>
-
-              <p className="mt-auto pt-4 text-brand text-xs">
-                {new Date(post.data.date ?? getName(post.path)).toDateString()}
-              </p>
-            </Link>
-          ))}
-          {posts.map((post) => (
-            <Link
-              key={post.url}
-              href={post.url}
-              className="group relative flex flex-col gap-2 overflow-hidden rounded-xs border border-separator/10 bg-background p-6 transition-all hover:border-foreground/20"
-            >
-              <p className="font-medium">{post.data.title}</p>
-              <p className="text-fd-muted-foreground text-sm">
-                {post.data.description}
-              </p>
-
-              <p className="mt-auto pt-4 text-brand text-xs">
-                {new Date(post.data.date ?? getName(post.path)).toDateString()}
-              </p>
-            </Link>
-          ))}
-          {posts.map((post) => (
-            <Link
-              key={post.url}
-              href={post.url}
-              className="group relative flex flex-col gap-2 overflow-hidden rounded-xs border border-separator/10 bg-background p-6 transition-all hover:border-foreground/20"
-            >
-              <p className="font-medium">{post.data.title}</p>
-              <p className="text-fd-muted-foreground text-sm">
-                {post.data.description}
-              </p>
-
-              <p className="mt-auto pt-4 text-brand text-xs">
-                {new Date(post.data.date ?? getName(post.path)).toDateString()}
-              </p>
+              <span className="mt-4 flex items-center justify-between">
+                <span className="inline-flex text-brand text-xs">
+                  {(post.data.hashtags ?? []).map((tag, idx) => (
+                    <span key={tag} className="inline-flex h-4 items-center">
+                      <p key={tag}>{tag}</p>
+                      {idx !== (post.data.hashtags?.length ?? 0) - 1 && (
+                        <Separator orientation="vertical" className="mx-2" />
+                      )}
+                    </span>
+                  ))}
+                </span>
+                <p className="mt-auto text-brand text-xs">
+                  {new Date(
+                    post.data.date ?? getName(post.path),
+                  ).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </p>
+              </span>
             </Link>
           ))}
           <PlusSeparator

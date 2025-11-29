@@ -34,5 +34,8 @@ export const pages = {
     { name: "home", href: "/" },
     { name: "guestbook", href: "/guestbook" },
   ],
-  meta: [{ name: "sitemap", href: "/sitemap.xml" }],
+  meta: [
+    { name: "sitemap", href: "/sitemap.xml" },
+    { name: "attribute", href: "/attribute" },
+  ],
 };
