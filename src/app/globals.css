@@ -157,6 +157,19 @@
   --tw-prose-td-borders: var(--border);
 }
 
+.discord-online {
+  background-color: oklch(72.3% 0.219 149.579);
+}
+.discord-idle {
+  background-color: oklch(79.5% 0.184 86.047);
+}
+.discord-dnd {
+  background-color: oklch(63.7% 0.237 25.331);
+}
+.discord-offline {
+  background-color: oklch(55.4% 0.046 257.417);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -238,4 +251,15 @@
   to {
     transform: translateY(calc(-100% - var(--gap)));
   }
+}
+
+/* Hide scrollbars for lyric scroll containers while preserving scroll behavior */
+.lyrics-scroll::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+.lyrics-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }

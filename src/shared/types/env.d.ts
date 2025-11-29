@@ -37,6 +37,9 @@ declare global {
       LASTFM_API_SECRET: string;
       LASTFM_USERNAME: string;
 
+      // WakaTime API
+      WAKATIME_API_KEY: string;
+
       // Vercel-provided system vars
       NEXT_PUBLIC_VERCEL_ENV: "production" | "preview" | "development";
       NEXT_PUBLIC_VERCEL_TARGET_ENV: string;

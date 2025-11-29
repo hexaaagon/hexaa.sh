@@ -1,5 +1,5 @@
 // (lint suppressions removed) - kept for readability
-/** biome-ignore-all lint/suspicious/noArrayIndexKey: <explanation> */
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: false-positive - using array index for token keys is acceptable here */
 "use client";
 import { SiDiscord, SiSpotify } from "@icons-pack/react-simple-icons";
 
@@ -19,10 +19,14 @@ import type {
 } from "@/shared/types/lyrics";
 import Link from "next/link";
 import { ProgressCircle } from "./ui/progress";
+import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
-const _codeActivities = {
-  b9478d1586304a13: "Visual Studio Code",
-};
+const _codeActivities = ["visual studio code"];
 
 const CRAWLER_UA_RE =
   /bot|crawler|spider|crawl|slurp|mediapartners-google|adsbot|bingpreview|duckduckbot|yandex/i;
@@ -39,15 +43,52 @@ export default function SocialBento() {
     socket: !isCrawler || true, // just for type fix
   });
 
+  // const _codeActivity = useMemo(() => {
+  //   if (!status) return null;
+  //   const activity = status.activities.find(
+  //     (a: { name?: string; type?: number }) =>
+  //       a.name && codeActivities.includes(a.name.toLowerCase()),
+  //   );
+  //   return activity || null;
+  // }, [status]);
+
+  // const { data: wakatimeLast7Days } = useSWRImmutable(
+  //   // Avoid fetching for crawlers
+  //   isCrawler ? null : "wakatime-last-7-days",
+  //   async () => {
+  //     return await getWakaTimeLast7Days();
+  //   },
+  // );
+
+  // const wakatimeSummary = useMemo(() => {
+  //   if (!wakatimeLast7Days) return null;
+  //   const totalSec = wakatimeLast7Days.total_seconds ?? 0;
+  //   const hours = totalSec / 3600;
+  //   const human =
+  //     wakatimeLast7Days.human_readable_total ?? `${hours.toFixed(1)} h`;
+  //   let topProject = null;
+  //   try {
+  //     const projects = wakatimeLast7Days.projects ?? [];
+  //     if (projects.length > 0) {
+  //       const sorted = [...projects].sort(
+  //         (a, b) => b.total_seconds - a.total_seconds,
+  //       );
+  //       topProject = sorted[0] || null;
+  //     }
+  //   } catch {
+  //     topProject = null;
+  //   }
+  //   return { hours, human, topProject };
+  // }, [wakatimeLast7Days]);
+
   const {
     data: lyrics,
     isLoading: isLyricsLoading,
     mutate: mutateLyrics,
-  } = useSWR<Lyrics | "no-lyrics" | "no-track-id", unknown>(
+  } = useSWR(
     // If bot, pass null key so swr won't fetch
     isCrawler ? null : status?.spotify?.track_id,
     async (trackId?: string) => {
-      console.log(trackId);
       return await getLyrics(trackId);
     },
   );
@@ -85,7 +126,7 @@ export default function SocialBento() {
   useEffect(() => {
     if (isCrawler) return;
     const trackId = status?.spotify?.track_id;
-    if (!trackId || !lyrics) return;
+    if (!trackId || !lyrics || typeof lyrics === "string") return;
     useLyricsStore.getState().set(trackId, lyrics);
   }, [lyrics, status?.spotify?.track_id, isCrawler]);
 
@@ -193,18 +234,99 @@ export default function SocialBento() {
 
   return (
     <div className="flex w-full flex-col gap-2">
-      <section className="grid w-full grid-cols-2 gap-2">
-        <div className="h-38 w-full rounded-2xl border bg-muted/50 p-4 xl:w-48 dark:bg-muted/20">
-          <header className="flex items-center gap-2">
-            <SiDiscord size={20} />
+      <section className="w-full gap-2">
+        <div className="flex w-full justify-between rounded-2xl border bg-muted/50 p-4 shadow-sm transition hover:scale-105 dark:bg-muted/20">
+          <aside className="flex items-center gap-2">
+            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 p-1">
+              <Avatar>
+                <AvatarImage
+                  src={`https://cdn.discordapp.com/avatars/${status?.discord_user.id}/${status?.discord_user.avatar}`}
+                  alt="Discord Avatar"
+                />
+                <AvatarFallback>
+                  <SiDiscord size={18} className="text-slate-700" />
+                </AvatarFallback>
+              </Avatar>
+            </span>
             {loading && !status ? (
-              <Skeleton className="h-4 w-2/3" />
+              <div className="flex w-full flex-col gap-2">
+                <Skeleton className="h-2 w-2/3" />
+                <Skeleton className="h-2 w-2/4" />
+              </div>
             ) : (
-              <p className="text-xs">@{status?.discord_user.username}</p>
+              <div className="flex flex-col gap-px">
+                <p className="font-medium text-slate-700 text-xs dark:text-slate-200/80">
+                  @{status?.discord_user.username}
+                </p>
+                <span className="flex items-center gap-1 text-2xs text-muted-foreground">
+                  <div
+                    className={`size-2 rounded-full discord-${status?.discord_status}`}
+                  ></div>
+                  <p className="mt-0.5 leading-2">
+                    {status?.discord_status.replace(
+                      /^./,
+                      status?.discord_status.charAt(0).toUpperCase(),
+                    )}
+                  </p>
+                </span>
+              </div>
             )}
-          </header>
+          </aside>
+          <div className="flex items-center gap-2">
+            {status?.activities.map((activity) => {
+              if (!activity.name) return null;
+              const ifSpotify = activity.name.toLowerCase() === "spotify";
+
+              return (
+                <div key={activity.id} className="relative">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      {ifSpotify ? (
+                        <SiSpotify size={20} className="text-spotify" />
+                      ) : (
+                        activity.assets?.large_image && (
+                          <Image
+                            src={`https://media.discordapp.net/${activity.assets.large_image.replace("mp:", "")}`}
+                            alt={activity.name}
+                            width={32}
+                            height={32}
+                            className="rounded-lg"
+                          />
+                        )
+                      )}
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{activity.assets?.large_text}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  {activity.assets?.small_image && (
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <span className="-bottom-1 -right-1 absolute inline-block rounded-full border-2 border-background bg-background">
+                          <Image
+                            src={`https://media.discordapp.net/${activity.assets.small_image.replace("mp:", "")}`}
+                            alt={activity.name}
+                            width={16}
+                            height={16}
+                            className="rounded-full"
+                          />
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{activity.assets.small_text}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  )}
+                </div>
+              );
+            })}
+            {status?.activities.length === 0 && (
+              <p className="text-2xs text-muted-foreground">
+                No active activities
+              </p>
+            )}
+          </div>
         </div>
-        <div className="h-38 w-full rounded-2xl border bg-muted/50 p-4 xl:w-48 dark:bg-muted/20"></div>
       </section>
       <section className="grid w-full grid-cols-2 gap-2">
         {loading && !status ? (
@@ -241,7 +363,7 @@ export default function SocialBento() {
                     </p>
                   </div>
                 </header>
-                <span className="absolute top-2 right-2.5 inline-flex items-center gap-1 text-3xs">
+                <span className="absolute top-2.5 right-2.5 inline-flex items-center gap-1 text-3xs">
                   Listening on
                   <SiSpotify size={14} className="pr-0.5" />
                 </span>
@@ -257,9 +379,9 @@ export default function SocialBento() {
                     {isLyricsLoading ? (
                       <Skeleton className="h-full w-full" />
                     ) : lyrics === "no-lyrics" ? (
-                      <p>No lyrics found.</p>
+                      <p className="m-auto">No lyrics found.</p>
                     ) : lyrics === "no-track-id" ? (
-                      <p>No track ID provided.</p>
+                      <p className="m-auto">No track ID provided.</p>
                     ) : (
                       (() => {
                         if (typeof lyrics !== "object" || lyrics === null)
@@ -830,11 +952,6 @@ export default function SocialBento() {
           </div>
         )}
       </section>
-      <style jsx>{`
-        /* hide scrollbars while preserving scroll behavior */
-        .lyrics-scroll::-webkit-scrollbar { width: 0; height: 0; display: none; }
-        .lyrics-scroll { scrollbar-width: none; -ms-overflow-style: none; }
-      `}</style>
     </div>
   );
 }
