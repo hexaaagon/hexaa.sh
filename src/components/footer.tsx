@@ -104,7 +104,7 @@ export default function Footer() {
                 })
               }
             >
-              Github
+              GitHub
             </Link>{" "}
             {process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA && (
               <>
