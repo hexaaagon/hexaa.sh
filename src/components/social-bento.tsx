@@ -233,9 +233,9 @@ export default function SocialBento() {
   if (isCrawler) return null;
 
   return (
-    <div className="flex w-full flex-col gap-2">
-      <section className="w-full gap-2">
-        <div className="flex w-full justify-between rounded-2xl border bg-muted/50 p-4 shadow-sm transition hover:scale-105 dark:bg-muted/20">
+    <div className="flex w-full flex-col gap-2 lg:grid lg:grid-cols-4">
+      <section className="w-full gap-2 lg:h-full">
+        <div className="flex w-full justify-between rounded-2xl border bg-muted/50 p-4 lg:h-full dark:bg-muted/20">
           <aside className="flex items-center gap-2">
             <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 p-1">
               <Avatar>
@@ -328,9 +328,9 @@ export default function SocialBento() {
           </div>
         </div>
       </section>
-      <section className="grid w-full grid-cols-2 gap-2">
+      <section className="col-span-2 flex w-full flex-col gap-2">
         {loading && !status ? (
-          <Skeleton className="col-span-2 h-38 w-full rounded-2xl border bg-social-spotify xl:w-98"></Skeleton>
+          <Skeleton className="h-38 w-full rounded-2xl border bg-social-spotify xl:w-98"></Skeleton>
         ) : status?.listening_to_spotify ? (
           /* Listening to Spotify with Lyrics */
           (() => {
@@ -338,7 +338,7 @@ export default function SocialBento() {
               <Link
                 href={`https://open.spotify.com/track/${status?.spotify.track_id}`}
                 target="_blank"
-                className="relative col-span-2 h-38 w-full rounded-2xl border bg-social-spotify p-4 pt-2 transition hover:scale-105 xl:w-98"
+                className="relative h-38 w-full rounded-2xl border bg-social-spotify p-4 pt-2"
               >
                 <header className="mb-2 flex items-center gap-2">
                   <ProgressCircle
@@ -951,6 +951,100 @@ export default function SocialBento() {
             <div className="absolute right-0 bottom-0 left-0 z-50 h-8 w-full bg-linear-to-b from-transparent to-social-spotify"></div>
           </div>
         )}
+      </section>
+      <section className="w-full gap-2 lg:h-full">
+        <div className="flex w-full justify-between rounded-2xl border bg-muted/50 p-4 lg:h-full dark:bg-muted/20">
+          <aside className="flex items-center gap-2">
+            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 p-1">
+              <Avatar>
+                <AvatarImage
+                  src={`https://cdn.discordapp.com/avatars/${status?.discord_user.id}/${status?.discord_user.avatar}`}
+                  alt="Discord Avatar"
+                />
+                <AvatarFallback>
+                  <SiDiscord size={18} className="text-slate-700" />
+                </AvatarFallback>
+              </Avatar>
+            </span>
+            {loading && !status ? (
+              <div className="flex w-full flex-col gap-2">
+                <Skeleton className="h-2 w-2/3" />
+                <Skeleton className="h-2 w-2/4" />
+              </div>
+            ) : (
+              <div className="flex flex-col gap-px">
+                <p className="font-medium text-slate-700 text-xs dark:text-slate-200/80">
+                  @{status?.discord_user.username}
+                </p>
+                <span className="flex items-center gap-1 text-2xs text-muted-foreground">
+                  <div
+                    className={`size-2 rounded-full discord-${status?.discord_status}`}
+                  ></div>
+                  <p className="mt-0.5 leading-2">
+                    {status?.discord_status.replace(
+                      /^./,
+                      status?.discord_status.charAt(0).toUpperCase(),
+                    )}
+                  </p>
+                </span>
+              </div>
+            )}
+          </aside>
+          <div className="flex items-center gap-2">
+            {status?.activities.map((activity) => {
+              if (!activity.name) return null;
+              const ifSpotify = activity.name.toLowerCase() === "spotify";
+
+              return (
+                <div key={activity.id} className="relative">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      {ifSpotify ? (
+                        <SiSpotify size={20} className="text-spotify" />
+                      ) : (
+                        activity.assets?.large_image && (
+                          <Image
+                            src={`https://media.discordapp.net/${activity.assets.large_image.replace("mp:", "")}`}
+                            alt={activity.name}
+                            width={32}
+                            height={32}
+                            className="rounded-lg"
+                          />
+                        )
+                      )}
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{activity.assets?.large_text}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  {activity.assets?.small_image && (
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <span className="-bottom-1 -right-1 absolute inline-block rounded-full border-2 border-background bg-background">
+                          <Image
+                            src={`https://media.discordapp.net/${activity.assets.small_image.replace("mp:", "")}`}
+                            alt={activity.name}
+                            width={16}
+                            height={16}
+                            className="rounded-full"
+                          />
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{activity.assets.small_text}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  )}
+                </div>
+              );
+            })}
+            {status?.activities.length === 0 && (
+              <p className="text-2xs text-muted-foreground">
+                No active activities
+              </p>
+            )}
+          </div>
+        </div>
       </section>
     </div>
   );
