@@ -57,6 +57,14 @@ export default async function Page(props: PageProps<"/blog/[slug]">) {
         )}
       />
       <div className="prose dark:prose-invert min-w-0 flex-1">
+        {page.data.flags?.includes("personal-opinion") && (
+          <p className="mt-8 rounded-md border-yellow-500 border-l-4 bg-yellow-300/50 p-4 text-sm">
+            ⚠️ <strong>Personal Opinion:</strong> The views expressed in this
+            blog post are solely my own and do not represent the opinions of any
+            organization or entity I may be affiliated with. And remember, you
+            can always disagree with me!
+          </p>
+        )}
         <InlineTOC items={toc} className="mt-2 mb-4" />
         <Mdx components={getMDXComponents()} />
       </div>
