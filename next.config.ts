@@ -28,14 +28,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  rewrites: async () => {
-    return [
-      {
-        source: "/about",
-        destination: "/error-pages/page-unavailable",
-      },
-    ];
-  },
   allowedDevOrigins: ["192.168.1.*"],
   reactCompiler: true,
 };
