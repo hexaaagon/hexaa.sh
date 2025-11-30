@@ -6,6 +6,7 @@ export const routePatterns = [
   /^dub-redirect$/,
   /^error-pages\/not-found$/,
   /^error-pages\/page-unavailable$/,
+  /^about$/,
   /^blog\/[^\/]+$/,
   /^blog$/,
   /^blog\/rss.xml$/,

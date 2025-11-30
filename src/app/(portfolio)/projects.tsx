@@ -35,7 +35,7 @@ export default function ProjectSection() {
                 className="-z-10 absolute top-0 left-0 h-full w-full object-cover object-right opacity-30 invert dark:invert-0"
                 fetchPriority="low"
               />
-              <h2 className="bg-gradient-to-b from-foreground to-foreground/50 bg-clip-text font-montreal font-semibold text-transparent text-xl sm:text-2xl lg:text-3xl">
+              <h2 className="bg-linear-to-b from-foreground to-foreground/50 bg-clip-text font-montreal font-semibold text-transparent text-xl sm:text-2xl lg:text-3xl">
                 the projects i've built
               </h2>
               <p className="max-w-[600px] text-xs leading-3.5 sm:text-sm sm:leading-6 md:text-base">
@@ -59,7 +59,7 @@ export default function ProjectSection() {
             <div className="size-8 border-separator/10 border-t border-l sm:size-14"></div>
           </div>
 
-          <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-[70%] w-full bg-gradient-to-b from-transparent to-background"></div>
+          <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-[70%] w-full bg-linear-to-b from-transparent to-background"></div>
           <PlusSeparator position={["top-left", "top-right"]} />
         </div>
         <div className="inner relative border-separator/10 border-x p-2">

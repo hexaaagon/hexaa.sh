@@ -173,7 +173,7 @@ export function SmoothCursor({
 
   return (
     <motion.div
-      className={`pointer-events-none fixed z-[99999] translate-x-[-50%] translate-y-[-50%] mix-blend-exclusion transition-[scale,opacity] ${isMoving || cursorType === "pointer" || isOverPointer ? "scale-100 opacity-100 duration-300" : "scale-200 opacity-0 duration-700"}`}
+      className={`pointer-events-none fixed z-99999 translate-x-[-50%] translate-y-[-50%] mix-blend-exclusion transition-[scale,opacity] ${isMoving || cursorType === "pointer" || isOverPointer ? "scale-100 opacity-100 duration-300" : "scale-200 opacity-0 duration-700"}`}
       style={{
         left: cursorX,
         top: cursorY,
@@ -194,7 +194,7 @@ export function SmoothCursor({
         style={{
           opacity: !isOverPointer ? 1 : 0,
         }}
-        className={`pointer-events-none absolute top-0 left-0 h-[34px] w-[34px] rounded-full border-2 shadow-sm drop-shadow-sm transition-all duration-300 ease-out will-change-transform dark:border-gray-700 ${disableRotation ? "rotate-[-45deg]" : ""}`}
+        className={`pointer-events-none absolute top-0 left-0 h-[34px] w-[34px] rounded-full border-2 shadow-sm drop-shadow-sm transition-all duration-300 ease-out will-change-transform dark:border-gray-700 ${disableRotation ? "-rotate-45" : ""}`}
       ></div>
     </motion.div>
   );

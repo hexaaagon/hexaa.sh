@@ -96,7 +96,7 @@ export async function generate({ path, title, description }: GenerateProps) {
         </section>
       </header>
 
-      <main tw="flex flex-col justify-center items-center flex-1 px-16 py-12 w-full z-10 gap-[-5rem] mt-[-2rem]">
+      <main tw="flex flex-col justify-center items-center flex-1 px-16 py-12 w-full z-10 gap-[-5rem] -mt-8">
         <h1
           tw="font-semibold text-center"
           style={{

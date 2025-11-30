@@ -494,8 +494,8 @@ export default function SkillsSection() {
                 </Marquee>
               </div>
 
-              <div className="pointer-events-none absolute top-0 bottom-0 left-0 w-1/4 bg-gradient-to-r from-background"></div>
-              <div className="pointer-events-none absolute top-0 right-0 bottom-0 w-1/4 bg-gradient-to-l from-background"></div>
+              <div className="pointer-events-none absolute top-0 bottom-0 left-0 w-1/4 bg-linear-to-r from-background"></div>
+              <div className="pointer-events-none absolute top-0 right-0 bottom-0 w-1/4 bg-linear-to-l from-background"></div>
 
               <PlusSeparator position={["top-left", "top-right"]} />
             </>

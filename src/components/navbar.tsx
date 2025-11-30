@@ -95,7 +95,7 @@ export default function Navbar() {
                       viewBox="0 0 24 24"
                       strokeWidth="1.5"
                       stroke="currentColor"
-                      className="!size-4"
+                      className="size-4!"
                     >
                       <path
                         strokeLinecap="round"

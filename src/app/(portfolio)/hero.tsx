@@ -57,7 +57,7 @@ export default function HeroSection() {
       </div>
       <div className="border-separator/10 border-t">
         <div className="inner relative m-auto border-separator/10 border-x p-4">
-          <span className="relative flex items-center justify-between font-montreal-mono text-xs opacity-90 transition-[opacity] duration-300 dark:opacity-75">
+          <span className="relative flex items-center justify-between font-montreal-mono text-xs opacity-90 transition-opacity duration-300 dark:opacity-75">
             <Link href="https://time.is/Jakarta" target="_blank">
               [<LocalTime />]
             </Link>

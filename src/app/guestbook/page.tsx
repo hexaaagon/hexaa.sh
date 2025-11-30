@@ -153,7 +153,7 @@ export default function GuestbookPage() {
   return (
     <main className="mt-16">
       <div className="border-separator/10 border-t">
-        <div className="inner relative flex max-w-[64rem] border-separator/10 border-x">
+        <div className="inner relative flex max-w-5xl border-separator/10 border-x">
           <div className="hidden flex-col lg:flex">
             <div className="size-8 border-separator/10 border-r border-b sm:size-20"></div>
             <div className="grow border-separator/10 border-r"></div>
@@ -167,7 +167,7 @@ export default function GuestbookPage() {
               <div className="hidden size-8 border-separator/10 border-b border-l sm:size-20 lg:block"></div>
               <div className="size-8 border-separator/10 border-b border-l sm:size-20"></div>
             </div>
-            <div className="group relative flex h-[12rem] overflow-hidden bg-background/50">
+            <div className="group relative flex h-48 overflow-hidden bg-background/50">
               <div className="absolute top-4 left-4 size-16 bg-foreground blur-[10rem] transition-all group-hover:blur-[7rem]"></div>
               <div className="absolute right-4 bottom-4 size-16 bg-foreground blur-[7rem] transition-all group-hover:blur-[6rem]"></div>
               <Image
@@ -204,7 +204,7 @@ export default function GuestbookPage() {
           <div
             ref={scrollContainerRef}
             data-lenis-prevent
-            className="inner relative flex h-[32rem] max-w-[64rem] touch-pan-y flex-col overflow-y-auto border-separator/10 border-x"
+            className="inner relative flex h-128 max-w-5xl touch-pan-y flex-col overflow-y-auto border-separator/10 border-x"
           >
             <div className="flex grow flex-col">
               {(guestbook || []).map((msg) => (
@@ -213,7 +213,7 @@ export default function GuestbookPage() {
                   className="border-separator/10 border-b last:border-0"
                 >
                   <div className="flex gap-4 px-8 py-3">
-                    <div className="relative size-12 flex-shrink-0 overflow-hidden rounded-full bg-muted">
+                    <div className="relative size-12 shrink-0 overflow-hidden rounded-full bg-muted">
                       {msg.user.image ? (
                         <Image
                           src={msg.user.image}
@@ -293,7 +293,7 @@ export default function GuestbookPage() {
             </div>
           </div>
           <div className="border-separator/10 border-y border-dashed">
-            <div className="inner absolute right-0 left-0 mx-auto h-[8rem] w-full max-w-[64rem]">
+            <div className="inner absolute right-0 left-0 mx-auto h-32 w-full max-w-5xl">
               <PlusSeparator
                 position={[
                   "top-left",
@@ -317,8 +317,8 @@ export default function GuestbookPage() {
                 }}
               />
             </div>
-            <div className="inner relative h-[8rem] max-w-[64rem] overflow-hidden border-separator/10 border-x border-dashed">
-              <span className="absolute top-0 left-0 size-16 bg-muted-foreground/100 blur-[100px]" />
+            <div className="inner relative h-32 max-w-5xl overflow-hidden border-separator/10 border-x border-dashed">
+              <span className="absolute top-0 left-0 size-16 bg-muted-foreground blur-[100px]" />
               <span className="absolute right-2 bottom-2 size-16 bg-muted-foreground/30 blur-[50px]" />
               {session?.data?.user ? (
                 <div className="flex h-full flex-col gap-2">
@@ -364,7 +364,7 @@ export default function GuestbookPage() {
           </div>
           {session?.data?.user && (
             <div className="border-separator/10 border-b border-dashed">
-              <div className="inner relative flex max-w-[64rem] flex-col items-center justify-between gap-4 border-separator/10 border-x border-dashed px-4 py-3 md:flex-row">
+              <div className="inner relative flex max-w-5xl flex-col items-center justify-between gap-4 border-separator/10 border-x border-dashed px-4 py-3 md:flex-row">
                 <span className="flex items-center gap-2">
                   <p className="text-muted-foreground text-sm">Logged in as</p>
                   <Tooltip>

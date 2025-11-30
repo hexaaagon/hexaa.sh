@@ -1,8 +1,9 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'fumadocs-ui/css/shadcn.css';
+@import 'fumadocs-ui/css/preset.css';
+
 @plugin "@tailwindcss/typography";
-@import "fumadocs-ui/css/shadcn.css";
-@import "fumadocs-ui/css/preset.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -181,7 +182,7 @@
 
 @layer components {
   .inner {
-    @apply mx-auto w-11/12 max-w-[92rem];
+    @apply mx-auto w-11/12 max-w-368;
   }
 
   /* Last row center for 3-column grid (mobile) */
