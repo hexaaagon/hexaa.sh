@@ -78,7 +78,7 @@ export default function SocialBento({
     },
   );
 
-  const _wakatimeSummary = useMemo(() => {
+  const wakatimeSummary = useMemo(() => {
     if (!wakatimeLast7Days) return null;
     const totalSec = wakatimeLast7Days.total_seconds ?? 0;
     const hours = totalSec / 3600;
@@ -312,13 +312,21 @@ export default function SocialBento({
                           <SiSpotify size={20} className="text-spotify" />
                         ) : (
                           activity.assets?.large_image && (
-                            <Image
-                              src={`https://media.discordapp.net/${activity.assets.large_image.replace("mp:", "")}`}
-                              alt={activity.name}
-                              width={32}
-                              height={32}
-                              className="rounded-lg"
-                            />
+                            <Avatar className="rounded-lg">
+                              <AvatarImage
+                                src={`https://media.discordapp.net/${activity.assets.large_image.replace("mp:", "")}`}
+                                alt={activity.assets.large_text}
+                                height={32}
+                                width={32}
+                              />
+                              <AvatarFallback>
+                                {typeof activity.assets?.large_text === "string"
+                                  ? activity.assets.large_text
+                                      .slice(0, 2)
+                                      .toUpperCase()
+                                  : ""}
+                              </AvatarFallback>
+                            </Avatar>
                           )
                         )}
                       </TooltipTrigger>
@@ -330,13 +338,21 @@ export default function SocialBento({
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <span className="-bottom-1 -right-1 absolute inline-block rounded-full border-2 border-background bg-background">
-                            <Image
-                              src={`https://media.discordapp.net/${activity.assets.small_image.replace("mp:", "")}`}
-                              alt={activity.name}
-                              width={16}
-                              height={16}
-                              className="rounded-full"
-                            />
+                            <Avatar className="size-4 rounded-lg">
+                              <AvatarImage
+                                src={`https://media.discordapp.net/${activity.assets.small_image.replace("mp:", "")}`}
+                                alt={activity.assets.small_text}
+                                height={16}
+                                width={16}
+                              />
+                              <AvatarFallback>
+                                {typeof activity.assets?.small_text === "string"
+                                  ? activity.assets.small_text
+                                      .slice(0, 2)
+                                      .toUpperCase()
+                                  : ""}
+                              </AvatarFallback>
+                            </Avatar>
                           </span>
                         </TooltipTrigger>
                         <TooltipContent>
@@ -360,7 +376,12 @@ export default function SocialBento({
             ) : codeActivity ? (
               <div className="flex flex-col items-center text-center">
                 <h3 className="-mb-px font-medium text-xs">
-                  Coding in {codeActivity.details?.split(" - ")[0]}
+                  {codeActivity.details
+                    ?.split(" - ")[0]
+                    .toLowerCase()
+                    .startsWith("in ")
+                    ? `Coding in ${codeActivity.details?.split(" - ")[0].replace("In ", "")}`
+                    : codeActivity.details?.split(" - ")[0]}
                 </h3>
                 <p className="mb-1 text-2xs">
                   {codeActivity.details?.split(" - ")[1]}
@@ -375,9 +396,17 @@ export default function SocialBento({
                 </span>
               </div>
             ) : (
-              <p className="text-2xs text-muted-foreground">
-                Not coding right now
-              </p>
+              <div className="flex flex-col items-center justify-between text-center">
+                <h5 className="text-muted-foreground text-sm">
+                  Best project for last 7 days
+                </h5>
+                <h3 className="font-medium font-mono text-xl">
+                  “{wakatimeSummary?.topProject?.name}”
+                </h3>
+                <p className="font-mono text-muted-foreground">
+                  {wakatimeSummary?.topProject?.text}
+                </p>
+              </div>
             )}
           </div>
         </div>
