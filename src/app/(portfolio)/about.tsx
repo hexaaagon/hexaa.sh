@@ -13,6 +13,7 @@ import { wakaTimeData } from "@/lib/actions/wakatime";
 import { cn } from "@/lib/utils";
 
 import SkillsSection from "./about-skills";
+import Link from "next/link";
 
 export default function AboutSection() {
   const wakatimeStats = useSWR("wakatime", wakaTimeData);
@@ -29,8 +30,8 @@ export default function AboutSection() {
   return (
     <>
       <main className="w-full border-separator/10 border-t">
-        <div className="inner relative flex h-full flex-col border-separator/10 border-x px-2 text-sm sm:px-4 sm:text-base lg:flex-row lg:justify-between lg:px-8">
-          <div className="py-24 lg:max-w-7/11">
+        <div className="inner relative flex h-full flex-col border-separator/10 border-x px-2 text-sm sm:px-4 sm:text-base xl:flex-row xl:justify-between xl:px-8">
+          <div className="py-24 xl:max-w-7/11">
             <Image
               src="/static/images/typography/hello.webp"
               alt="hello."
@@ -93,9 +94,20 @@ export default function AboutSection() {
               seemed impossible to fix.
             </p>
           </div>
-          <div className="relative m-4 mx-auto hidden w-full max-w-sm items-center justify-center rounded-2xl lg:flex">
-            <div className="flex h-96 w-full items-center justify-center text-foreground/70 text-xs lg:h-full">
-              ik it's a blank space but idfk what to put in here
+          <div className="relative mx-auto flex w-full max-w-sm items-center justify-center">
+            <div className="flex flex-col justify-between rounded-xs border bg-muted/50 p-4 shadow-sm dark:bg-muted/20">
+              <h2 className="font-semibold text-lg">philosophy</h2>
+              <p className="mt-1 leading-tight">
+                I’d rather ship slow and solid than fast and fragile. Every
+                project is an opportunity to build something that feels precise,
+                calm, and durable, not just “done.”
+              </p>
+              <Link
+                href="/about"
+                className="mt-2 font-mono text-blue-600 text-sm hover:underline dark:text-blue-400"
+              >
+                [/about]
+              </Link>
             </div>
           </div>
           <PlusSeparator position={["top-left", "top-right"]} />

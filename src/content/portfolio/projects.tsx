@@ -42,17 +42,17 @@ export const projectsData: ProjectItem[] = [
     unmaintained: true,
   },
   {
-    title: "Claisse",
+    title: "Wackanel",
     description:
-      "An educational platform that utilize AI for making automated quiz based on the student perference of study and their study interest.",
-    image: "/static/images/projects/claisse.png",
+      "A serverless site that lets you mirror multiple Wakatime and Wakapis instances with a backup system.",
+    image: "/static/images/projects/wackanel.gif",
     badge: [
-      <Badge key="hackathon">Hackathon</Badge>,
-      <Badge key="garuda-hacks">Garuda Hacks 6.0</Badge>,
-      <Badge key="education">Education</Badge>,
+      <Badge key="personal">Personal</Badge>,
+      <Badge key="wakatime">Wakatime</Badge>,
+      <Badge key="hackatime">Hackatime</Badge>,
     ],
-    link: `${url}/claisse?utm_source=personal_website`,
-    repo: "https://github.com/hexaaagon/claisse",
+    link: `${url}/wackanel?utm_source=personal_website`,
+    repo: "https://github.com/hexaaagon/wackanel",
     unmaintained: true,
   },
   {
@@ -80,17 +80,17 @@ export const projectsData: ProjectItem[] = [
     repo: "https://github.com/hexaaagon/simple-chatbot",
   },
   {
-    title: "Wackanel",
+    title: "Claisse",
     description:
-      "A serverless site that lets you mirror multiple Wakatime and Wakapis instances with a backup system.",
-    image: "/static/images/projects/wackanel.gif",
+      "An educational platform that utilize AI for making automated quiz based on the student perference of study and their study interest.",
+    image: "/static/images/projects/claisse.png",
     badge: [
-      <Badge key="personal">Personal</Badge>,
-      <Badge key="wakatime">Wakatime</Badge>,
-      <Badge key="hackatime">Hackatime</Badge>,
+      <Badge key="hackathon">Hackathon</Badge>,
+      <Badge key="garuda-hacks">Garuda Hacks 6.0</Badge>,
+      <Badge key="education">Education</Badge>,
     ],
-    link: `${url}/wackanel?utm_source=personal_website`,
-    repo: "https://github.com/hexaaagon/wackanel",
+    link: `${url}/claisse?utm_source=personal_website`,
+    repo: "https://github.com/hexaaagon/claisse",
     unmaintained: true,
   },
 ];

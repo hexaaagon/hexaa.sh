@@ -1,7 +1,8 @@
 import { ProjectCard } from "@/components/project";
 import { PlusSeparator } from "@/components/ui/plus-separator";
-import { projectsData } from "@/content/projects";
+import { projectsData } from "@/content/portfolio/projects";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ProjectSection() {
   return (
@@ -34,7 +35,7 @@ export default function ProjectSection() {
                 className="-z-10 absolute top-0 left-0 h-full w-full object-cover object-right opacity-30 invert dark:invert-0"
                 fetchPriority="low"
               />
-              <h2 className="bg-gradient-to-b from-foreground to-foreground/50 bg-clip-text font-montreal font-semibold text-transparent text-xl sm:text-2xl lg:text-3xl">
+              <h2 className="bg-linear-to-b from-foreground to-foreground/50 bg-clip-text font-montreal font-semibold text-transparent text-xl sm:text-2xl lg:text-3xl">
                 the projects i've built
               </h2>
               <p className="max-w-[600px] text-xs leading-3.5 sm:text-sm sm:leading-6 md:text-base">
@@ -58,14 +59,35 @@ export default function ProjectSection() {
             <div className="size-8 border-separator/10 border-t border-l sm:size-14"></div>
           </div>
 
-          <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-[70%] w-full bg-gradient-to-b from-transparent to-background"></div>
+          <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-[70%] w-full bg-linear-to-b from-transparent to-background"></div>
           <PlusSeparator position={["top-left", "top-right"]} />
         </div>
         <div className="inner relative border-separator/10 border-x p-2">
-          <section className="grid grid-cols-1 gap-2 md:grid-cols-2">
-            {projectsData.map((project) => (
-              <ProjectCard key={project.title} project={project} />
+          <section className="relative grid grid-cols-1 gap-2 md:grid-cols-2">
+            {projectsData.slice(0, 4).map((project, idx) => (
+              <ProjectCard
+                key={project.title}
+                project={project}
+                classNames={{
+                  container:
+                    idx === 2
+                      ? "md:max-h-full md:-mb-[30%] md:pointer-events-none md:overflow-h-hidden md:border-b-transparent"
+                      : idx === 3
+                        ? "max-h-full -mb-[30%] pointer-events-none overflow-h-hidden border-b-transparent"
+                        : "",
+                }}
+              />
             ))}
+            <div className="absolute right-0 bottom-0 left-0 h-64 w-full bg-linear-to-b from-transparent to-background"></div>
+          </section>
+          <section className="flex flex-col items-center justify-center py-8">
+            <p>check out more projects at</p>
+            <Link
+              href="/projects"
+              className="font-mono text-blue-600 hover:underline dark:text-blue-400"
+            >
+              [/projects]
+            </Link>
           </section>
         </div>
       </main>

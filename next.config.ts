@@ -1,6 +1,15 @@
 import type { NextConfig } from "next";
+import createBundleAnalyzer from "@next/bundle-analyzer";
+import { createMDX } from "fumadocs-mdx/next";
 
 const nextConfig: NextConfig = {
+  serverExternalPackages: ["typescript", "@takumi-rs/image-response"],
+  experimental: {
+    optimizePackageImports: [
+      "@icons-pack/react-simple-icons",
+      "@paper-design/shaders-react",
+    ],
+  },
   images: {
     remotePatterns: [
       {
@@ -19,23 +28,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  rewrites: async () => {
-    return [
-      {
-        source: "/about",
-        destination: "/error-pages/page-unavailable",
-      },
-      {
-        source: "/projects",
-        destination: "/error-pages/page-unavailable",
-      },
-      {
-        source: "/blog",
-        destination: "/error-pages/page-unavailable",
-      },
-    ];
-  },
   allowedDevOrigins: ["192.168.1.*"],
+  reactCompiler: true,
 };
 
-export default nextConfig;
+const withMDX = createMDX();
+const withAnalyzer = createBundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
+export default withAnalyzer(withMDX(nextConfig));

@@ -22,7 +22,7 @@ export function DubRedirectCard({ data, className }: DubRedirectCardProps) {
       )}
     >
       {/* Image Section */}
-      <div className="relative h-48 w-full bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-900">
+      <div className="relative h-48 w-full bg-linear-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-900">
         {data.image ? (
           // biome-ignore lint/performance/noImgElement: <explanation>
           <img

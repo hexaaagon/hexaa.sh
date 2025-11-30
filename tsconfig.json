@@ -28,7 +28,8 @@
       ],
       "next/*": [
         "./.next/*"
-      ]
+      ],
+      "fumadocs-mdx:collections/*": ["./.source/*"]
     }
   },
   "include": [
@@ -39,7 +40,7 @@
     ".next/types/**/*.ts",
     ".next\\dev/types/**/*.ts",
     ".next/dev/types/**/*.ts"
-  ],
+, "src/content/blog/hello-word.mdx"  ],
   "exclude": [
     "node_modules"
   ]

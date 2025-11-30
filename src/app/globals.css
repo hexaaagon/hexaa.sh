@@ -1,5 +1,9 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'fumadocs-ui/css/shadcn.css';
+@import 'fumadocs-ui/css/preset.css';
+
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -27,6 +31,7 @@
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
+  --color-social-spotify: var(--social-spotify);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -82,14 +87,7 @@
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-primary: oklch(0.21 0.006 285.885);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.705 0.015 286.067);
+  --social-spotify: oklch(0.7416 0.1414 154.36);
 
   *::selection,
   *::-moz-selection,
@@ -131,12 +129,46 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.552 0.016 285.938);
+  --social-spotify: oklch(0.2672 0.0469 169.57);
 
   ::selection,
   ::-moz-selection,
   ::-webkit-selection {
     background: oklch(0.3092 0 0);
   }
+}
+
+.prose {
+  /* Prose typography variables */
+  --tw-prose-body: var(--foreground);
+  --tw-prose-headings: var(--foreground);
+  --tw-prose-lead: var(--muted-foreground);
+  --tw-prose-links: var(--primary);
+  --tw-prose-bold: var(--foreground);
+  --tw-prose-counters: var(--muted-foreground);
+  --tw-prose-bullets: var(--muted-foreground);
+  --tw-prose-hr: var(--border);
+  --tw-prose-quotes: var(--foreground);
+  --tw-prose-quote-borders: var(--border);
+  --tw-prose-captions: var(--muted-foreground);
+  --tw-prose-code: var(--foreground);
+  --tw-prose-pre-code: var(--foreground);
+  --tw-prose-pre-bg: var(--muted);
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
+}
+
+.discord-online {
+  background-color: oklch(72.3% 0.219 149.579);
+}
+.discord-idle {
+  background-color: oklch(79.5% 0.184 86.047);
+}
+.discord-dnd {
+  background-color: oklch(63.7% 0.237 25.331);
+}
+.discord-offline {
+  background-color: oklch(55.4% 0.046 257.417);
 }
 
 @layer base {
@@ -150,7 +182,7 @@
 
 @layer components {
   .inner {
-    @apply mx-auto w-11/12 max-w-[92rem];
+    @apply mx-auto w-11/12 max-w-368;
   }
 
   /* Last row center for 3-column grid (mobile) */
@@ -220,4 +252,15 @@
   to {
     transform: translateY(calc(-100% - var(--gap)));
   }
+}
+
+/* Hide scrollbars for lyric scroll containers while preserving scroll behavior */
+.lyrics-scroll::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+.lyrics-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
