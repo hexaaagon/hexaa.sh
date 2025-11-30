@@ -12,6 +12,7 @@ import {
   getGithubContributionsSummaryForYear,
   getLyrics,
   getRecentTrackPlayed,
+  getWakaTimeLast7Days,
 } from "@/lib/portfolio/social";
 import { useLyricsStore } from "@/lib/store/lyrics-store";
 import {
@@ -39,7 +40,7 @@ import {
 import { cn } from "@/lib/utils";
 import { GitBranch } from "lucide-react";
 
-const _codeActivities = ["visual studio code"];
+const codeActivities = ["visual studio code"];
 
 const CRAWLER_UA_RE =
   /bot|crawler|spider|crawl|slurp|mediapartners-google|adsbot|bingpreview|duckduckbot|yandex/i;
@@ -60,43 +61,43 @@ export default function SocialBento({
     socket: !isCrawler || true, // just for type fix
   });
 
-  // const _codeActivity = useMemo(() => {
-  //   if (!status) return null;
-  //   const activity = status.activities.find(
-  //     (a: { name?: string; type?: number }) =>
-  //       a.name && codeActivities.includes(a.name.toLowerCase()),
-  //   );
-  //   return activity || null;
-  // }, [status]);
+  const codeActivity = useMemo(() => {
+    if (!status) return null;
+    const activity = status.activities.find(
+      (a: { name?: string; type?: number }) =>
+        a.name && codeActivities.includes(a.name.toLowerCase()),
+    );
+    return activity || null;
+  }, [status]);
 
-  // const { data: wakatimeLast7Days } = useSWRImmutable(
-  //   // Avoid fetching for crawlers
-  //   isCrawler ? null : "wakatime-last-7-days",
-  //   async () => {
-  //     return await getWakaTimeLast7Days();
-  //   },
-  // );
+  const { data: wakatimeLast7Days } = useSWRImmutable(
+    //Avoid fetching for crawlers
+    isCrawler ? null : "wakatime-last-7-days",
+    async () => {
+      return await getWakaTimeLast7Days();
+    },
+  );
 
-  // const wakatimeSummary = useMemo(() => {
-  //   if (!wakatimeLast7Days) return null;
-  //   const totalSec = wakatimeLast7Days.total_seconds ?? 0;
-  //   const hours = totalSec / 3600;
-  //   const human =
-  //     wakatimeLast7Days.human_readable_total ?? `${hours.toFixed(1)} h`;
-  //   let topProject = null;
-  //   try {
-  //     const projects = wakatimeLast7Days.projects ?? [];
-  //     if (projects.length > 0) {
-  //       const sorted = [...projects].sort(
-  //         (a, b) => b.total_seconds - a.total_seconds,
-  //       );
-  //       topProject = sorted[0] || null;
-  //     }
-  //   } catch {
-  //     topProject = null;
-  //   }
-  //   return { hours, human, topProject };
-  // }, [wakatimeLast7Days]);
+  const _wakatimeSummary = useMemo(() => {
+    if (!wakatimeLast7Days) return null;
+    const totalSec = wakatimeLast7Days.total_seconds ?? 0;
+    const hours = totalSec / 3600;
+    const human =
+      wakatimeLast7Days.human_readable_total ?? `${hours.toFixed(1)} h`;
+    let topProject = null;
+    try {
+      const projects = wakatimeLast7Days.projects ?? [];
+      if (projects.length > 0) {
+        const sorted = [...projects].sort(
+          (a, b) => b.total_seconds - a.total_seconds,
+        );
+        topProject = sorted[0] || null;
+      }
+    } catch {
+      topProject = null;
+    }
+    return { hours, human, topProject };
+  }, [wakatimeLast7Days]);
 
   const { data: githubSummaryThisYear } = useSWRImmutable(
     // Avoid fetching for crawlers
@@ -274,8 +275,8 @@ export default function SocialBento({
                   </AvatarFallback>
                 </Avatar>
               </span>
-              {loading && !status ? (
-                <div className="flex w-full flex-col gap-2">
+              {loading && status ? (
+                <div className="flex flex-col gap-2">
                   <Skeleton className="h-2 w-2/3" />
                   <Skeleton className="h-2 w-2/4" />
                 </div>
@@ -353,6 +354,32 @@ export default function SocialBento({
               )}
             </div>
           </div>
+          <div className="flex h-full w-full flex-col items-center justify-center">
+            {loading && !status ? (
+              <Skeleton className="h-6 w-3/4" />
+            ) : codeActivity ? (
+              <div className="flex flex-col items-center text-center">
+                <h3 className="-mb-px font-medium text-xs">
+                  Coding in {codeActivity.details?.split(" - ")[0]}
+                </h3>
+                <p className="mb-1 text-2xs">
+                  {codeActivity.details?.split(" - ")[1]}
+                </p>
+                <span className="flex items-center gap-1 text-2xs text-muted-foreground">
+                  <GitBranch size={12} className="inline-block align-middle" />
+                  <span className="inline-block align-middle">
+                    {codeActivity?.state
+                      ? String(codeActivity.state)
+                      : "an unknown branch"}
+                  </span>
+                </span>
+              </div>
+            ) : (
+              <p className="text-2xs text-muted-foreground">
+                Not coding right now
+              </p>
+            )}
+          </div>
         </div>
       </section>
       <section className="col-span-2 flex w-full flex-col gap-2">
@@ -365,9 +392,9 @@ export default function SocialBento({
               <Link
                 href={`https://open.spotify.com/track/${status?.spotify.track_id}`}
                 target="_blank"
-                className="relative h-38 w-full rounded-2xl border bg-social-spotify p-4 pt-2"
+                className="group relative h-38 w-full overflow-clip rounded-2xl border bg-social-spotify p-4 pt-2"
               >
-                <header className="mb-2 flex items-center gap-2">
+                <header className="z-10 mb-2 flex items-center gap-2">
                   <ProgressCircle
                     size={38}
                     strokeWidth={2}
@@ -381,7 +408,7 @@ export default function SocialBento({
                       className="m-auto rounded-full"
                     />
                   </ProgressCircle>
-                  <div className="flex flex-col *:line-clamp-1">
+                  <div className="flex flex-col mix-blend-difference *:z-10 *:line-clamp-1 *:text-white">
                     <p className="font-medium text-xs">
                       {status?.spotify.song}
                     </p>
@@ -390,11 +417,11 @@ export default function SocialBento({
                     </p>
                   </div>
                 </header>
-                <span className="absolute top-2.5 right-2.5 inline-flex items-center gap-1 text-3xs">
+                <span className="absolute top-2.5 right-2.5 z-10 inline-flex items-center gap-1 text-3xs text-white">
                   Listening on
                   <SiSpotify size={14} className="pr-0.5" />
                 </span>
-                <div className="relative">
+                <div className="relative z-10">
                   <div
                     ref={lyricsContainerRef}
                     className="lyrics-scroll h-20 overflow-y-auto overflow-x-hidden text-xs *:leading-4"
@@ -908,6 +935,15 @@ export default function SocialBento({
                     )}
                   </div>
                 </div>
+                <div className="absolute top-0 right-0 bottom-0 left-0 m-auto size-256">
+                  <Image
+                    src={status?.spotify.album_art_url}
+                    alt={"Album Art Background"}
+                    fill
+                    unoptimized
+                    className="overflow-clip opacity-50 blur-lg transition duration-300 ease-in-out group-hover:opacity-60 group-hover:blur-none dark:opacity-40 dark:group-hover:opacity-30"
+                  />
+                </div>
               </Link>
             );
           })()
@@ -975,26 +1011,31 @@ export default function SocialBento({
                 );
               })
             )}
-            <div className="absolute right-0 bottom-0 left-0 z-50 h-8 w-full bg-linear-to-b from-transparent to-social-spotify"></div>
           </div>
         )}
       </section>
       <section className="h-38 w-full gap-2 lg:h-full">
-        <div className="group relative flex h-full w-full flex-col justify-around overflow-clip rounded-2xl border bg-muted/50 p-4 px-8 text-foreground/70 transition duration-300 ease-out hover:text-foreground/90 lg:h-full dark:bg-muted/20">
+        <Link
+          href="https://github.com/hexaaagon"
+          target="_blank"
+          className="group relative flex h-full w-full flex-col justify-around overflow-clip rounded-2xl border bg-muted/50 p-4 px-8 text-foreground/70 transition duration-300 ease-out hover:text-foreground/90 lg:h-full dark:bg-muted/20"
+        >
           <h3 className="inline-flex h-max items-center gap-1 font-medium text-xs">
             <GitBranch size={16} /> GitHub Stats
           </h3>
-          <h1 className="text-5xl text-foreground/90 transition duration-300 ease-out group-hover:text-foreground">
-            {githubContributions
-              ? githubContributions.reduce((a, b) => a + b, 0)
-              : 0}{" "}
-          </h1>
+          {githubSummaryThisYear ? (
+            <h1 className="text-5xl text-foreground/90 transition duration-300 ease-out group-hover:text-foreground">
+              {githubSummaryThisYear.total}
+            </h1>
+          ) : (
+            <Skeleton className="mt-1 h-12 w-3/7" />
+          )}
           <p className="lg:text-sm xl:text-base">contributions this year.</p>
           <Contributions
             calendars={githubContributions || []}
             className="-z-10 absolute top-0 right-0 bottom-0 left-0 m-auto h-auto w-auto opacity-30 blur-[0.5px] transition duration-300 ease-out hover:blur-none group-hover:opacity-50 lg:opacity-20"
           />
-        </div>
+        </Link>
       </section>
     </div>
   );
