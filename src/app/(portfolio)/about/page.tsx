@@ -5,8 +5,10 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { techStacks } from "@/content/portfolio/about";
 import SocialBento from "@/components/social-bento";
+import { getGithubContributions } from "@/lib/portfolio/social";
 
-export default function AboutSection() {
+export default async function AboutSection() {
+  const githubContributions = await getGithubContributions();
   return (
     <main>
       <section className="w-full border-separator/10 border-y">
@@ -70,7 +72,7 @@ export default function AboutSection() {
       </section>
       <section className="w-full">
         <div className="inner relative flex gap-2 border-separator/10 border-x px-2 py-3">
-          <SocialBento />
+          <SocialBento githubContributions={githubContributions ?? undefined} />
         </div>
       </section>
     </main>

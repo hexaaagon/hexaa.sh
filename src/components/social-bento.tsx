@@ -8,9 +8,20 @@ import { Skeleton } from "./ui/skeleton";
 import Image from "next/image";
 import useSWR from "swr";
 import useSWRImmutable from "swr/immutable";
-import { getLyrics, getRecentTrackPlayed } from "@/lib/portfolio/social";
+import {
+  getGithubContributionsSummaryForYear,
+  getLyrics,
+  getRecentTrackPlayed,
+} from "@/lib/portfolio/social";
 import { useLyricsStore } from "@/lib/store/lyrics-store";
-import { useEffect, useState, useRef, useMemo, useCallback } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+  useMemo,
+  useCallback,
+  type HTMLProps,
+} from "react";
 import type {
   Lyrics,
   LineLyric,
@@ -25,13 +36,19 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
+import { GitBranch } from "lucide-react";
 
 const _codeActivities = ["visual studio code"];
 
 const CRAWLER_UA_RE =
   /bot|crawler|spider|crawl|slurp|mediapartners-google|adsbot|bingpreview|duckduckbot|yandex/i;
 
-export default function SocialBento() {
+export default function SocialBento({
+  githubContributions,
+}: {
+  githubContributions?: number[];
+}) {
   // Detect common crawlers from the user-agent string. This runs synchronously
   // in the client so we can avoid starting network-heavy hooks for bots.
   const isCrawler =
@@ -80,6 +97,14 @@ export default function SocialBento() {
   //   }
   //   return { hours, human, topProject };
   // }, [wakatimeLast7Days]);
+
+  const { data: githubSummaryThisYear } = useSWRImmutable(
+    // Avoid fetching for crawlers
+    isCrawler ? null : "github-contributions-summary-this-year",
+    async () => {
+      return await getGithubContributionsSummaryForYear();
+    },
+  );
 
   const {
     data: lyrics,
@@ -235,102 +260,104 @@ export default function SocialBento() {
   return (
     <div className="flex w-full flex-col gap-2 lg:grid lg:grid-cols-4">
       <section className="w-full gap-2 lg:h-full">
-        <div className="flex w-full justify-between rounded-2xl border bg-muted/50 p-4 lg:h-full dark:bg-muted/20">
-          <aside className="flex items-center gap-2">
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 p-1">
-              <Avatar>
-                <AvatarImage
-                  src={`https://cdn.discordapp.com/avatars/${status?.discord_user.id}/${status?.discord_user.avatar}`}
-                  alt="Discord Avatar"
-                />
-                <AvatarFallback>
-                  <SiDiscord size={18} className="text-slate-700" />
-                </AvatarFallback>
-              </Avatar>
-            </span>
-            {loading && !status ? (
-              <div className="flex w-full flex-col gap-2">
-                <Skeleton className="h-2 w-2/3" />
-                <Skeleton className="h-2 w-2/4" />
-              </div>
-            ) : (
-              <div className="flex flex-col gap-px">
-                <p className="font-medium text-slate-700 text-xs dark:text-slate-200/80">
-                  @{status?.discord_user.username}
-                </p>
-                <span className="flex items-center gap-1 text-2xs text-muted-foreground">
-                  <div
-                    className={`size-2 rounded-full discord-${status?.discord_status}`}
-                  ></div>
-                  <p className="mt-0.5 leading-2">
-                    {status?.discord_status.replace(
-                      /^./,
-                      status?.discord_status.charAt(0).toUpperCase(),
-                    )}
+        <div className="flex flex-col rounded-2xl border bg-muted/50 p-4 lg:h-full dark:bg-muted/20">
+          <div className="flex w-full justify-between">
+            <aside className="flex items-center gap-2">
+              <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 p-1">
+                <Avatar>
+                  <AvatarImage
+                    src={`https://cdn.discordapp.com/avatars/${status?.discord_user.id}/${status?.discord_user.avatar}`}
+                    alt="Discord Avatar"
+                  />
+                  <AvatarFallback>
+                    <SiDiscord size={18} className="text-slate-700" />
+                  </AvatarFallback>
+                </Avatar>
+              </span>
+              {loading && !status ? (
+                <div className="flex w-full flex-col gap-2">
+                  <Skeleton className="h-2 w-2/3" />
+                  <Skeleton className="h-2 w-2/4" />
+                </div>
+              ) : (
+                <div className="flex flex-col gap-px">
+                  <p className="font-medium text-slate-700 text-xs dark:text-slate-200/80">
+                    @{status?.discord_user.username}
                   </p>
-                </span>
-              </div>
-            )}
-          </aside>
-          <div className="flex items-center gap-2">
-            {status?.activities.map((activity) => {
-              if (!activity.name) return null;
-              const ifSpotify = activity.name.toLowerCase() === "spotify";
-
-              return (
-                <div key={activity.id} className="relative">
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      {ifSpotify ? (
-                        <SiSpotify size={20} className="text-spotify" />
-                      ) : (
-                        activity.assets?.large_image && (
-                          <Image
-                            src={`https://media.discordapp.net/${activity.assets.large_image.replace("mp:", "")}`}
-                            alt={activity.name}
-                            width={32}
-                            height={32}
-                            className="rounded-lg"
-                          />
-                        )
+                  <span className="flex items-center gap-1 text-2xs text-muted-foreground">
+                    <div
+                      className={`size-2 rounded-full discord-${status?.discord_status}`}
+                    ></div>
+                    <p className="mt-0.5 leading-2">
+                      {status?.discord_status.replace(
+                        /^./,
+                        status?.discord_status.charAt(0).toUpperCase(),
                       )}
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{activity.assets?.large_text}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                  {activity.assets?.small_image && (
+                    </p>
+                  </span>
+                </div>
+              )}
+            </aside>
+            <div className="flex items-center gap-2">
+              {status?.activities.map((activity) => {
+                if (!activity.name) return null;
+                const ifSpotify = activity.name.toLowerCase() === "spotify";
+
+                return (
+                  <div key={activity.id} className="relative">
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <span className="-bottom-1 -right-1 absolute inline-block rounded-full border-2 border-background bg-background">
-                          <Image
-                            src={`https://media.discordapp.net/${activity.assets.small_image.replace("mp:", "")}`}
-                            alt={activity.name}
-                            width={16}
-                            height={16}
-                            className="rounded-full"
-                          />
-                        </span>
+                        {ifSpotify ? (
+                          <SiSpotify size={20} className="text-spotify" />
+                        ) : (
+                          activity.assets?.large_image && (
+                            <Image
+                              src={`https://media.discordapp.net/${activity.assets.large_image.replace("mp:", "")}`}
+                              alt={activity.name}
+                              width={32}
+                              height={32}
+                              className="rounded-lg"
+                            />
+                          )
+                        )}
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>{activity.assets.small_text}</p>
+                        <p>{activity.assets?.large_text}</p>
                       </TooltipContent>
                     </Tooltip>
-                  )}
-                </div>
-              );
-            })}
-            {status?.activities.length === 0 && (
-              <p className="text-2xs text-muted-foreground">
-                No active activities
-              </p>
-            )}
+                    {activity.assets?.small_image && (
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <span className="-bottom-1 -right-1 absolute inline-block rounded-full border-2 border-background bg-background">
+                            <Image
+                              src={`https://media.discordapp.net/${activity.assets.small_image.replace("mp:", "")}`}
+                              alt={activity.name}
+                              width={16}
+                              height={16}
+                              className="rounded-full"
+                            />
+                          </span>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>{activity.assets.small_text}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    )}
+                  </div>
+                );
+              })}
+              {status?.activities.length === 0 && (
+                <p className="text-2xs text-muted-foreground">
+                  No active activities
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </section>
       <section className="col-span-2 flex w-full flex-col gap-2">
         {loading && !status ? (
-          <Skeleton className="h-38 w-full rounded-2xl border bg-social-spotify xl:w-98"></Skeleton>
+          <Skeleton className="h-38 w-full rounded-2xl border bg-social-spotify"></Skeleton>
         ) : status?.listening_to_spotify ? (
           /* Listening to Spotify with Lyrics */
           (() => {
@@ -886,7 +913,7 @@ export default function SocialBento() {
           })()
         ) : (
           /* Past music listening on Spotify */
-          <div className="relative col-span-2 h-38 w-full overflow-y-hidden rounded-2xl border bg-social-spotify px-4 pt-2 transition hover:scale-105 xl:w-98">
+          <div className="relative col-span-2 h-38 w-full overflow-y-hidden rounded-2xl border bg-social-spotify px-4 pt-2 transition hover:scale-105">
             <h3 className="inline font-medium text-xs">
               Recently Played on{" "}
               <SiSpotify className="inline h-3 w-3 pb-0.5" size={12} /> Spotify
@@ -952,100 +979,71 @@ export default function SocialBento() {
           </div>
         )}
       </section>
-      <section className="w-full gap-2 lg:h-full">
-        <div className="flex w-full justify-between rounded-2xl border bg-muted/50 p-4 lg:h-full dark:bg-muted/20">
-          <aside className="flex items-center gap-2">
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 p-1">
-              <Avatar>
-                <AvatarImage
-                  src={`https://cdn.discordapp.com/avatars/${status?.discord_user.id}/${status?.discord_user.avatar}`}
-                  alt="Discord Avatar"
-                />
-                <AvatarFallback>
-                  <SiDiscord size={18} className="text-slate-700" />
-                </AvatarFallback>
-              </Avatar>
-            </span>
-            {loading && !status ? (
-              <div className="flex w-full flex-col gap-2">
-                <Skeleton className="h-2 w-2/3" />
-                <Skeleton className="h-2 w-2/4" />
-              </div>
-            ) : (
-              <div className="flex flex-col gap-px">
-                <p className="font-medium text-slate-700 text-xs dark:text-slate-200/80">
-                  @{status?.discord_user.username}
-                </p>
-                <span className="flex items-center gap-1 text-2xs text-muted-foreground">
-                  <div
-                    className={`size-2 rounded-full discord-${status?.discord_status}`}
-                  ></div>
-                  <p className="mt-0.5 leading-2">
-                    {status?.discord_status.replace(
-                      /^./,
-                      status?.discord_status.charAt(0).toUpperCase(),
-                    )}
-                  </p>
-                </span>
-              </div>
-            )}
-          </aside>
-          <div className="flex items-center gap-2">
-            {status?.activities.map((activity) => {
-              if (!activity.name) return null;
-              const ifSpotify = activity.name.toLowerCase() === "spotify";
-
-              return (
-                <div key={activity.id} className="relative">
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      {ifSpotify ? (
-                        <SiSpotify size={20} className="text-spotify" />
-                      ) : (
-                        activity.assets?.large_image && (
-                          <Image
-                            src={`https://media.discordapp.net/${activity.assets.large_image.replace("mp:", "")}`}
-                            alt={activity.name}
-                            width={32}
-                            height={32}
-                            className="rounded-lg"
-                          />
-                        )
-                      )}
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{activity.assets?.large_text}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                  {activity.assets?.small_image && (
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <span className="-bottom-1 -right-1 absolute inline-block rounded-full border-2 border-background bg-background">
-                          <Image
-                            src={`https://media.discordapp.net/${activity.assets.small_image.replace("mp:", "")}`}
-                            alt={activity.name}
-                            width={16}
-                            height={16}
-                            className="rounded-full"
-                          />
-                        </span>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{activity.assets.small_text}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  )}
-                </div>
-              );
-            })}
-            {status?.activities.length === 0 && (
-              <p className="text-2xs text-muted-foreground">
-                No active activities
-              </p>
-            )}
-          </div>
+      <section className="h-38 w-full gap-2 lg:h-full">
+        <div className="group relative flex h-full w-full flex-col justify-around overflow-clip rounded-2xl border bg-muted/50 p-4 px-8 text-foreground/70 transition duration-300 ease-out hover:text-foreground/90 lg:h-full dark:bg-muted/20">
+          <h3 className="inline-flex h-max items-center gap-1 font-medium text-xs">
+            <GitBranch size={16} /> GitHub Stats
+          </h3>
+          <h1 className="text-5xl text-foreground/90 transition duration-300 ease-out group-hover:text-foreground">
+            {githubContributions
+              ? githubContributions.reduce((a, b) => a + b, 0)
+              : 0}{" "}
+          </h1>
+          <p className="lg:text-sm xl:text-base">contributions this year.</p>
+          <Contributions
+            calendars={githubContributions || []}
+            className="-z-10 absolute top-0 right-0 bottom-0 left-0 m-auto h-auto w-auto opacity-30 blur-[0.5px] transition duration-300 ease-out hover:blur-none group-hover:opacity-50 lg:opacity-20"
+          />
         </div>
       </section>
+    </div>
+  );
+}
+
+export function Contributions({
+  calendars,
+  className,
+  ...props
+}: { calendars: number[] } & HTMLProps<HTMLDivElement>) {
+  // Deterministic animation values so server & client render match.
+  // We use `index` and the `calendar` value (contribution count) to create stable delays/durations.
+  const computeAnimation = (i: number, v: number) => {
+    // Delay: 0.1s to ~0.9s depending on index (mod 10)
+    const delay = (i % 10) * 0.08 + 0.1;
+    // Duration: base 3s, add a small amount from index mod and contribution value (keeps deterministic)
+    const duration = 3 + (i % 7) * 0.5 + (v % 3) * 0.2;
+    return {
+      animationDelay: `${delay.toFixed(2)}s`,
+      animationDuration: `${duration.toFixed(2)}s`,
+    } as React.CSSProperties;
+  };
+  return (
+    <div
+      className={cn(
+        "flex scale-125 transform cursor-pointer items-center justify-center transition-transform duration-300 ease-out hover:scale-100 group-hover:scale-100",
+        className,
+      )}
+      {...props}
+    >
+      <div className="grid w-max grid-flow-col grid-rows-7 gap-1">
+        {calendars.map((calendar, index) => (
+          <div
+            className={cn(
+              // Slightly larger tiles and stop pulsing on hover via group
+              "size-5 animate-pulse-bright rounded-sm border-[1.5px] transition-transform duration-200 hover:scale-100 hover:animate-none group-hover:scale-100 group-hover:animate-none",
+              calendar > 10
+                ? "border-emerald-500 bg-emerald-400/60 dark:border-emerald-600 dark:bg-emerald-600/40"
+                : calendar > 5
+                  ? "border-emerald-400 bg-emerald-300/40 dark:border-emerald-800 dark:bg-emerald-800/30"
+                  : calendar > 0
+                    ? "border-emerald-200 bg-emerald-100/30 dark:border-emerald-900 dark:bg-emerald-950/20"
+                    : "border-zinc-300 bg-zinc-100/20 dark:border-zinc-800 dark:bg-black/10",
+            )}
+            key={index}
+            style={computeAnimation(index, calendar)}
+          />
+        ))}
+      </div>
     </div>
   );
 }

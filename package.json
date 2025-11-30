@@ -30,6 +30,7 @@
     "@neondatabase/serverless": "^1.0.2",
     "@next/bundle-analyzer": "^16.0.5",
     "@next/third-parties": "16.0.0",
+    "@octokit/rest": "^22.0.1",
     "@p5-wrapper/next": "^2.0.0",
     "@p5-wrapper/react": "^4.4.2",
     "@paper-design/shaders-react": "^0.0.66",
