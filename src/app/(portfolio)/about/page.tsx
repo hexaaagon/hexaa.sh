@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { techStacks } from "@/content/portfolio/about";
 import SocialBento from "@/components/social-bento";
 import { getGithubContributions } from "@/lib/portfolio/social";
+import { LightRays } from "@/components/ui/light-rays";
 
 export default async function AboutSection() {
   const githubContributions = await getGithubContributions();
@@ -16,7 +17,16 @@ export default async function AboutSection() {
       </section>
       <HeaderBanner />
       <section className="w-full border-separator/10 border-b">
-        <div className="inner relative flex h-16 gap-2 border-separator/10 border-x">
+        <div className="inner relative flex flex-col items-center justify-center gap-2 border-separator/10 border-x py-16">
+          <LightRays />
+          <p className="text-center font-medium text-3xl">
+            wait, where's the content?
+          </p>
+          <p className="mx-2 mt-1 max-w-2xl text-center text-muted-foreground text-xs sm:text-sm md:text-base">
+            i'm very bad at writing about myself. but hey, at least you can
+            check out the technologies and stacks i use regularly down below!
+          </p>
+
           <PlusSeparator
             position={["bottom-left", "bottom-right"]}
             main={{ className: "z-20" }}
