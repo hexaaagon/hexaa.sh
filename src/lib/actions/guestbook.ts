@@ -139,6 +139,10 @@ export async function reactMessage(
 
   if (action === "add") {
     if (isEmojiExist) {
+      if ((isEmojiExist.userIds ?? []).includes(session.user.id)) {
+        return "success";
+      }
+
       // add user to existing reaction
       await db
         .update(guestbookReactionTable)
@@ -158,6 +162,10 @@ export async function reactMessage(
     }
   } else {
     if (isEmojiExist) {
+      if (!(isEmojiExist.userIds ?? []).includes(session.user.id)) {
+        return "success";
+      }
+
       const updatedUserIds = (isEmojiExist.userIds || []).filter(
         (userId) => userId !== session.user.id,
       );
