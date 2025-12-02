@@ -1,5 +1,6 @@
 import "./globals.css";
 
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import {
   Bricolage_Grotesque,
@@ -68,6 +69,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ThemeProvider>{children}</ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
