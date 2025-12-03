@@ -17,9 +17,9 @@ export function HeaderBanner() {
         <Dithering
           height={250}
           colorBack="#ffffff00"
-          shape="warp"
-          speed={0.3}
-          scale={isMobile ? 0.4 : 1}
+          shape="simplex"
+          speed={0.4}
+          scale={isMobile ? 0.4 : 0.8}
           offsetX={1}
           offsetY={0.6}
           className="w-full bg-background/20"
@@ -28,7 +28,8 @@ export function HeaderBanner() {
           <div className="mt-12 ml-10 flex h-full flex-col">
             <h2 className="text-2xl md:text-4xl">who am i?</h2>
             <p className="text-sm md:text-base">
-              uhh, ummm, uhh... well, i guess you can call me a developer.
+              uhh, ummm, uhh... well, i guess you can call me a developer, i
+              guess?
             </p>
           </div>
         </div>

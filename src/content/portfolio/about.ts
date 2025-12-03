@@ -1,7 +1,11 @@
+import { type LucideIcon, Mail } from "lucide-react";
 import {
+  type IconType,
   SiBun,
+  SiDiscord,
   SiDrizzle,
   SiFigma,
+  SiHackclub,
   SiHono,
   SiNotion,
   SiPostgresql,
@@ -9,7 +13,13 @@ import {
   SiTypescript,
 } from "@icons-pack/react-simple-icons";
 
-export const techStacks = [
+export type InfoCard = {
+  name: string;
+  icon: IconType | LucideIcon;
+  link: string;
+};
+
+export const techStacks: InfoCard[] = [
   {
     name: "Bun",
     icon: SiBun,
@@ -49,5 +59,28 @@ export const techStacks = [
     name: "Figma",
     icon: SiFigma,
     link: "https://www.figma.com",
+  },
+];
+
+export const contacts: (InfoCard & {
+  contact: string;
+})[] = [
+  {
+    name: "hack_club",
+    contact: "Hexaa",
+    icon: SiHackclub,
+    link: "https://hackclub.enterprise.slack.com/team/U082WTQLCVA",
+  },
+  {
+    name: "email",
+    contact: "me@hexagonn.my.id",
+    icon: Mail,
+    link: "mailto:me@hexagonn.my.id",
+  },
+  {
+    name: "discord",
+    contact: "@scoooolzs",
+    icon: SiDiscord,
+    link: "https://discord.com/users/465454937267240962",
   },
 ];
