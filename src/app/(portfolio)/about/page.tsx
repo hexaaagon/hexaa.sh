@@ -9,6 +9,7 @@ import { getGithubContributions } from "@/lib/portfolio/social";
 import { HackathonCard } from "@/components/hackathon-card";
 import { hackathons } from "@/content/portfolio/hackathons";
 import { Skeleton } from "@/components/ui/skeleton";
+import { SimplexNoise } from "@paper-design/shaders-react";
 
 export default async function AboutSection() {
   const githubContributions = await getGithubContributions();
@@ -46,31 +47,57 @@ export default async function AboutSection() {
         </div>
       </section>
       <section className="w-full border-separator/10 border-b">
-        <div className="inner relative flex-col border-separator/10 border-x px-4 py-12">
+        <div className="inner relative flex h-full border-separator/10 border-x">
           <PlusSeparator
             position={["bottom-left", "bottom-right"]}
             main={{ className: "z-20" }}
           />
-          <span className="relative">
-            <h2 className="mb-6 text-center font-medium text-4xl">
-              Hackathon attended so far
-            </h2>
-            <div className="absolute bottom-0 h-8 w-full bg-linear-to-b from-transparent to-background/40" />
-          </span>
-          <ul className="mb-4 ml-8 w-full divide-y divide-dashed border-l">
-            {hackathons.map((hackathon, idx) => (
-              <HackathonCard
-                key={idx}
-                title={hackathon.title}
-                description={hackathon.description}
-                location={hackathon.location}
-                dates={hackathon.dates}
-                image={hackathon.image}
-                links={hackathon.links}
-                flags={hackathon.flags}
-              />
-            ))}
-          </ul>
+          <div className="relative min-h-full w-[10vw] border-separator/10 border-r">
+            <PlusSeparator position={["top-right", "bottom-right"]} />
+            <SimplexNoise
+              colors={["#ffffff00", "#121212", "#262626", "#4d4d4d", "#6e6e6e"]}
+              stepsPerColor={3}
+              softness={0}
+              speed={0.38}
+              scale={0.64}
+              className="h-full w-full opacity-50 invert-100 dark:invert-0"
+            />
+          </div>
+          <div className="w-full px-4 py-12">
+            <span className="relative">
+              <h2 className="mb-6 text-center font-medium text-4xl">
+                Hackathon attended so far
+              </h2>
+              <div className="absolute bottom-0 h-8 w-full bg-linear-to-b from-transparent to-background/40" />
+            </span>
+            <ul className="mb-4 ml-8 max-w-full divide-y divide-dashed border-l">
+              {hackathons.map((hackathon, idx) => (
+                <HackathonCard
+                  key={idx}
+                  title={hackathon.title}
+                  description={hackathon.description}
+                  location={hackathon.location}
+                  dates={hackathon.dates}
+                  image={hackathon.image}
+                  links={hackathon.links}
+                  flags={hackathon.flags}
+                />
+              ))}
+            </ul>
+          </div>
+          <div className="relative min-h-full w-[10vw] border-separator/10 border-l">
+            <PlusSeparator position={["top-left", "bottom-left"]} />
+            <SimplexNoise
+              colors={["#000000", "#121212", "#262626", "#4d4d4d", "#6e6e6e"]}
+              stepsPerColor={3}
+              softness={0}
+              speed={0.38}
+              scale={0.64}
+              offsetX={5}
+              offsetY={5}
+              className="h-full w-full opacity-50 invert-100 dark:invert-0"
+            />
+          </div>
         </div>
       </section>
       <section className="w-full border-separator/10 border-b">
@@ -193,7 +220,7 @@ export default async function AboutSection() {
             >
               {contacts.map((item, index) => (
                 <Link
-                  className="block w-full rounded-full border-[0.5px] border-separator/20 border-dashed px-5 pt-2 pb-1 md:w-2/5"
+                  className="block w-full rounded-full border-[0.5px] border-separator/20 border-dashed px-5 pt-2.5 pb-1.5 md:w-2/5"
                   data-id={`contact-card-${index}`}
                   key={item.name}
                   href={item.link}
