@@ -16,7 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         }}
         tree={source.pageTree}
       >
-        <SidebarProvider className="flex min-h-min w-screen flex-1 flex-col items-start px-0 [--sidebar-width:220px] [--top-spacing:65px] md:flex-row">
+        <SidebarProvider className="flex min-h-min w-screen flex-1 flex-col items-start px-0 [--sidebar-width:220px] [--top-spacing:65px] xl:flex-row">
           <DocsSidebar tree={source.pageTree} />
           {children}
         </SidebarProvider>

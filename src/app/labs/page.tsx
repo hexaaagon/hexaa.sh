@@ -26,10 +26,10 @@ export default function LabsPage() {
           of Hexaa’s UI compounds.
         </span>
         <div className="mt-8 flex gap-3">
-          <Button size="lg" asChild>
+          <Button size="lg" variant="link" asChild>
             <Link href="/labs/get-started">[get started]</Link>
           </Button>
-          <Button size="lg" asChild>
+          <Button size="lg" variant="link" asChild>
             <Link href="/labs/showcase">[view components]</Link>
           </Button>
         </div>
