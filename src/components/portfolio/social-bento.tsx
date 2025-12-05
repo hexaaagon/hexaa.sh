@@ -4,7 +4,7 @@
 import { SiDiscord, SiSpotify } from "@icons-pack/react-simple-icons";
 
 import { useLanyard } from "react-use-lanyard";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "../ui/skeleton";
 import Image from "next/image";
 import useSWR from "swr";
 import useSWRImmutable from "swr/immutable";
@@ -30,8 +30,8 @@ import type {
   SyllableLyric,
 } from "@/shared/types/lyrics";
 import Link from "next/link";
-import { ProgressCircle } from "./ui/progress";
-import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
+import { ProgressCircle } from "../ui/progress";
+import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 import {
   Tooltip,
   TooltipContent,

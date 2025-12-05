@@ -6,7 +6,7 @@ import Link from "next/link";
 import moment from "moment-timezone";
 
 import { cn } from "@/lib/utils";
-import BauhausGenerator from "@/components/bauhaus-generator";
+import BauhausGenerator from "@/components/portfolio/bauhaus-generator";
 import { PlusSeparator } from "@/components/ui/plus-separator";
 
 import { cva } from "class-variance-authority";

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 import { useIsMobile } from "@/hooks/use-mobile";
-import ThemeSwitch from "@/components/theme-switch";
+import ThemeSwitch from "@/components/portfolio/theme-switch";
 
 import { Undo } from "lucide-react";
 import { Button } from "@/components/ui/button";

@@ -1,4 +1,4 @@
-import { ProjectCard } from "@/components/project";
+import { ProjectCard } from "@/components/portfolio/project";
 import { PlusSeparator } from "@/components/ui/plus-separator";
 import { projectsData } from "@/content/portfolio/projects";
 import Image from "next/image";

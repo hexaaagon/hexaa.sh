@@ -1,12 +1,12 @@
 import { PlusSeparator } from "@/components/ui/plus-separator";
 import { HeaderBanner } from "./banner.client";
-import { AnimatedBackground } from "@/components/animated-background";
+import { AnimatedBackground } from "@/components/portfolio/animated-background";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { contacts, techStacks } from "@/content/portfolio/about";
-import SocialBento from "@/components/social-bento";
+import SocialBento from "@/components/portfolio/social-bento";
 import { getGithubContributions } from "@/lib/portfolio/social";
-import { HackathonCard } from "@/components/hackathon-card";
+import { HackathonCard } from "@/components/portfolio/hackathon-card";
 import { hackathons } from "@/content/portfolio/hackathons";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SimplexNoise } from "@paper-design/shaders-react";

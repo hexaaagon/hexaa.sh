@@ -1,5 +1,5 @@
-import Footer from "@/components/footer";
-import Navbar from "@/components/navbar";
+import Footer from "@/components/portfolio/navigation/footer";
+import Navbar from "@/components/portfolio/navigation/navbar";
 
 export default function RootTemplate({
   children,

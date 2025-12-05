@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { InlineTOC } from "@/components/inline-toc";
+import { InlineTOC } from "@/components/markdown/inline-toc";
 import { blog } from "@/lib/source";
 import { createMetadata, getBlogPageImage } from "@/lib/metadata";
 import { ShareButton } from "./page.client";
-import { getMDXComponents } from "@/components/mdx-components";
+import { getMDXComponents } from "@/components/markdown/mdx-components";
 import path from "node:path";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
