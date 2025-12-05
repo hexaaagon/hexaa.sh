@@ -119,7 +119,7 @@ const StackCard: React.FC<CardProps> = ({
         }}
       >
         <Card
-          className="relative flex min-h-[400px] flex-col justify-start gap-2 border-[3px] px-2 pt-8 md:gap-6 md:px-5 md:pt-12"
+          className="relative flex min-h-[300px] flex-col justify-start gap-2 border-[3px] px-2 pt-8 md:min-h-[400px] md:gap-6 md:px-5 md:pt-12"
           style={{
             borderColor: color,
           }}

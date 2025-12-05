@@ -10,18 +10,18 @@ export default function LabsPage() {
     <main>
       <section className="flex h-screen max-h-208 flex-col items-center justify-center">
         <span className="relative">
-          <h1 className="font-bold text-7xl">
+          <h1 className="font-bold text-5xl sm:text-7xl">
             Hexaa's <b className="font-montreal">La</b>
             <b className="font-serif">bs</b>
           </h1>
           <span className="absolute bottom-0 z-20 h-12 w-full bg-linear-to-b from-transparent to-background/70"></span>
         </span>
-        <span className="inline-block text-3xl">
+        <span className="inline-block text-center text-xl sm:text-3xl">
           a{" "}
           <span className="relative bg-linear-to-br from-primary/20 to-primary/5 px-2">
             curated list
-            <Star8 className="-top-4 -left-4 absolute" size={32} />
-            <Star8 className="-bottom-3 -right-3 absolute" size={24} />
+            <Star8 className="-top-4 -left-4 absolute z-30" size={32} />
+            <Star8 className="-bottom-3 -right-3 absolute z-30" size={24} />
           </span>{" "}
           of Hexaa’s UI compounds.
         </span>
