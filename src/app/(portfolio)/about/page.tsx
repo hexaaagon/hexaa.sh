@@ -52,7 +52,7 @@ export default async function AboutSection() {
             position={["bottom-left", "bottom-right"]}
             main={{ className: "z-20" }}
           />
-          <div className="relative min-h-full w-[10vw] border-separator/10 border-r">
+          <div className="relative hidden min-h-full w-[10%] border-separator/10 border-r md:block">
             <PlusSeparator position={["top-right", "bottom-right"]} />
             <SimplexNoise
               colors={["#ffffff00", "#121212", "#262626", "#4d4d4d", "#6e6e6e"]}
@@ -85,7 +85,7 @@ export default async function AboutSection() {
               ))}
             </ul>
           </div>
-          <div className="relative min-h-full w-[10vw] border-separator/10 border-l">
+          <div className="relative hidden min-h-full w-[10%] border-separator/10 border-l md:block">
             <PlusSeparator position={["top-left", "bottom-left"]} />
             <SimplexNoise
               colors={["#000000", "#121212", "#262626", "#4d4d4d", "#6e6e6e"]}

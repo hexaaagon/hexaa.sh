@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
-import { useIsMobile } from "@/components/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/use-mobile";
 import ThemeSwitch from "@/components/theme-switch";
 
 import { Undo } from "lucide-react";
@@ -65,7 +65,7 @@ export default function Navbar() {
         </div>
       )}
       <div
-        className={`fixed top-0 right-0 left-0 z-50 border-separator/10 border-b p-4 backdrop-blur-sm transition duration-300 ${!isAtTop && "bg-background/50 dark:bg-background/30"}`}
+        className={`fixed top-0 right-0 left-0 z-50 h-[var(--navbar-height)] border-separator/10 border-b p-4 backdrop-blur-sm transition duration-300 ${!isAtTop && "bg-background/50 dark:bg-background/30"}`}
       >
         <div className="inner flex items-center justify-between md:px-8">
           {matchPath(pathname, separatorItems) && (
@@ -146,10 +146,11 @@ export default function Navbar() {
           <div className="flex items-center gap-6">
             {isMounted && !isMobile && (
               <nav className="flex gap-4 font-montreal-mono text-xs transition-opacity duration-300">
-                <Link href="/about">about</Link>
-                <Link href="/projects">projects</Link>
-                <Link href="/blog">blog</Link>
-                <Link href="/guestbook">guestbook</Link>
+                {navItems.map((item) => (
+                  <Link key={item.title} href={item.href}>
+                    {item.title}
+                  </Link>
+                ))}
               </nav>
             )}
             <ThemeSwitch />

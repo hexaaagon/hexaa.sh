@@ -20,23 +20,23 @@ export function HackathonCard({
           <AvatarFallback>{title[0]}</AvatarFallback>
         </Avatar>
       </div>
-      <div className="flex flex-1 flex-col justify-start gap-1">
+      <div className="flex flex-1 flex-col justify-start gap-1 text-sm sm:text-base">
         {dates && (
           <time className="text-muted-foreground text-xs">{dates}</time>
         )}
         <h2 className="font-semibold leading-none">
           {title}
           {flags?.includes("committee") && (
-            <Badge className="ml-2 bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100">
+            <Badge className="ml-2 bg-green-100 text-2xs text-green-800 sm:text-xs dark:bg-green-800 dark:text-green-100">
               Committee
             </Badge>
           )}
         </h2>
         {location && (
-          <p className="text-muted-foreground text-sm">{location}</p>
+          <p className="text-muted-foreground text-xs sm:text-sm">{location}</p>
         )}
         {description && (
-          <span className="prose dark:prose-invert text-muted-foreground text-sm">
+          <span className="prose dark:prose-invert text-muted-foreground text-xs sm:text-sm">
             {description}
           </span>
         )}

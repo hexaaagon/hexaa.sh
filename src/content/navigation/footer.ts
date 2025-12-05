@@ -32,6 +32,7 @@ export const pages = {
   ],
   explore: [
     { name: "home", href: "/" },
+    { name: "labs", href: "/labs" },
     { name: "guestbook", href: "/guestbook" },
   ],
   meta: [

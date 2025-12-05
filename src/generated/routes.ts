@@ -21,6 +21,7 @@ export const routePatterns = [
   /^attribute$/,
   /^favicon.ico$/,
   /^guestbook$/,
+  /^labs$/,
   /^og\/blog\/.*$/,
   /^sitemap.xml$/,
 ] as const;

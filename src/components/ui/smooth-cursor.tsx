@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion, useSpring } from "motion/react";
 import { type JSX, useEffect, useRef, useState } from "react";
-import { useIsMobile } from "@/components/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface Position {
   x: number;

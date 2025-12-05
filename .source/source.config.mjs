@@ -2,6 +2,7 @@
 import {
   defineCollections,
   defineConfig,
+  defineDocs,
   frontmatterSchema
 } from "fumadocs-mdx/config";
 import { z } from "zod";
@@ -17,8 +18,16 @@ var blog = defineCollections({
   }),
   async: true
 });
+var labs = defineDocs({
+  dir: "src/content/labs",
+  docs: {
+    schema: frontmatterSchema,
+    async: true
+  }
+});
 var source_config_default = defineConfig();
 export {
   blog,
-  source_config_default as default
+  source_config_default as default,
+  labs
 };

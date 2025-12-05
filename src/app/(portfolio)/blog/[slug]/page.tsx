@@ -90,7 +90,7 @@ export async function generateMetadata(
     title: page.data.title,
     description: page.data.description ?? "Another hexaa's blog post.",
     openGraph: {
-      url: `/docs/${page.slugs.join("/")}`,
+      url: `/blog/${page.slugs.join("/")}`,
       images: [image],
     },
     twitter: {
