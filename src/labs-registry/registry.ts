@@ -12,6 +12,15 @@ export const registry: Registry = {
       categories: ["interactive"],
     },
     {
+      name: "demo-button",
+      description: "Demo of the button component",
+      type: "registry:example",
+      files: ["demo/button.tsx"],
+      dependencies: [],
+      registryDependencies: ["button"],
+      categories: ["interactive"],
+    },
+    {
       name: "card-overlap-scroll",
       description: "Cards that overlap on scroll",
       type: "registry:component",

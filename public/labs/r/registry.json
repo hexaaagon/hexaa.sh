@@ -17,6 +17,24 @@
       ]
     },
     {
+      "name": "demo-button",
+      "description": "Demo of the button component",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/demo/button.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "button"
+      ],
+      "categories": [
+        "interactive"
+      ]
+    },
+    {
       "name": "card-overlap-scroll",
       "description": "Cards that overlap on scroll",
       "type": "registry:component",

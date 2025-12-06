@@ -127,15 +127,20 @@ async function buildPublicRegistry() {
   const outputDir = join(process.cwd(), "public/labs/r");
   mkdirSync(outputDir, { recursive: true });
 
+  // Registry directories
+  const registryDirs = {
+    components: "src/labs-registry/components-v1",
+    demo: "src/labs-registry/components-v1/demo",
+  };
+
+  // Array to store all generated registry files
+  const registryFiles: string[] = [];
+
   // Generate individual JSON files for each component
   for (const item of registry.items) {
     const files = item.files.map((file) => {
       const fileName = typeof file === "string" ? file : file.path;
-      const sourcePath = join(
-        process.cwd(),
-        "src/labs-registry/components-v1",
-        fileName,
-      );
+      const sourcePath = join(process.cwd(), registryDirs.components, fileName);
 
       // Read the file content
       let content = "";
@@ -159,11 +164,7 @@ async function buildPublicRegistry() {
 
     // Add detected util files to the files array
     const utilFilesWithContent = detectedDeps.utilFiles.map((utilFile) => {
-      const sourcePath = join(
-        process.cwd(),
-        "src/labs-registry/components-v1",
-        utilFile,
-      );
+      const sourcePath = join(process.cwd(), registryDirs.components, utilFile);
       let content = "";
       try {
         content = readFileSync(sourcePath, "utf-8");
@@ -217,6 +218,7 @@ async function buildPublicRegistry() {
 
     const componentJsonPath = join(outputDir, `${item.name}.json`);
     writeFileSync(componentJsonPath, JSON.stringify(componentJson, null, 2));
+    registryFiles.push(`${item.name}.json`);
     console.log(`📄 Generated ${item.name}.json`);
   }
 
@@ -243,14 +245,20 @@ async function buildPublicRegistry() {
   // Create registry.json
   const registryPath = join(outputDir, "registry.json");
   writeFileSync(registryPath, JSON.stringify(fixedRegistry, null, 2));
+  registryFiles.push("registry.json");
   console.log("✅ Built registry.json at public/labs/r/registry.json");
+
+  return registryFiles;
 }
 
 try {
   console.log("🏗️ Building labs registry...");
   await buildRegistryIndex();
-  await buildPublicRegistry();
-  console.log("✅ Build complete!");
+  const registryFiles = await buildPublicRegistry();
+  console.log(
+    `✅ Build complete! Generated ${registryFiles.length} files:`,
+    registryFiles,
+  );
 } catch (error) {
   console.error("❌ Build failed:", error);
   process.exit(1);

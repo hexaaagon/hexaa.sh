@@ -22,6 +22,24 @@ export const Index: Record<string, RegistryEntryType> = {
     categories: ["interactive"],
     meta: {},
   },
+  "demo-button": {
+    name: "demo-button",
+    description: "Demo of the button component",
+    type: "registry:example",
+    registryDependencies: ["button"],
+    files: [{
+        path: "labs-registry/components-v1/demo/button.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+    component: React.lazy(async () => {
+        const mod = await import("@/labs-registry/components-v1/demo/button") as any
+        const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "demo-button"
+        return { default: mod.default || mod[exportName] }
+      }),
+    categories: ["interactive"],
+    meta: {},
+  },
   "card-overlap-scroll": {
     name: "card-overlap-scroll",
     description: "Cards that overlap on scroll",

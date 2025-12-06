@@ -56,7 +56,7 @@ function Button({
       {...props}
     >
       {typeof children === "string"
-        ? variant === "default" || !variant
+        ? variant === "link"
           ? `[${children}]`
           : children
         : children}
