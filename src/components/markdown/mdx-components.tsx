@@ -6,7 +6,7 @@ import { ComponentPreview } from "./component-preview";
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
     ...defaultMdxComponents,
-    ...components,
     ComponentPreview,
+    ...components,
   };
 }

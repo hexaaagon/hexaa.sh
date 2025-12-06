@@ -30,7 +30,7 @@ export default function LabsPage() {
             <Link href="/labs/get-started">[get started]</Link>
           </Button>
           <Button size="lg" variant="link" asChild>
-            <Link href="/labs/showcase">[view components]</Link>
+            <Link href="/labs/components">[view components]</Link>
           </Button>
         </div>
       </section>

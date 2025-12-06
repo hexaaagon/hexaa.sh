@@ -42,7 +42,7 @@ export function ComponentPreview({
     return (
       <div
         className={cn(
-          "flex w-full items-center justify-center rounded-2xl bg-[linear-gradient(to_right,#8080801c_1px,transparent_1px),linear-gradient(to_bottom,#8080801c_1px,transparent_1px)] bg-position-[center_center] bg-primary-foreground/80 bg-size-[40px_40px] px-2 py-28 shadow-inner transition-[background-size] duration-300 sm:bg-size-[50px_50px] lg:bg-size-[60px_60px]",
+          "flex w-full items-center justify-center rounded-2xl border border-border bg-[linear-gradient(to_right,#8080801c_1px,transparent_1px),linear-gradient(to_bottom,#8080801c_1px,transparent_1px)] bg-position-[center_center] bg-primary-foreground/80 bg-size-[40px_40px] px-2 py-28 shadow-inner transition-[background-size] duration-300 sm:bg-size-[50px_50px] lg:bg-size-[60px_60px]",
           className,
         )}
         data-align={align}
@@ -58,14 +58,17 @@ export function ComponentPreview({
 
     return (
       <div className={className} data-align={align} {...parentProps}>
-        <iframe
-          src={props.showcaseUrl}
-          className={cn(
-            "h-[500px] w-full rounded-md border border-border",
-            props.showcaseClassName,
-          )}
-          title={`Showcase: ${name}`}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <iframe
+            src={props.showcaseUrl}
+            className={cn(
+              "h-[500px] w-full rounded-2xl border border-border bg-primary-foreground/80",
+              props.showcaseClassName,
+            )}
+            title={`Showcase: ${name}`}
+            data-lenis-prevent
+          />
+        </Suspense>
       </div>
     );
   }
