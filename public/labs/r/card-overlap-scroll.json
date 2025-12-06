@@ -1,0 +1,12 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "card-overlap-scroll",
+  "type": "registry:component",
+  "files": [
+    {
+      "path": "labs-registry/components-v1/card-overlap-scroll.tsx",
+      "content": "export default function CardOverlapScroll() {\r\n  return <p>hello world</p>;\r\n}\r\n",
+      "type": "registry:component"
+    }
+  ]
+}

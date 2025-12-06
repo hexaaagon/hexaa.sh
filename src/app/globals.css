@@ -284,7 +284,7 @@
 
 /* Fumadocs */
 #nd-toc {
-  @apply mr-2 pt-28;
+  @apply top-12 mr-2 h-auto;
 }
 
 [data-toc-popover-trigger] {

@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev --turbo",
-    "build": "next build && bun run generate:routes",
+    "build": "bun run registry:build && next build && bun run generate:routes",
     "start": "next start",
     "generate:routes": "bun run scripts/generate-routes.ts",
+    "registry:build": "bun run scripts/build-registry.ts",
     "lint": "biome check",
     "biome:lint": "biome check",
     "biome:format": "biome format --write",

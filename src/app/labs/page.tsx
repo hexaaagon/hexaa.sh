@@ -1,5 +1,5 @@
 import Star8 from "@/components/stars/s8";
-import { Button } from "@/components/labs/button";
+import { Button } from "@/labs-registry/components-v1/button";
 import { PlusSeparator } from "@/components/ui/plus-separator";
 import { ScrollText } from "@/components/ui/scroll-text";
 import Link from "next/link";

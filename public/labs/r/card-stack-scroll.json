@@ -1,0 +1,12 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "card-stack-scroll",
+  "type": "registry:component",
+  "files": [
+    {
+      "path": "labs-registry/components-v1/card-stack-scroll.tsx",
+      "content": "export default function CardStackScroll() {\r\n  return <p>hello world</p>;\r\n}\r\n",
+      "type": "registry:component"
+    }
+  ]
+}
