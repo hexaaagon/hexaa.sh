@@ -54,8 +54,10 @@ export function ComponentPreview({
       </div>
     );
   } else if (props.type === "showcase") {
+    const { showcaseUrl: _1, showcaseClassName: _2, ...parentProps } = props;
+
     return (
-      <div className={className} data-align={align} {...props}>
+      <div className={className} data-align={align} {...parentProps}>
         <iframe
           src={props.showcaseUrl}
           className={cn(

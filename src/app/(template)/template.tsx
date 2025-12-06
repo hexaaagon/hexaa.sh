@@ -1,5 +1,6 @@
 import Footer from "@/components/portfolio/navigation/footer";
 import Navbar from "@/components/portfolio/navigation/navbar";
+import { SmoothCursor } from "@/components/ui/smooth-cursor";
 
 export default function RootTemplate({
   children,
@@ -11,6 +12,7 @@ export default function RootTemplate({
       <Navbar />
       <div className="pt-[64px] *:min-h-[calc(100dvh-115px)]">{children}</div>
       <Footer />
+      <SmoothCursor disableRotation />
     </>
   );
 }
