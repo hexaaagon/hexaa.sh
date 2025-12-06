@@ -1,14 +1,19 @@
 export interface RegistryFile {
   path: string;
   content?: string;
-  type: "registry:ui" | "registry:component" | "registry:hook" | "registry:lib";
+  type:
+    | "registry:ui"
+    | "registry:component"
+    | "registry:hook"
+    | "registry:lib"
+    | "registry:example";
   target?: string;
 }
 
 export interface RegistryItem {
   name: string;
   description?: string;
-  type: "registry:ui" | "registry:component" | "registry:hook" | "registry:lib";
+  type: RegistryFile["type"];
   files: (string | RegistryFile)[];
   dependencies?: string[];
   registryDependencies?: string[];
