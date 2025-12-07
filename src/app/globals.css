@@ -63,6 +63,8 @@
 
 :root {
   --navbar-height: 4rem;
+  --header-height: 4rem;
+  --footer-height: 4rem;
   --radius: 0.625rem;
   --background: oklch(0.9131 0.0175 273.67);
   --foreground: oklch(0.141 0.005 285.823);

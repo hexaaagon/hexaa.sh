@@ -1,6 +1,6 @@
 import Footer from "@/components/portfolio/navigation/footer";
 import Navbar from "@/components/portfolio/navigation/navbar";
-import { SmoothCursor } from "@/components/ui/smooth-cursor";
+import { SmoothCursor } from "@/labs-registry/components-v1/smooth-cursor";
 
 export default function RootTemplate({
   children,

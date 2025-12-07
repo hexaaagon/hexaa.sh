@@ -9,14 +9,14 @@ export default function LabsPage() {
   return (
     <main>
       <section className="flex h-screen max-h-208 flex-col items-center justify-center">
-        <span className="relative">
+        <span className="relative text-center">
           <h1 className="font-bold text-5xl sm:text-7xl">
             Hexaa's <b className="font-montreal">La</b>
             <b className="font-serif">bs</b>
           </h1>
-          <span className="absolute bottom-0 z-20 h-12 w-full bg-linear-to-b from-transparent to-background/70"></span>
+          <span className="absolute right-0 bottom-0 left-0 z-20 h-12 w-full bg-linear-to-b from-transparent to-background/70"></span>
         </span>
-        <span className="inline-block text-center text-xl sm:text-3xl">
+        <span className="mx-4 inline-block text-center text-xl sm:text-3xl">
           a{" "}
           <span className="relative bg-linear-to-br from-primary/20 to-primary/5 px-2">
             curated list
@@ -25,7 +25,7 @@ export default function LabsPage() {
           </span>{" "}
           of Hexaa’s UI compounds.
         </span>
-        <div className="mt-8 flex gap-3">
+        <div className="mt-8 flex flex-col gap-1 sm:flex-row sm:gap-3">
           <Button size="lg" variant="link" asChild>
             <Link href="/labs/get-started">[get started]</Link>
           </Button>

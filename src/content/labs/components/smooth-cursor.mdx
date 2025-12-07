@@ -11,12 +11,24 @@ description: cursor go vroom vroom
 
 ## Usage
 
-```tsx title="page.tsx"
-import { Button } from "@/components/button";
+```tsx title="layout.tsx"
+import { SmoothCursor } from "@/components/smooth-cursor";
 
-export default function Page() {
-  return <Button>Click me</Button>;
+export default function Layout({ children }: LayoutProps<"/">) {
+  return (
+    <>
+      {children}
+      <SmoothCursor />
+    </>
+  );
 }
 ```
 
 ## API Reference
+
+### SmoothCursor
+
+<AutoTypeTable
+  path="./src/labs-registry/components-v1/smooth-cursor.tsx"
+  name="SmoothCursorProps"
+/>
