@@ -1,4 +1,4 @@
-import { LanguagesTools } from "@/components/languages-tools";
+import { LanguagesTools } from "@/components/portfolio/languages-tools";
 import * as icon from "@icons-pack/react-simple-icons";
 import { CustomIcons } from "@/components/icons";
 import { FileVideoCamera } from "lucide-react";

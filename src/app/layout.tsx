@@ -9,7 +9,7 @@ import {
 } from "next/font/google";
 import localFont from "next/font/local";
 
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/portfolio/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

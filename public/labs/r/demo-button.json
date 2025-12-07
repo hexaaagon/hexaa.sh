@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "demo-button",
+  "type": "registry:example",
+  "description": "Demo of the button component",
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "labs-registry/components-v1/demo/button.tsx",
+      "content": "import { Button } from \"@/labs-registry/components-v1/button\";\r\n\r\nexport default function DemoButton() {\r\n  return (\r\n    <div className=\"flex items-center gap-5\">\r\n      <Button>This is a button</Button>\r\n      <Button variant=\"link\">This is a link</Button>\r\n    </div>\r\n  );\r\n}\r\n",
+      "type": "registry:example"
+    }
+  ]
+}

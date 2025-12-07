@@ -1,0 +1,75 @@
+---
+title: Card Overlap Scroll
+description: basically a card but it's overlapped with other cards and more cooler
+---
+
+<ComponentPreview
+  name="demo-card-overlap-scroll"
+  type="showcase"
+  showcaseUrl="/labs-showcase/card-overlap-scroll"
+/>
+
+## Installation
+
+<ShadcnInstall path="card-overlap-scroll" />
+
+## Usage
+
+```tsx title="page.tsx"
+import { OverlapCards } from "@/components/card-overlap-scroll";
+
+export default function CardOverlapScrollPage() {
+  return (
+    <OverlapCards
+      cards={[
+        {
+          description: "step 1",
+        },
+        {
+          description: "step 2",
+        },
+        {
+          description: "step 3",
+        },
+        {
+          description: "step 4",
+        },
+        {
+          description: "step 5",
+        },
+      ]}
+      className="bg-background min-h-[800px] w-full"
+    />
+  );
+}
+```
+
+## API Reference
+
+### OverlapCard
+
+<AutoTypeTable
+  path="./src/labs-registry/components-v1/card-overlap-scroll.tsx"
+  name="OverlapCard"
+/>
+
+### OverlapCardsProps
+
+<AutoTypeTable
+  path="./src/labs-registry/components-v1/card-overlap-scroll.tsx"
+  name="OverlapCardsProps"
+/>
+
+### ScrollBehavior
+
+<AutoTypeTable
+  path="./src/labs-registry/components-v1/card-overlap-scroll.tsx"
+  name="ScrollBehavior"
+/>
+
+### CardDimensions
+
+<AutoTypeTable
+  path="./src/labs-registry/components-v1/card-overlap-scroll.tsx"
+  name="CardDimensions"
+/>

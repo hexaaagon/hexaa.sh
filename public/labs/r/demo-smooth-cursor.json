@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "demo-smooth-cursor",
+  "type": "registry:example",
+  "description": "Demo of the smooth-cursor component",
+  "registryDependencies": [
+    "smooth-cursor"
+  ],
+  "files": [
+    {
+      "path": "labs-registry/components-v1/demo/smooth-cursor.tsx",
+      "content": "export default function DemoSmoothCursor() {\r\n  return (\r\n    <>\r\n      <div className=\"hidden text-center *:my-0 sm:block\">\r\n        <p>Move your mouse around</p>\r\n        <p className=\"text-sm\">(you already saw the cursor lmfao)</p>\r\n      </div>\r\n      <div className=\"text-center *:my-0 sm:hidden\">\r\n        <p>oop, mobile are not supported!</p>\r\n        <p className=\"text-sm\">use a device that has a mouse.</p>\r\n      </div>\r\n    </>\r\n  );\r\n}\r\n",
+      "type": "registry:example"
+    }
+  ]
+}

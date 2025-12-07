@@ -18,9 +18,12 @@ export const routePatterns = [
   /^api\/admin-workflow\/cache-delete\/dub-links$/,
   /^api\/admin-workflow\/cache-delete\/guestbook-response$/,
   /^api\/auth\/.*$/,
+  /^attribute$/,
   /^favicon.ico$/,
   /^guestbook$/,
+  /^labs$/,
   /^og\/blog\/.*$/,
+  /^sitemap.xml$/,
 ] as const;
 
 export function isDefinedRoute(pathname: string): boolean {

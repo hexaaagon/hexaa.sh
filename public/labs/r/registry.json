@@ -1,0 +1,175 @@
+{
+  "items": [
+    {
+      "name": "button",
+      "description": "basically a button but more cooler",
+      "type": "registry:component",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/button.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "interactive"
+      ]
+    },
+    {
+      "name": "card-overlap-scroll",
+      "description": "basically a card but it",
+      "type": "registry:component",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/card-overlap-scroll.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "scroll",
+        "cards"
+      ]
+    },
+    {
+      "name": "card-stack-scroll",
+      "description": "basically a card but it",
+      "type": "registry:component",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/card-stack-scroll.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "scroll",
+        "cards"
+      ]
+    },
+    {
+      "name": "parallax-scroll",
+      "description": "definitely just a scroll component but with parallax effect and more cooler",
+      "type": "registry:component",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/parallax-scroll.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "scroll",
+        "effects"
+      ]
+    },
+    {
+      "name": "rotate-velocity-scroll",
+      "description": "element go spin and based on scroll velocity and more cooler",
+      "type": "registry:component",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/rotate-velocity-scroll.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "scroll",
+        "effects"
+      ]
+    },
+    {
+      "name": "smooth-cursor",
+      "description": "cursor go vroom vroom",
+      "type": "registry:component",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/smooth-cursor.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "cursor"
+      ]
+    },
+    {
+      "name": "trailing-scroll",
+      "description": "element go slower or faster based on scroll and more cooler",
+      "type": "registry:component",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/trailing-scroll.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "scroll",
+        "effects"
+      ]
+    },
+    {
+      "name": "demo-button",
+      "description": "Demo of the button component",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/demo/button.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "button"
+      ],
+      "categories": [
+        "interactive"
+      ]
+    },
+    {
+      "name": "demo-rotate-velocity-scroll",
+      "description": "Demo of the rotate-velocity-scroll component",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/demo/rotate-velocity-scroll.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "rotate-velocity-scroll"
+      ],
+      "categories": [
+        "interactive"
+      ]
+    },
+    {
+      "name": "demo-smooth-cursor",
+      "description": "Demo of the smooth-cursor component",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/demo/smooth-cursor.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "smooth-cursor"
+      ],
+      "categories": [
+        "interactive"
+      ]
+    }
+  ]
+}

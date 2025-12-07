@@ -1,0 +1,34 @@
+---
+title: Smooth Cursor
+description: cursor go vroom vroom
+---
+
+<ComponentPreview name="demo-smooth-cursor" type="component" />
+
+## Installation
+
+<ShadcnInstall path="smooth-cursor" />
+
+## Usage
+
+```tsx title="layout.tsx"
+import { SmoothCursor } from "@/components/smooth-cursor";
+
+export default function Layout({ children }: LayoutProps<"/">) {
+  return (
+    <>
+      {children}
+      <SmoothCursor />
+    </>
+  );
+}
+```
+
+## API Reference
+
+### SmoothCursor
+
+<AutoTypeTable
+  path="./src/labs-registry/components-v1/smooth-cursor.tsx"
+  name="SmoothCursorProps"
+/>

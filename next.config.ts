@@ -3,7 +3,13 @@ import createBundleAnalyzer from "@next/bundle-analyzer";
 import { createMDX } from "fumadocs-mdx/next";
 
 const nextConfig: NextConfig = {
-  serverExternalPackages: ["typescript", "@takumi-rs/image-response"],
+  serverExternalPackages: [
+    "typescript",
+    "@takumi-rs/image-response",
+    "shiki",
+    "twoslash",
+    "vscode-oniguruma",
+  ],
   experimental: {
     optimizePackageImports: [
       "@icons-pack/react-simple-icons",

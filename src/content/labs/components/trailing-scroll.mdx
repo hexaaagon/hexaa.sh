@@ -1,0 +1,45 @@
+---
+title: Trailing Scroll
+description: element go slower or faster based on scroll and more cooler
+---
+
+<ComponentPreview
+  name="demo-trailing-scroll"
+  type="showcase"
+  showcaseUrl="/labs-showcase/trailing-scroll"
+/>
+
+## Installation
+
+<ShadcnInstall path="trailing-scroll" />
+
+## Usage
+
+```tsx title="page.tsx"
+import { TrailingScroll } from "@/components/trailing-scroll";
+
+export default function Page() {
+  return (
+    <TrailingScroll
+      elements={[
+        {
+          id: "star-1",
+          component: (
+            <Star20
+              className="stroke-foreground text-main size-8 scale-300 stroke-3 md:size-12"
+              size={48}
+            />
+          ),
+          speed: 10,
+          className: "absolute left-[15%] top-[10%] blur-[1px]",
+        },
+        // ...
+      ]}
+      containerClassName="absolute inset-0 z-20 opacity-[92%] pointer-events-none"
+      speedMultiplier={25}
+    />
+  );
+}
+```
+
+## API Reference
