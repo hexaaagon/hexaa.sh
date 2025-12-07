@@ -15,3 +15,4 @@ export const labs = loader({
 });
 
 export type BlogPage = InferPageType<typeof blog>;
+export type LabsPage = InferPageType<typeof labs>;
