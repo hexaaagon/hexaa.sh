@@ -45,7 +45,7 @@ export default function NavbarClient({ tree }: NavbarClientProps) {
   const [isAtTop, setIsAtTop] = useState(true);
   const [open, setOpen] = useState(false);
 
-  const router = useRouter();
+  const _router = useRouter();
   const pathname = usePathname();
 
   const isInLabsPage = pathname.startsWith("/labs/");
@@ -145,7 +145,6 @@ export default function NavbarClient({ tree }: NavbarClientProps) {
                               key={item.href}
                               href={item.href}
                               onClick={() => {
-                                router.push(item.href);
                                 setOpen(false);
                               }}
                               className="font-montreal text-2xl"
@@ -169,10 +168,17 @@ export default function NavbarClient({ tree }: NavbarClientProps) {
                                       data-active={pathname === href}
                                       className={cn(
                                         sidebarMenuButtonVariants(),
-                                        "after:-inset-y-1 relative h-[30px] 3xl:fixed:w-full w-fit 3xl:fixed:max-w-48 overflow-visible border border-transparent font-medium text-[0.8rem] after:absolute after:inset-x-0 after:z-0 after:rounded-md data-[active=true]:border-accent data-[active=true]:bg-accent",
+                                        "after:-inset-y-1 relative h-[30px] min-w-1/2 overflow-visible border border-transparent font-medium text-[0.8rem] after:absolute after:inset-x-0 after:z-0 after:rounded-md data-[active=true]:border-accent data-[active=true]:bg-accent",
                                       )}
                                     >
-                                      <Link href={href}>{name}</Link>
+                                      <Link
+                                        href={href}
+                                        onClick={() => {
+                                          setOpen(false);
+                                        }}
+                                      >
+                                        {name}
+                                      </Link>
                                     </Slot>
                                   );
                                 })}
@@ -205,10 +211,15 @@ export default function NavbarClient({ tree }: NavbarClientProps) {
                                                 }
                                                 className={cn(
                                                   sidebarMenuButtonVariants(),
-                                                  "after:-inset-y-1 relative h-[30px] 3xl:fixed:w-full w-fit 3xl:fixed:max-w-48 overflow-visible border border-transparent font-medium text-[0.8rem] after:absolute after:inset-x-0 after:z-0 after:rounded-md data-[active=true]:border-accent data-[active=true]:bg-accent",
+                                                  "after:-inset-y-1 relative h-[30px] min-w-1/2 overflow-visible border border-transparent font-medium text-[0.8rem] after:absolute after:inset-x-0 after:z-0 after:rounded-md data-[active=true]:border-accent data-[active=true]:bg-accent",
                                                 )}
                                               >
-                                                <Link href={item.url}>
+                                                <Link
+                                                  href={item.url}
+                                                  onClick={() => {
+                                                    setOpen(false);
+                                                  }}
+                                                >
                                                   {item.name}
                                                 </Link>
                                               </Slot>

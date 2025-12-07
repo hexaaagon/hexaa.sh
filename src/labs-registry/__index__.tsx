@@ -40,6 +40,24 @@ export const Index: Record<string, RegistryEntryType> = {
     categories: ["interactive"],
     meta: {},
   },
+  "demo-smooth-cursor": {
+    name: "demo-smooth-cursor",
+    description: "Demo of the smooth-cursor component",
+    type: "registry:example",
+    registryDependencies: ["button"],
+    files: [{
+        path: "labs-registry/components-v1/demo/smooth-cursor.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+    component: React.lazy(async () => {
+        const mod = await import("@/labs-registry/components-v1/demo/smooth-cursor") as any
+        const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "demo-smooth-cursor"
+        return { default: mod.default || mod[exportName] }
+      }),
+    categories: ["interactive"],
+    meta: {},
+  },
   "card-overlap-scroll": {
     name: "card-overlap-scroll",
     description: "Cards that overlap on scroll",

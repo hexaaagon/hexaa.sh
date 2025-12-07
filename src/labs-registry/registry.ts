@@ -21,6 +21,15 @@ export const registry: Registry = {
       categories: ["interactive"],
     },
     {
+      name: "demo-smooth-cursor",
+      description: "Demo of the smooth-cursor component",
+      type: "registry:example",
+      files: ["demo/smooth-cursor.tsx"],
+      dependencies: [],
+      registryDependencies: ["button"],
+      categories: ["interactive"],
+    },
+    {
       name: "card-overlap-scroll",
       description: "Cards that overlap on scroll",
       type: "registry:component",

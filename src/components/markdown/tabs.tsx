@@ -11,7 +11,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { cn } from "@/lib/cn";
+import { cn } from "@/lib/utils";
 import * as Unstyled from "@/components/markdown/tabs.unstyled";
 import { SquareTerminal } from "lucide-react";
 
