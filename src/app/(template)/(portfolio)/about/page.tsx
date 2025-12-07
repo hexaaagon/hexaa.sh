@@ -8,8 +8,8 @@ import SocialBento from "@/components/portfolio/social-bento";
 import { getGithubContributions } from "@/lib/portfolio/social";
 import { HackathonCard } from "@/components/portfolio/hackathon-card";
 import { hackathons } from "@/content/portfolio/hackathons";
-import { Skeleton } from "@/components/ui/skeleton";
 import { SimplexNoise } from "@paper-design/shaders-react";
+import SoonSection from "../soon";
 
 export default async function AboutSection() {
   const githubContributions = await getGithubContributions();
@@ -26,7 +26,7 @@ export default async function AboutSection() {
             main={{ className: "z-20" }}
           />
           <div className="w-full">
-            <Skeleton className="h-96"></Skeleton>
+            <SoonSection />
           </div>
           <div className="xl:max-w-3/5">
             <span className="relative">
