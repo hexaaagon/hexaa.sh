@@ -2,7 +2,7 @@
   "items": [
     {
       "name": "button",
-      "description": "A cool interactive button component",
+      "description": "basically a button but more cooler",
       "type": "registry:component",
       "files": [
         {
@@ -14,6 +14,107 @@
       "registryDependencies": [],
       "categories": [
         "interactive"
+      ]
+    },
+    {
+      "name": "card-overlap-scroll",
+      "description": "basically a card but it",
+      "type": "registry:component",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/card-overlap-scroll.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "scroll",
+        "cards"
+      ]
+    },
+    {
+      "name": "card-stack-scroll",
+      "description": "basically a card but it",
+      "type": "registry:component",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/card-stack-scroll.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "scroll",
+        "cards"
+      ]
+    },
+    {
+      "name": "parallax-scroll",
+      "description": "definitely just a scroll component but with parallax effect and more cooler",
+      "type": "registry:component",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/parallax-scroll.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "scroll",
+        "effects"
+      ]
+    },
+    {
+      "name": "rotate-velocity-scroll",
+      "description": "element go spin and based on scroll velocity and more cooler",
+      "type": "registry:component",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/rotate-velocity-scroll.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "scroll",
+        "effects"
+      ]
+    },
+    {
+      "name": "smooth-cursor",
+      "description": "cursor go vroom vroom",
+      "type": "registry:component",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/smooth-cursor.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "cursor"
+      ]
+    },
+    {
+      "name": "trailing-scroll",
+      "description": "element go slower or faster based on scroll and more cooler",
+      "type": "registry:component",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/trailing-scroll.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "scroll",
+        "effects"
       ]
     },
     {
@@ -46,112 +147,10 @@
       ],
       "dependencies": [],
       "registryDependencies": [
-        "button"
+        "smooth-cursor"
       ],
       "categories": [
         "interactive"
-      ]
-    },
-    {
-      "name": "card-overlap-scroll",
-      "description": "Cards that overlap on scroll",
-      "type": "registry:component",
-      "files": [
-        {
-          "path": "labs-registry/components-v1/card-overlap-scroll.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "dependencies": [],
-      "registryDependencies": [],
-      "categories": [
-        "scroll",
-        "cards"
-      ]
-    },
-    {
-      "name": "card-stack-scroll",
-      "description": "Stacked cards with scroll effects",
-      "type": "registry:component",
-      "files": [
-        {
-          "path": "labs-registry/components-v1/card-stack-scroll.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "dependencies": [],
-      "registryDependencies": [],
-      "categories": [
-        "scroll",
-        "cards"
-      ]
-    },
-    {
-      "name": "parallax-scroll",
-      "description": "Parallax scrolling effect",
-      "type": "registry:component",
-      "files": [
-        {
-          "path": "labs-registry/components-v1/parallax-scroll.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "dependencies": [],
-      "registryDependencies": [],
-      "categories": [
-        "scroll",
-        "effects"
-      ]
-    },
-    {
-      "name": "rotate-velocity-scroll",
-      "description": "Rotation based on scroll velocity",
-      "type": "registry:component",
-      "files": [
-        {
-          "path": "labs-registry/components-v1/rotate-velocity-scroll.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "dependencies": [],
-      "registryDependencies": [],
-      "categories": [
-        "scroll",
-        "effects"
-      ]
-    },
-    {
-      "name": "smooth-cursor",
-      "description": "Smooth cursor following effect",
-      "type": "registry:component",
-      "files": [
-        {
-          "path": "labs-registry/components-v1/smooth-cursor.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "dependencies": [],
-      "registryDependencies": [],
-      "categories": [
-        "cursor",
-        "effects"
-      ]
-    },
-    {
-      "name": "trailing-scroll",
-      "description": "Trailing effect on scroll",
-      "type": "registry:component",
-      "files": [
-        {
-          "path": "labs-registry/components-v1/trailing-scroll.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "dependencies": [],
-      "registryDependencies": [],
-      "categories": [
-        "scroll",
-        "effects"
       ]
     }
   ]

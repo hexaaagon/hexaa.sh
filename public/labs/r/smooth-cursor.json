@@ -2,6 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "smooth-cursor",
   "type": "registry:component",
+  "description": "cursor go vroom vroom",
   "files": [
     {
       "path": "labs-registry/components-v1/smooth-cursor.tsx",

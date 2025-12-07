@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 gsap.registerPlugin(ScrollTrigger);
 
 export type CardStackPropsBase = {
-  cardData: CardProps[];
+  cardData: Array<Omit<CardProps, "index" | "totalCards">>;
 };
 
 export type CardStackProps = React.ComponentPropsWithoutRef<"section"> &

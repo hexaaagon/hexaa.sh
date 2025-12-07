@@ -6,7 +6,7 @@ import type { RegistryEntry as RegistryEntryType } from "./schema";
 export const Index: Record<string, RegistryEntryType> = {
   "button": {
     name: "button",
-    description: "A cool interactive button component",
+    description: "basically a button but more cooler",
     type: "registry:component",
     registryDependencies: [],
     files: [{
@@ -20,6 +20,114 @@ export const Index: Record<string, RegistryEntryType> = {
         return { default: mod.default || mod[exportName] }
       }),
     categories: ["interactive"],
+    meta: {},
+  },
+  "card-overlap-scroll": {
+    name: "card-overlap-scroll",
+    description: "basically a card but it",
+    type: "registry:component",
+    registryDependencies: [],
+    files: [{
+        path: "labs-registry/components-v1/card-overlap-scroll.tsx",
+        type: "registry:component",
+        target: ""
+      }],
+    component: React.lazy(async () => {
+        const mod = await import("@/labs-registry/components-v1/card-overlap-scroll") as any
+        const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "card-overlap-scroll"
+        return { default: mod.default || mod[exportName] }
+      }),
+    categories: ["scroll","cards"],
+    meta: {},
+  },
+  "card-stack-scroll": {
+    name: "card-stack-scroll",
+    description: "basically a card but it",
+    type: "registry:component",
+    registryDependencies: [],
+    files: [{
+        path: "labs-registry/components-v1/card-stack-scroll.tsx",
+        type: "registry:component",
+        target: ""
+      }],
+    component: React.lazy(async () => {
+        const mod = await import("@/labs-registry/components-v1/card-stack-scroll") as any
+        const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "card-stack-scroll"
+        return { default: mod.default || mod[exportName] }
+      }),
+    categories: ["scroll","cards"],
+    meta: {},
+  },
+  "parallax-scroll": {
+    name: "parallax-scroll",
+    description: "definitely just a scroll component but with parallax effect and more cooler",
+    type: "registry:component",
+    registryDependencies: [],
+    files: [{
+        path: "labs-registry/components-v1/parallax-scroll.tsx",
+        type: "registry:component",
+        target: ""
+      }],
+    component: React.lazy(async () => {
+        const mod = await import("@/labs-registry/components-v1/parallax-scroll") as any
+        const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "parallax-scroll"
+        return { default: mod.default || mod[exportName] }
+      }),
+    categories: ["scroll","effects"],
+    meta: {},
+  },
+  "rotate-velocity-scroll": {
+    name: "rotate-velocity-scroll",
+    description: "element go spin and based on scroll velocity and more cooler",
+    type: "registry:component",
+    registryDependencies: [],
+    files: [{
+        path: "labs-registry/components-v1/rotate-velocity-scroll.tsx",
+        type: "registry:component",
+        target: ""
+      }],
+    component: React.lazy(async () => {
+        const mod = await import("@/labs-registry/components-v1/rotate-velocity-scroll") as any
+        const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "rotate-velocity-scroll"
+        return { default: mod.default || mod[exportName] }
+      }),
+    categories: ["scroll","effects"],
+    meta: {},
+  },
+  "smooth-cursor": {
+    name: "smooth-cursor",
+    description: "cursor go vroom vroom",
+    type: "registry:component",
+    registryDependencies: [],
+    files: [{
+        path: "labs-registry/components-v1/smooth-cursor.tsx",
+        type: "registry:component",
+        target: ""
+      }],
+    component: React.lazy(async () => {
+        const mod = await import("@/labs-registry/components-v1/smooth-cursor") as any
+        const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "smooth-cursor"
+        return { default: mod.default || mod[exportName] }
+      }),
+    categories: ["cursor"],
+    meta: {},
+  },
+  "trailing-scroll": {
+    name: "trailing-scroll",
+    description: "element go slower or faster based on scroll and more cooler",
+    type: "registry:component",
+    registryDependencies: [],
+    files: [{
+        path: "labs-registry/components-v1/trailing-scroll.tsx",
+        type: "registry:component",
+        target: ""
+      }],
+    component: React.lazy(async () => {
+        const mod = await import("@/labs-registry/components-v1/trailing-scroll") as any
+        const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "trailing-scroll"
+        return { default: mod.default || mod[exportName] }
+      }),
+    categories: ["scroll","effects"],
     meta: {},
   },
   "demo-button": {
@@ -44,7 +152,7 @@ export const Index: Record<string, RegistryEntryType> = {
     name: "demo-smooth-cursor",
     description: "Demo of the smooth-cursor component",
     type: "registry:example",
-    registryDependencies: ["button"],
+    registryDependencies: ["smooth-cursor"],
     files: [{
         path: "labs-registry/components-v1/demo/smooth-cursor.tsx",
         type: "registry:example",
@@ -56,114 +164,6 @@ export const Index: Record<string, RegistryEntryType> = {
         return { default: mod.default || mod[exportName] }
       }),
     categories: ["interactive"],
-    meta: {},
-  },
-  "card-overlap-scroll": {
-    name: "card-overlap-scroll",
-    description: "Cards that overlap on scroll",
-    type: "registry:component",
-    registryDependencies: [],
-    files: [{
-        path: "labs-registry/components-v1/card-overlap-scroll.tsx",
-        type: "registry:component",
-        target: ""
-      }],
-    component: React.lazy(async () => {
-        const mod = await import("@/labs-registry/components-v1/card-overlap-scroll") as any
-        const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "card-overlap-scroll"
-        return { default: mod.default || mod[exportName] }
-      }),
-    categories: ["scroll","cards"],
-    meta: {},
-  },
-  "card-stack-scroll": {
-    name: "card-stack-scroll",
-    description: "Stacked cards with scroll effects",
-    type: "registry:component",
-    registryDependencies: [],
-    files: [{
-        path: "labs-registry/components-v1/card-stack-scroll.tsx",
-        type: "registry:component",
-        target: ""
-      }],
-    component: React.lazy(async () => {
-        const mod = await import("@/labs-registry/components-v1/card-stack-scroll") as any
-        const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "card-stack-scroll"
-        return { default: mod.default || mod[exportName] }
-      }),
-    categories: ["scroll","cards"],
-    meta: {},
-  },
-  "parallax-scroll": {
-    name: "parallax-scroll",
-    description: "Parallax scrolling effect",
-    type: "registry:component",
-    registryDependencies: [],
-    files: [{
-        path: "labs-registry/components-v1/parallax-scroll.tsx",
-        type: "registry:component",
-        target: ""
-      }],
-    component: React.lazy(async () => {
-        const mod = await import("@/labs-registry/components-v1/parallax-scroll") as any
-        const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "parallax-scroll"
-        return { default: mod.default || mod[exportName] }
-      }),
-    categories: ["scroll","effects"],
-    meta: {},
-  },
-  "rotate-velocity-scroll": {
-    name: "rotate-velocity-scroll",
-    description: "Rotation based on scroll velocity",
-    type: "registry:component",
-    registryDependencies: [],
-    files: [{
-        path: "labs-registry/components-v1/rotate-velocity-scroll.tsx",
-        type: "registry:component",
-        target: ""
-      }],
-    component: React.lazy(async () => {
-        const mod = await import("@/labs-registry/components-v1/rotate-velocity-scroll") as any
-        const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "rotate-velocity-scroll"
-        return { default: mod.default || mod[exportName] }
-      }),
-    categories: ["scroll","effects"],
-    meta: {},
-  },
-  "smooth-cursor": {
-    name: "smooth-cursor",
-    description: "Smooth cursor following effect",
-    type: "registry:component",
-    registryDependencies: [],
-    files: [{
-        path: "labs-registry/components-v1/smooth-cursor.tsx",
-        type: "registry:component",
-        target: ""
-      }],
-    component: React.lazy(async () => {
-        const mod = await import("@/labs-registry/components-v1/smooth-cursor") as any
-        const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "smooth-cursor"
-        return { default: mod.default || mod[exportName] }
-      }),
-    categories: ["cursor","effects"],
-    meta: {},
-  },
-  "trailing-scroll": {
-    name: "trailing-scroll",
-    description: "Trailing effect on scroll",
-    type: "registry:component",
-    registryDependencies: [],
-    files: [{
-        path: "labs-registry/components-v1/trailing-scroll.tsx",
-        type: "registry:component",
-        target: ""
-      }],
-    component: React.lazy(async () => {
-        const mod = await import("@/labs-registry/components-v1/trailing-scroll") as any
-        const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "trailing-scroll"
-        return { default: mod.default || mod[exportName] }
-      }),
-    categories: ["scroll","effects"],
     meta: {},
   },
 };

@@ -2,8 +2,9 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "demo-smooth-cursor",
   "type": "registry:example",
+  "description": "Demo of the smooth-cursor component",
   "registryDependencies": [
-    "button"
+    "smooth-cursor"
   ],
   "files": [
     {

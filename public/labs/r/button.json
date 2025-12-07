@@ -2,6 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "button",
   "type": "registry:component",
+  "description": "basically a button but more cooler",
   "dependencies": [
     "@radix-ui/react-slot",
     "class-variance-authority"
