@@ -119,10 +119,27 @@ function extractDependencies(content: string) {
   while (match !== null) {
     const importPath = match[1];
 
+    // Check for @/labs-registry/components-v1/functions/* imports (hooks and lib utilities)
+    if (importPath.startsWith("@/labs-registry/components-v1/functions/")) {
+      const functionsPath = importPath.replace(
+        "@/labs-registry/components-v1/functions/",
+        "",
+      );
+      // Store with functions prefix for source file lookup, but we'll normalize later
+      utilFiles.add(`functions:${functionsPath}.ts`);
+      match = importRegex.exec(content);
+      continue;
+    }
+
     // Check for @/lib/* imports (utility files)
+    // Skip common project utilities that shouldn't be included in the registry
     if (importPath.startsWith("@/lib/")) {
       const utilPath = importPath.replace("@/lib/", "");
-      utilFiles.add(`${utilPath}.ts`);
+      // Skip utils.ts as it's a project-level utility (contains cn() etc)
+      // Users are expected to have this in their own project
+      if (utilPath !== "utils") {
+        utilFiles.add(`${utilPath}.ts`);
+      }
       match = importRegex.exec(content);
       continue;
     }
@@ -147,10 +164,15 @@ function extractDependencies(content: string) {
   }
 
   // Detect registry dependencies from @/labs-registry imports
+  // Exclude 'functions' as it's not a component but an organizational directory
   const registryImportRegex = /@\/labs-registry\/components-v1\/([\w-]+)/g;
   match = registryImportRegex.exec(content);
   while (match !== null) {
-    registryDeps.add(match[1]);
+    const depName = match[1];
+    // Skip 'functions' - it's not a registry dependency, just an organizational marker
+    if (depName !== "functions") {
+      registryDeps.add(depName);
+    }
     match = registryImportRegex.exec(content);
   }
 
@@ -278,16 +300,36 @@ async function buildPublicRegistry() {
 
     // Add detected util files to the files array
     const utilFilesWithContent = detectedDeps.utilFiles.map((utilFile) => {
-      const sourcePath = join(process.cwd(), registryDirs.components, utilFile);
+      // Check if this is a functions directory file
+      const isFunctionsFile = utilFile.startsWith("functions:");
+      const actualFilePath = isFunctionsFile
+        ? utilFile.replace("functions:", "functions/")
+        : utilFile;
+
+      const sourcePath = join(
+        process.cwd(),
+        registryDirs.components,
+        actualFilePath,
+      );
       let content = "";
       try {
         content = readFileSync(sourcePath, "utf-8");
       } catch (_error) {
-        console.warn(`⚠️  Could not read util file ${utilFile}`);
+        console.warn(`⚠️  Could not read util file ${actualFilePath}`);
+      }
+
+      // Normalize the path: if from functions/, remove functions/hooks/ or functions/lib/ -> lib/
+      let normalizedPath = actualFilePath;
+      if (isFunctionsFile) {
+        // Remove functions/hooks/ or functions/lib/ prefix, keeping just the filename
+        normalizedPath = actualFilePath.replace(
+          /^functions\/(hooks|lib)\//,
+          "lib/",
+        );
       }
 
       return {
-        path: `labs-registry/components-v1/${utilFile}`,
+        path: `labs-registry/components-v1/${normalizedPath}`,
         content,
         type: "registry:lib",
         target: undefined,
