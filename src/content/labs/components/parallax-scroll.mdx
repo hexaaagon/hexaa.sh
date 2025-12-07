@@ -35,16 +35,16 @@ export default function Page() {
     >
       <ParallaxLayer
         layer="1"
-        className="pointer-events-none absolute inset-0 flex items-center justify-center bg-[linear-gradient(to_right,#80808033_1px,transparent_1px),linear-gradient(to_bottom,#80808033_1px,transparent_1px)] bg-position-[center_center] bg-size-[70px_70px]"
+        className="pointer-events-none absolute inset-0 flex items-center justify-center bg-[linear-gradient(to_right,#80808033_1px,transparent_1px),linear-gradient(to_bottom,#80808033_1px,transparent_1px)] bg-size-[70px_70px] bg-position-[center_center]"
       ></ParallaxLayer>
 
       <ParallaxLayer
         layer="2"
-        className="-mt-[20vh] absolute inset-0 flex flex-col items-center justify-center gap-4 font-medium md:gap-8"
+        className="absolute inset-0 -mt-[20vh] flex flex-col items-center justify-center gap-4 font-medium md:gap-8"
       >
         <div className="mx-4 inline-block max-w-3xl text-center text-xl md:text-3xl">
           whoever scrolls first gets{" "}
-          <b className="inline-block rounded-lg border border-main/50 bg-accent px-2 py-1 backdrop-blur-[1.5px]">
+          <b className="border-main/50 bg-accent inline-block rounded-lg border px-2 py-1 backdrop-blur-[1.5px]">
             muddy
           </b>
           , like for real.
@@ -68,12 +68,7 @@ export default function Page() {
           className="w-full invert-100 dark:invert-0"
         />
       </ParallaxLayer>
-      </ParallaxScroll>
-      <div className="flex w-full items-center justify-center py-40 text-center text-accent">
-        <p className="max-w-2xl px-4 text-lg md:text-xl">
-          idk it looks cool you shall scroll up and down to see the effect again
-        </p>
-      </div>
+    </ParallaxScroll>
   );
 }
 ```
