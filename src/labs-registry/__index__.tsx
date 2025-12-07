@@ -148,6 +148,24 @@ export const Index: Record<string, RegistryEntryType> = {
     categories: ["interactive"],
     meta: {},
   },
+  "demo-rotate-velocity-scroll": {
+    name: "demo-rotate-velocity-scroll",
+    description: "Demo of the rotate-velocity-scroll component",
+    type: "registry:example",
+    registryDependencies: ["rotate-velocity-scroll"],
+    files: [{
+        path: "labs-registry/components-v1/demo/rotate-velocity-scroll.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+    component: React.lazy(async () => {
+        const mod = await import("@/labs-registry/components-v1/demo/rotate-velocity-scroll") as any
+        const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "demo-rotate-velocity-scroll"
+        return { default: mod.default || mod[exportName] }
+      }),
+    categories: ["interactive"],
+    meta: {},
+  },
   "demo-smooth-cursor": {
     name: "demo-smooth-cursor",
     description: "Demo of the smooth-cursor component",

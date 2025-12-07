@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "demo-rotate-velocity-scroll",
+  "type": "registry:example",
+  "description": "Demo of the rotate-velocity-scroll component",
+  "registryDependencies": [
+    "rotate-velocity-scroll"
+  ],
+  "files": [
+    {
+      "path": "labs-registry/components-v1/demo/rotate-velocity-scroll.tsx",
+      "content": "import Star15 from \"@/components/stars/s15\";\r\nimport { ScrollVelocityRotate } from \"@/labs-registry/components-v1/rotate-velocity-scroll\";\r\n\r\nexport default function DemoRotateVelocityScroll() {\r\n  return (\r\n    <div className=\"flex items-center justify-center text-center\">\r\n      <span className=\"inline gap-2\">\r\n        <ScrollVelocityRotate baseVelocity={50} className=\"inline-block\">\r\n          <Star15 className=\"inline-block h-8 w-8 text-yellow-400\" />\r\n        </ScrollVelocityRotate>\r\n        <p>ts looks cool</p>\r\n      </span>\r\n    </div>\r\n  );\r\n}\r\n",
+      "type": "registry:example"
+    }
+  ]
+}

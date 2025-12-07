@@ -136,6 +136,24 @@
       ]
     },
     {
+      "name": "demo-rotate-velocity-scroll",
+      "description": "Demo of the rotate-velocity-scroll component",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/demo/rotate-velocity-scroll.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "rotate-velocity-scroll"
+      ],
+      "categories": [
+        "interactive"
+      ]
+    },
+    {
       "name": "demo-smooth-cursor",
       "description": "Demo of the smooth-cursor component",
       "type": "registry:example",

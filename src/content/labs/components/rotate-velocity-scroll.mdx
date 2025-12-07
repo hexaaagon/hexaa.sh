@@ -3,11 +3,7 @@ title: Rotate Velocity Scroll
 description: element go spin and based on scroll velocity and more cooler
 ---
 
-<ComponentPreview
-  name="demo-rotate-velocity-scroll"
-  type="showcase"
-  showcaseUrl="/labs-showcase/rotate-velocity-scroll"
-/>
+<ComponentPreview name="demo-rotate-velocity-scroll" type="component" />
 
 ## Installation
 
@@ -16,11 +12,23 @@ description: element go spin and based on scroll velocity and more cooler
 ## Usage
 
 ```tsx title="page.tsx"
-import { Button } from "@/components/button";
+import { ScrollVelocityRotate } from "@/components/rotate-velocity-scroll";
+import { Star } from "lucide-react";
 
 export default function Page() {
-  return <Button>Click me</Button>;
+  return (
+    <ScrollVelocityRotate baseVelocity={30} className="inline-block">
+      <Star className="inline-block text-yellow-400" size={64} />
+    </ScrollVelocityRotate>
+  );
 }
 ```
 
 ## API Reference
+
+### ScrollVelocityRotate
+
+<AutoTypeTable
+  path="./src/labs-registry/components-v1/rotate-velocity-scroll.tsx"
+  name="ScrollVelocityRotateProps"
+/>
