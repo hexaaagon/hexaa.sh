@@ -13,7 +13,9 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export type CardStackPropsBase = {
   cardData: Array<Omit<CardProps, "index" | "totalCards">>;
