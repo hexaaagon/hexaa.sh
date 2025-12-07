@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import {
   Card,
@@ -14,39 +14,64 @@ import {
   mapRange,
 } from "@/labs-registry/components-v1/functions/lib/maths";
 
-interface RequirementCard {
+export interface OverlapCard {
+  title?: string;
   description: string | React.ReactNode;
   number?: number;
 }
 
-const defaultCards: RequirementCard[] = [
-  {
-    description: "Your project must be open-source, original, and unique.",
-  },
-  {
-    description: "Track your progress with Hackatime while building.",
-  },
-  {
-    description:
-      "The project must involved with your webcam or your phone camera.",
-  },
-  {
-    description: "You must code at least 30 hours on your project.",
-  },
-  {
-    description: "Last thing, add a README to your project repository 😭",
-  },
-];
-
-interface RequirementCardsProps {
-  cards?: RequirementCard[];
+export interface OverlapCardsProps {
+  cards: OverlapCard[];
   className?: string;
+  // Header customization
+  header?: {
+    title: string;
+    subtitle: string;
+  };
+  // Scroll behavior
+  desktopScroll?: Partial<ScrollBehavior>;
+  mobileScroll?: Partial<ScrollBehavior>;
+  // Visual effects
+  parallaxRatio?: number;
+  showBackground?: boolean;
+  backgroundPattern?: "grid" | "dots" | "none";
+  // Card appearance
+  desktopCardDimensions?: Partial<CardDimensions>;
+  mobileCardDimensions?: Partial<CardDimensions>;
+  transitionDuration?: number;
+  cardClassName?: string;
+  cardStyle?: "default" | "lenis";
+  // Container styling
+  containerClassName?: string;
 }
 
-export function RequirementCards({
-  cards = defaultCards,
+export interface CardDimensions {
+  width: number;
+  height: number;
+}
+
+export interface ScrollBehavior {
+  scrollPerCard: number;
+  baseScroll: number;
+  endScroll: number;
+}
+
+export function OverlapCards({
+  cards,
   className,
-}: RequirementCardsProps) {
+  header,
+  desktopScroll = {},
+  mobileScroll = {},
+  parallaxRatio = 0.1,
+  showBackground = true,
+  backgroundPattern = "grid",
+  desktopCardDimensions = {},
+  mobileCardDimensions = {},
+  transitionDuration = 1000,
+  cardClassName,
+  cardStyle = "lenis",
+  containerClassName,
+}: OverlapCardsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsContainerRef = useRef<HTMLDivElement>(null);
   const backgroundRef = useRef<HTMLDivElement>(null);
@@ -56,17 +81,119 @@ export function RequirementCards({
   const [scrollHeight, setScrollHeight] = useState("100vh");
   const [endScrollVh, setEndScrollVh] = useState(0);
 
-  const parallaxRatio = 0.1;
+  // Validate parallax ratio (between 0 and 1)
+  const validatedParallaxRatio = Math.max(0, Math.min(1, parallaxRatio));
+
+  // Default values for scroll behavior
+  const defaultDesktopScroll: ScrollBehavior = {
+    scrollPerCard: 60,
+    baseScroll: 80,
+    endScroll: 100,
+  };
+  const defaultMobileScroll: ScrollBehavior = {
+    scrollPerCard: 120,
+    baseScroll: 200,
+    endScroll: 150,
+  };
+
+  // Default values for card dimensions
+  const defaultDesktopDimensions: CardDimensions = { width: 480, height: 320 };
+  const defaultMobileDimensions: CardDimensions = { width: 280, height: 200 };
+
+  // Validation helpers
+  const validateScrollBehavior = useCallback(
+    (
+      config: Partial<ScrollBehavior>,
+      defaults: ScrollBehavior,
+    ): ScrollBehavior => {
+      return {
+        scrollPerCard: Math.max(
+          10,
+          config.scrollPerCard ?? defaults.scrollPerCard,
+        ),
+        baseScroll: Math.max(0, config.baseScroll ?? defaults.baseScroll),
+        endScroll: Math.max(0, config.endScroll ?? defaults.endScroll),
+      };
+    },
+    [],
+  );
+
+  const validateDimensions = useCallback(
+    (
+      dimensions: Partial<CardDimensions>,
+      defaults: CardDimensions,
+      isDesktop: boolean,
+    ): CardDimensions => {
+      const minWidth = isDesktop ? 200 : 150;
+      const minHeight = isDesktop ? 150 : 100;
+      const maxWidth = isDesktop
+        ? typeof window !== "undefined"
+          ? window.innerWidth * 0.8
+          : 800
+        : 400;
+      const maxHeight = isDesktop
+        ? typeof window !== "undefined"
+          ? window.innerHeight * 0.6
+          : 600
+        : 300;
+
+      return {
+        width: Math.min(
+          maxWidth,
+          Math.max(minWidth, dimensions.width ?? defaults.width),
+        ),
+        height: Math.min(
+          maxHeight,
+          Math.max(minHeight, dimensions.height ?? defaults.height),
+        ),
+      };
+    },
+    [],
+  );
+
+  const desktopScrollConfig = useMemo(
+    () => validateScrollBehavior(desktopScroll, defaultDesktopScroll),
+    [desktopScroll, validateScrollBehavior],
+  );
+  const mobileScrollConfig = useMemo(
+    () => validateScrollBehavior(mobileScroll, defaultMobileScroll),
+    [mobileScroll, validateScrollBehavior],
+  );
+  const desktopDimensions = useMemo(
+    () =>
+      validateDimensions(desktopCardDimensions, defaultDesktopDimensions, true),
+    [desktopCardDimensions, validateDimensions],
+  );
+  const mobileDimensions = useMemo(
+    () =>
+      validateDimensions(mobileCardDimensions, defaultMobileDimensions, false),
+    [mobileCardDimensions, validateDimensions],
+  );
+
+  // Get background pattern classes
+  const getBackgroundPattern = () => {
+    if (!showBackground || backgroundPattern === "none") return "";
+    if (backgroundPattern === "dots") {
+      return "bg-[radial-gradient(#80808033_1px,transparent_1px)] bg-size-[20px_20px]";
+    }
+    return "bg-[linear-gradient(to_right,#80808033_1px,transparent_1px),linear-gradient(to_bottom,#80808033_1px,transparent_1px)] bg-size-[70px_70px]";
+  };
 
   // Calculate scroll height based on cards count and device
   useEffect(() => {
     const calculateScrollHeight = () => {
       const isDesktop = window.innerWidth >= 768;
-      // Base scroll per card: desktop short, mobile longer for readability
-      const scrollPerCard = isDesktop ? 60 : 120;
-      // Add extra scroll at start and end
-      const baseScroll = isDesktop ? 80 : 200;
-      const endScroll = isDesktop ? 100 : 150;
+      // Use custom scroll values or defaults
+      const scrollPerCard = isDesktop
+        ? desktopScrollConfig.scrollPerCard
+        : mobileScrollConfig.scrollPerCard;
+      const baseScroll = isDesktop
+        ? desktopScrollConfig.baseScroll
+        : mobileScrollConfig.baseScroll;
+      const endScroll = isDesktop
+        ? desktopScrollConfig.endScroll
+        : mobileScrollConfig.endScroll;
+
       setEndScrollVh(endScroll);
       const totalScroll = baseScroll + cards.length * scrollPerCard + endScroll;
       setScrollHeight(`${totalScroll}vh`);
@@ -75,9 +202,9 @@ export function RequirementCards({
     calculateScrollHeight();
     window.addEventListener("resize", calculateScrollHeight);
     return () => window.removeEventListener("resize", calculateScrollHeight);
-  }, [cards.length]);
+  }, [cards.length, desktopScrollConfig, mobileScrollConfig]);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  // biome-ignore lint/correctness/useExhaustiveDependencies: false positive
   useEffect(() => {
     const updateRect = () => {
       if (containerRef.current) {
@@ -89,7 +216,7 @@ export function RequirementCards({
         });
 
         // Calculate background height based on container height and parallax ratio
-        const extraHeight = height * parallaxRatio;
+        const extraHeight = height * validatedParallaxRatio;
         const totalHeight = window.innerHeight + extraHeight;
         setBackgroundHeight(`${totalHeight}px`);
       }
@@ -125,7 +252,7 @@ export function RequirementCards({
       if (backgroundRef.current && containerRef.current) {
         const containerTop = rect.top;
         const relativeScroll = scroll - containerTop;
-        const parallaxOffset = relativeScroll * -parallaxRatio;
+        const parallaxOffset = relativeScroll * -validatedParallaxRatio;
         backgroundRef.current.style.transform = `translateY(${parallaxOffset}px)`;
       }
 
@@ -138,29 +265,34 @@ export function RequirementCards({
   return (
     <div
       ref={containerRef}
-      className={cn("relative", className)}
+      className={cn("relative", className, containerClassName)}
       style={{ minHeight: scrollHeight }}
     >
       <div className="sticky top-0 h-screen overflow-hidden p-4 md:p-8">
         {/* Parallax Background */}
-        <div
-          ref={backgroundRef}
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#80808033_1px,transparent_1px),linear-gradient(to_bottom,#80808033_1px,transparent_1px)] bg-position-[center_center] bg-size-[70px_70px] will-change-transform"
-          style={{ height: backgroundHeight }}
-        >
-          <div className="absolute top-0 right-0 left-0 h-[15vh] w-full bg-linear-to-b from-background to-transparent" />
-          <div className="absolute right-0 bottom-0 left-0 h-[30vh] w-full bg-linear-to-t from-background to-transparent" />
-        </div>
+        {showBackground && (
+          <div
+            ref={backgroundRef}
+            className={cn(
+              "pointer-events-none absolute inset-0 bg-position-[center_center] will-change-transform",
+              getBackgroundPattern(),
+            )}
+            style={{ height: backgroundHeight }}
+          >
+            <div className="-top-8 absolute right-0 left-0 h-[15vh] w-full bg-linear-to-b from-primary-foreground to-transparent" />
+            <div className="absolute right-0 bottom-0 left-0 h-[30vh] w-full bg-linear-to-t from-primary-foreground to-transparent" />
+          </div>
+        )}
         <div className="relative h-full">
-          <aside className="mb-8 text-right md:absolute md:top-0 md:right-0">
-            <h2 className="font-bold text-xl sm:text-4xl xl:text-5xl 2xl:text-6xl">
-              Follow the <i>requirement</i> first,
-              <br />
-              <span className="text-foreground/70">
-                Then ship your <i>project</i>.
-              </span>
-            </h2>
-          </aside>
+          {header && (
+            <aside className="mb-8 text-right md:absolute md:top-0 md:right-0">
+              <h2 className="font-bold text-xl sm:text-4xl xl:text-5xl 2xl:text-6xl">
+                {header.title}
+                <br />
+                <span className="text-foreground/70">{header.subtitle}</span>
+              </h2>
+            </aside>
+          )}
 
           <div
             ref={cardsContainerRef}
@@ -168,13 +300,19 @@ export function RequirementCards({
           >
             {cards.map((card, index) => (
               <SingleCard
-                // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+                // biome-ignore lint/suspicious/noArrayIndexKey: false positive
                 key={index}
                 index={index}
+                title={card.title}
                 description={card.description}
                 number={card.number || index + 1}
                 current={index <= current - 1}
                 totalCards={cards.length}
+                desktopDimensions={desktopDimensions}
+                mobileDimensions={mobileDimensions}
+                transitionDuration={transitionDuration}
+                cardClassName={cardClassName}
+                cardStyle={cardStyle}
               />
             ))}
           </div>
@@ -185,25 +323,46 @@ export function RequirementCards({
 }
 
 interface SingleCardProps {
+  title?: string;
   description?: string | React.ReactNode;
   number: number;
   index: number;
   current: boolean;
   totalCards: number;
+  desktopDimensions: CardDimensions;
+  mobileDimensions: CardDimensions;
+  transitionDuration: number;
+  cardClassName?: string;
+  cardStyle: "default" | "lenis";
 }
 
 function SingleCard({
+  title,
   description,
-  number,
   index,
   current,
   totalCards,
+  desktopDimensions,
+  mobileDimensions,
+  transitionDuration,
+  cardClassName,
+  cardStyle,
 }: SingleCardProps) {
   const [position, setPosition] = useState({ top: "0px", left: "0" });
   const [isMounted, setIsMounted] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
+    setIsDesktop(window.innerWidth >= 768);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -211,29 +370,42 @@ function SingleCard({
 
     const getCardPosition = () => {
       // Calculate available space (screen height/width minus card size and padding)
-      const cardHeight = window.innerWidth >= 768 ? 320 : 200; // 20rem = 320px
-      const cardWidth = window.innerWidth >= 768 ? 480 : 280; // 30rem = 480px
-      const padding = window.innerWidth >= 768 ? 64 : 32; // Account for container padding
+      const cardHeight = isDesktop
+        ? desktopDimensions.height
+        : mobileDimensions.height;
+      const cardWidth = isDesktop
+        ? desktopDimensions.width
+        : mobileDimensions.width;
+      const padding = isDesktop ? 64 : 32; // Account for container padding
 
       // On mobile, use a percentage-based approach to distribute cards more evenly
-      const availableHeight =
-        window.innerWidth >= 768
-          ? window.innerHeight - cardHeight - padding * 2
-          : window.innerHeight * 0.4;
-      const availableWidth = window.innerWidth - cardWidth - padding * 2;
+      let availableHeight = isDesktop
+        ? window.innerHeight - cardHeight - padding * 2
+        : window.innerHeight * 0.4;
+      let availableWidth = window.innerWidth - cardWidth - padding * 2;
 
-      // Calculate spacing between cards
-      const spacingTop =
-        totalCards > 1 ? availableHeight / (totalCards - 1) : 0;
-      const spacingLeft =
-        totalCards > 1 ? availableWidth / (totalCards - 1) : 0;
+      // Auto-adjust if cards don't fit: ensure minimum spacing
+      if (availableHeight < 0) {
+        availableHeight = Math.max(50, window.innerHeight * 0.3);
+      }
+      if (availableWidth < 0) {
+        availableWidth = Math.max(20, window.innerWidth * 0.1);
+      }
 
+      // Calculate consistent diagonal spacing for bottom-right direction
+      const minSpacing = isDesktop ? 40 : 20;
+      let spacingTop = totalCards > 1 ? availableHeight / (totalCards - 1) : 0;
+      let spacingLeft = totalCards > 1 ? availableWidth / (totalCards - 1) : 0;
+
+      // Ensure minimum spacing between cards
+      spacingTop = Math.max(minSpacing, spacingTop);
+      spacingLeft = Math.max(minSpacing, spacingLeft);
+
+      // For consistent diagonal movement, don't clamp to available space
+      // Allow cards to continue moving in bottom-right direction
       return {
-        top: `${Math.max(0, Math.min(index * spacingTop, availableHeight))}px`,
-        left:
-          window.innerWidth >= 768
-            ? `${Math.max(0, Math.min(index * spacingLeft, availableWidth))}px`
-            : "0",
+        top: `${index * spacingTop}px`,
+        left: isDesktop ? `${index * spacingLeft}px` : "0",
       };
     };
 
@@ -244,25 +416,48 @@ function SingleCard({
     updatePosition();
     window.addEventListener("resize", updatePosition);
     return () => window.removeEventListener("resize", updatePosition);
-  }, [isMounted, index, totalCards]);
+  }, [
+    isMounted,
+    index,
+    totalCards,
+    desktopDimensions,
+    mobileDimensions,
+    isDesktop,
+  ]);
 
   return (
     <div
       className={cn(
-        "-translate-x-1/2 absolute left-1/2 backdrop-blur-sm transition-all duration-1000 ease-out md:left-0 md:translate-x-0",
-        current ? "translate-y-0 opacity-100" : "translate-y-full opacity-0",
+        "-translate-x-1/2 absolute left-1/2 backdrop-blur-sm transition-all ease-out md:left-0 md:translate-x-0",
+        current ? "opacity-100" : "opacity-0",
       )}
       style={{
-        top: position.top,
-        left: isMounted && window.innerWidth >= 768 ? position.left : undefined,
+        top: current ? position.top : "0px",
+        left: isMounted && isDesktop ? position.left : undefined,
+        transitionDuration: `${transitionDuration}ms`,
       }}
     >
-      <Card className="relative h-[200px] w-[280px] overflow-hidden bg-background/30 md:h-[20rem] md:w-[30rem]">
-        <CardHeader className="h-full">
-          <CardTitle className="font-mono font-semibold text-3xl text-main/50 md:text-7xl">
-            0{index + 1}
-          </CardTitle>
-          <CardDescription className="line-clamp-3 text-sm md:text-xl">
+      <Card
+        className={cn(
+          "relative overflow-hidden bg-background/30",
+          cardClassName,
+        )}
+        style={{
+          width: `${isDesktop ? desktopDimensions.width : mobileDimensions.width}px`,
+          height: `${isDesktop ? desktopDimensions.height : mobileDimensions.height}px`,
+        }}
+      >
+        <CardHeader className="flex h-full flex-col justify-between p-4 md:p-6">
+          {cardStyle === "default" ? (
+            <CardTitle className="font-mono font-semibold text-2xl text-main/50 md:text-5xl">
+              {title}
+            </CardTitle>
+          ) : (
+            <CardTitle className="font-mono font-semibold text-3xl text-main/50 md:text-7xl">
+              {(index + 1).toString().padStart(2, "0")}
+            </CardTitle>
+          )}
+          <CardDescription className="overflow-y-auto text-sm md:text-xl">
             {description}
           </CardDescription>
         </CardHeader>

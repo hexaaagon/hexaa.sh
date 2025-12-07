@@ -4,8 +4,10 @@ export default function CardStackScrollPage() {
   return (
     <div className="my-auto flex h-full w-full flex-col items-center justify-center py-16">
       <header className="mb-24 text-center">
-        <h2 className="font-medium text-3xl">The reason why i love you</h2>
-        <p className="text-center text-lg text-muted-foreground">
+        <h2 className="font-medium text-xl md:text-3xl">
+          The reason why i love you
+        </h2>
+        <p className="text-center text-muted-foreground text-sm md:text-lg">
           idk but you should check this out
         </p>
       </header>
