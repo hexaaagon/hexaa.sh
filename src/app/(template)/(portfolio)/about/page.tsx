@@ -1,7 +1,6 @@
 import Link from "next/link";
-import dynamic from "next/dynamic";
 
-import { HeaderBanner } from "./banner.client";
+import { HeaderBanner, SideNoise } from "./banner.client";
 
 import { ArrowRight } from "lucide-react";
 import { contacts, techStacks } from "@/content/portfolio/about";
@@ -14,13 +13,6 @@ import { PlusSeparator } from "@/components/ui/plus-separator";
 
 import { hackathons } from "@/content/portfolio/hackathons";
 import SoonSection from "../soon";
-
-const SimplexNoise = dynamic(
-  () => import("@paper-design/shaders-react").then((mod) => mod.SimplexNoise),
-  {
-    ssr: false,
-  },
-);
 
 export default async function AboutSection() {
   const githubContributions = await getGithubContributions();
@@ -65,14 +57,7 @@ export default async function AboutSection() {
           />
           <div className="relative hidden min-h-full w-[10%] border-separator/10 border-r md:block">
             <PlusSeparator position={["top-right", "bottom-right"]} />
-            <SimplexNoise
-              colors={["#ffffff00", "#121212", "#262626", "#4d4d4d", "#6e6e6e"]}
-              stepsPerColor={3}
-              softness={0}
-              speed={0.38}
-              scale={0.64}
-              className="h-full w-full opacity-50 invert-100 dark:invert-0"
-            />
+            <SideNoise className="h-full w-full opacity-50 invert-100 dark:invert-0" />
           </div>
           <div className="w-full px-4 py-12">
             <span className="relative">
@@ -98,12 +83,7 @@ export default async function AboutSection() {
           </div>
           <div className="relative hidden min-h-full w-[10%] border-separator/10 border-l md:block">
             <PlusSeparator position={["top-left", "bottom-left"]} />
-            <SimplexNoise
-              colors={["#000000", "#121212", "#262626", "#4d4d4d", "#6e6e6e"]}
-              stepsPerColor={3}
-              softness={0}
-              speed={0.38}
-              scale={0.64}
+            <SideNoise
               offsetX={5}
               offsetY={5}
               className="h-full w-full opacity-50 invert-100 dark:invert-0"
