@@ -1,9 +1,15 @@
 "use client";
-
+import Link from "next/link";
+import dynamic from "next/dynamic";
 import { PlusSeparator } from "@/components/ui/plus-separator";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { GrainGradient } from "@paper-design/shaders-react";
-import Link from "next/link";
+
+const GrainGradient = dynamic(
+  () => import("@paper-design/shaders-react").then((mod) => mod.GrainGradient),
+  {
+    ssr: false,
+  },
+);
 
 export function HeaderBanner() {
   const isMobile = useIsMobile();

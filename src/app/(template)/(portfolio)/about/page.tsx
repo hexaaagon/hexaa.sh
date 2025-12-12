@@ -1,15 +1,26 @@
-import { PlusSeparator } from "@/components/ui/plus-separator";
-import { HeaderBanner } from "./banner.client";
-import { AnimatedBackground } from "@/components/portfolio/animated-background";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+import { HeaderBanner } from "./banner.client";
+
 import { ArrowRight } from "lucide-react";
 import { contacts, techStacks } from "@/content/portfolio/about";
+import { AnimatedBackground } from "@/components/portfolio/animated-background";
 import SocialBento from "@/components/portfolio/social-bento";
 import { getGithubContributions } from "@/lib/portfolio/social";
 import { HackathonCard } from "@/components/portfolio/hackathon-card";
+
+import { PlusSeparator } from "@/components/ui/plus-separator";
+
 import { hackathons } from "@/content/portfolio/hackathons";
-import { SimplexNoise } from "@paper-design/shaders-react";
 import SoonSection from "../soon";
+
+const SimplexNoise = dynamic(
+  () => import("@paper-design/shaders-react").then((mod) => mod.SimplexNoise),
+  {
+    ssr: false,
+  },
+);
 
 export default async function AboutSection() {
   const githubContributions = await getGithubContributions();

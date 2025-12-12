@@ -12,8 +12,10 @@ import {
 import { wakaTimeData } from "@/lib/actions/wakatime";
 import { cn } from "@/lib/utils";
 
-import SkillsSection from "./about-skills";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+const SkillsSection = dynamic(() => import("./about-skills"), { ssr: false });
 
 export default function AboutSection() {
   const wakatimeStats = useSWR("wakatime", wakaTimeData);

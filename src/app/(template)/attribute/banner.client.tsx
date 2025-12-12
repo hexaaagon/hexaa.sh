@@ -1,8 +1,14 @@
 "use client";
-
+import dynamic from "next/dynamic";
 import { PlusSeparator } from "@/components/ui/plus-separator";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { SimplexNoise } from "@paper-design/shaders-react";
+
+const SimplexNoise = dynamic(
+  () => import("@paper-design/shaders-react").then((mod) => mod.SimplexNoise),
+  {
+    ssr: false,
+  },
+);
 
 export function HeaderBanner() {
   const isMobile = useIsMobile();

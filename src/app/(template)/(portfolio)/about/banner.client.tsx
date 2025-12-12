@@ -2,7 +2,14 @@
 
 import { PlusSeparator } from "@/components/ui/plus-separator";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Dithering } from "@paper-design/shaders-react";
+import dynamic from "next/dynamic";
+
+const Dithering = dynamic(
+  () => import("@paper-design/shaders-react").then((mod) => mod.Dithering),
+  {
+    ssr: false,
+  },
+);
 
 export function HeaderBanner() {
   const isMobile = useIsMobile();
