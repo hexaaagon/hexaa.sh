@@ -1,7 +1,6 @@
 import { TerminalSquare } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
 import { CodeBlock } from "@/components/code-block";
-import posthog from "posthog-js";
 
 export function ShadcnInstall({ path }: { path: string }) {
   const url = `${process.env.BETTER_AUTH_URL || "https://hexaa.sh"}/labs/r/${path}.json`;
@@ -21,13 +20,6 @@ export function ShadcnInstall({ path }: { path: string }) {
             key={tab.value}
             value={tab.value}
             className="font-medium text-fd-muted-foreground transition-colors data-[state=active]:text-fd-primary"
-            onClick={() => {
-              posthog.capture("buttonClicked", {
-                location: "labs",
-                section: "shadcn-installation-tabs",
-                value: `install-${tab.name}`,
-              });
-            }}
           >
             {tab.name}
           </TabsTrigger>

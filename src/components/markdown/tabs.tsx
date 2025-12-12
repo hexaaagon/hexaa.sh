@@ -14,6 +14,7 @@ import {
 import { cn } from "@/lib/utils";
 import * as Unstyled from "@/components/markdown/tabs.unstyled";
 import { SquareTerminal } from "lucide-react";
+import posthog from "posthog-js";
 
 type CollectionKey = string | symbol;
 
@@ -68,10 +69,22 @@ TabsList.displayName = "TabsList";
 
 export const TabsTrigger = React.forwardRef<
   React.ComponentRef<typeof Unstyled.TabsTrigger>,
-  React.ComponentPropsWithoutRef<typeof Unstyled.TabsTrigger>
->((props, ref) => (
+  React.ComponentPropsWithoutRef<typeof Unstyled.TabsTrigger> & {
+    tabsType?: "installation";
+  }
+>(({ tabsType, onClick, ...props }, ref) => (
   <Unstyled.TabsTrigger
     ref={ref}
+    onClick={(e) => {
+      if (tabsType === "installation") {
+        posthog.capture("buttonClicked", {
+          location: "labs",
+          section: "shadcn-installation-tabs",
+          value: `install-${props.value}`,
+        });
+      }
+      onClick?.(e);
+    }}
     {...props}
     className={cn(
       "inline-flex items-center gap-2 whitespace-nowrap border-transparent border-b py-2 font-medium text-fd-muted-foreground text-sm transition-colors hover:text-fd-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=active]:border-fd-primary data-[state=active]:text-fd-primary [&_svg]:size-4",
