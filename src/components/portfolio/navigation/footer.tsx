@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { sendGAEvent } from "@next/third-parties/google";
 import { usePathname } from "next/navigation";
 
 import { useThemeStore } from "@/lib/store/site-theme";
@@ -9,9 +8,10 @@ import HCWebring from "@/components/portfolio/navigation/hackclub-webring";
 import { PlusSeparator } from "@/components/ui/plus-separator";
 
 import { socials, pages } from "@/content/navigation/footer";
+import posthog from "posthog-js";
 
 export default function Footer() {
-  const { cycleMode } = useThemeStore();
+  const { cycleMode, modes, currentModeIndex } = useThemeStore();
   const pathname = usePathname();
 
   return (
@@ -22,12 +22,30 @@ export default function Footer() {
             <Link
               href="/"
               className="w-max bg-foreground pr-2 pl-1 font-semibold text-2xl text-background tracking-[-0.09em]"
+              onClick={() =>
+                posthog.capture("buttonClicked", {
+                  location: "footer",
+                  section: "logo",
+                  value: "home",
+                })
+              }
             >
               hex.
             </Link>
             <p className="text-muted-foreground text-sm">
               yet another portfolio site.{" "}
-              <button type="button" onClick={() => cycleMode()}>
+              <button
+                type="button"
+                onClick={() => {
+                  cycleMode();
+                  posthog.capture("buttonClicked", {
+                    location: "footer",
+                    section: "theme-toggle",
+                    current: `${modes[currentModeIndex]}`,
+                    value: `${modes[(currentModeIndex + 1) % modes.length]}`,
+                  });
+                }}
+              >
                 it's winter!
               </button>
             </p>
@@ -40,8 +58,10 @@ export default function Footer() {
                   className="text-foreground-text transition-colors hover:text-primary"
                   target="_blank"
                   onClick={() =>
-                    sendGAEvent("event", "buttonClicked", {
-                      value: `footer-social-${social.name.toLowerCase()}`,
+                    posthog.capture("buttonClicked", {
+                      location: "footer",
+                      section: "socials",
+                      value: `${social.name.toLowerCase()}`,
                     })
                   }
                 >
@@ -56,7 +76,17 @@ export default function Footer() {
             </span>
             <nav className="flex flex-col gap-1 font-medium font-mono text-blue-600 text-foreground-text text-sm transition-all *:hover:underline dark:text-blue-400">
               {pages.personal.map((page) => (
-                <Link key={page.name} href={page.href}>
+                <Link
+                  key={page.name}
+                  href={page.href}
+                  onClick={() => {
+                    posthog.capture("buttonClicked", {
+                      location: "footer",
+                      section: "boardlinks",
+                      value: `personal-${page.name.toLowerCase()}`,
+                    });
+                  }}
+                >
                   [{page.name}]
                 </Link>
               ))}
@@ -68,7 +98,17 @@ export default function Footer() {
             </span>
             <nav className="flex flex-col gap-1 font-medium font-mono text-blue-600 text-foreground-text text-sm transition-all *:hover:underline dark:text-blue-400">
               {pages.explore.map((page) => (
-                <Link key={page.name} href={page.href}>
+                <Link
+                  key={page.name}
+                  href={page.href}
+                  onClick={() => {
+                    posthog.capture("buttonClicked", {
+                      location: "footer",
+                      section: "boardlinks",
+                      value: `explore-${page.name.toLowerCase()}`,
+                    });
+                  }}
+                >
                   [{page.name}]
                 </Link>
               ))}
@@ -80,7 +120,17 @@ export default function Footer() {
             </span>
             <nav className="flex flex-col gap-1 font-medium font-mono text-blue-600 text-foreground-text text-sm transition-all *:hover:underline dark:text-blue-400">
               {pages.meta.map((page) => (
-                <Link key={page.name} href={page.href}>
+                <Link
+                  key={page.name}
+                  href={page.href}
+                  onClick={() => {
+                    posthog.capture("buttonClicked", {
+                      location: "footer",
+                      section: "boardlinks",
+                      value: `meta-${page.name.toLowerCase()}`,
+                    });
+                  }}
+                >
                   [{page.name}]
                 </Link>
               ))}
@@ -99,8 +149,10 @@ export default function Footer() {
               href="https://github.com/hexaaagon/hexaa.sh"
               className="underline transition-colors hover:text-primary"
               onClick={() =>
-                sendGAEvent("event", "buttonClicked", {
-                  value: "footer-github",
+                posthog.capture("buttonClicked", {
+                  location: "footer",
+                  section: "github",
+                  value: "repository",
                 })
               }
             >
@@ -112,8 +164,10 @@ export default function Footer() {
                   href={`https://github.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}/commit/${process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA}`}
                   className="underline transition-colors hover:text-primary"
                   onClick={() =>
-                    sendGAEvent("event", "buttonClicked", {
-                      value: "footer-github-version",
+                    posthog.capture("buttonClicked", {
+                      location: "footer",
+                      section: "github",
+                      value: "commit",
                     })
                   }
                 >

@@ -16,6 +16,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import posthog from "posthog-js";
 
 export function ProjectCard({
   project,
@@ -104,6 +105,13 @@ export function ProjectCard({
                 classNames?.buttons?.combined,
                 classNames?.buttons?.github,
               )}
+              onClick={() => {
+                posthog.capture("buttonClicked", {
+                  location: "project-card",
+                  section: project.title,
+                  value: "github",
+                });
+              }}
             >
               [github]
             </Link>
@@ -135,7 +143,17 @@ export function ProjectCard({
                   <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction asChild>
-                      <Link href={project.link} target="_blank">
+                      <Link
+                        href={project.link}
+                        target="_blank"
+                        onClick={() => {
+                          posthog.capture("buttonClicked", {
+                            location: "project-card",
+                            section: project.title,
+                            value: "live-demo",
+                          });
+                        }}
+                      >
                         Continue
                       </Link>
                     </AlertDialogAction>
@@ -147,6 +165,13 @@ export function ProjectCard({
                 href={project.link}
                 target="_blank"
                 className="font-medium text-blue-600 text-sm transition-all hover:underline dark:text-blue-400"
+                onClick={() => {
+                  posthog.capture("buttonClicked", {
+                    location: "project-card",
+                    section: project.title,
+                    value: "live-demo",
+                  });
+                }}
               >
                 [live demo]
               </Link>

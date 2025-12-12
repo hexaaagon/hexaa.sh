@@ -1,5 +1,4 @@
 "use client";
-import { sendGAEvent } from "@next/third-parties/google";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
@@ -12,6 +11,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { getWebring } from "@/lib/actions/webring";
+import posthog from "posthog-js";
 
 export default function HCWebring() {
   const { data } = useSWR(
@@ -29,8 +29,10 @@ export default function HCWebring() {
             <Link
               href={data.previous.url}
               onClick={() =>
-                sendGAEvent("event", "buttonClicked", {
-                  value: "footer-webring-previous",
+                posthog.capture("buttonClicked", {
+                  location: "footer",
+                  section: "webring",
+                  value: "previous",
                 })
               }
             >
@@ -44,8 +46,10 @@ export default function HCWebring() {
           <Link
             href="https://webring.hackclub.com"
             onClick={() =>
-              sendGAEvent("event", "buttonClicked", {
-                value: "footer-webring-main",
+              posthog.capture("buttonClicked", {
+                location: "footer",
+                section: "webring",
+                value: "home",
               })
             }
           >
@@ -63,8 +67,10 @@ export default function HCWebring() {
             <Link
               href={data.next.url}
               onClick={() =>
-                sendGAEvent("event", "buttonClicked", {
-                  value: "footer-webring-next",
+                posthog.capture("buttonClicked", {
+                  location: "footer",
+                  section: "webring",
+                  value: "next",
                 })
               }
             >

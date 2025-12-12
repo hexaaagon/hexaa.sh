@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import ThemeSwitch from "@/components/portfolio/theme-switch";
@@ -32,6 +32,7 @@ import {
 import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils";
 import { sidebarMenuButtonVariants } from "@/components/ui/sidebar";
+import posthog from "posthog-js";
 
 interface NavbarClientProps {
   tree: typeof labs.pageTree;
@@ -45,7 +46,6 @@ export default function NavbarClient({ tree }: NavbarClientProps) {
   const [isAtTop, setIsAtTop] = useState(true);
   const [open, setOpen] = useState(false);
 
-  const _router = useRouter();
   const pathname = usePathname();
 
   const isInLabsPage = pathname.startsWith("/labs/");
@@ -114,6 +114,13 @@ export default function NavbarClient({ tree }: NavbarClientProps) {
                       variant="ghost"
                       size="icon"
                       className="gap-2 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                      onClick={() => {
+                        posthog.capture("buttonClicked", {
+                          location: "navbar-mobile",
+                          section: "main-nav",
+                          value: "open-menu",
+                        });
+                      }}
                     >
                       {/** biome-ignore lint/a11y/noSvgWithoutTitle: there's no thing in the lucide icon package */}
                       <svg
@@ -146,6 +153,11 @@ export default function NavbarClient({ tree }: NavbarClientProps) {
                               href={item.href}
                               onClick={() => {
                                 setOpen(false);
+                                posthog.capture("buttonClicked", {
+                                  location: "navbar-mobile",
+                                  section: "main-nav",
+                                  value: item.title.toLowerCase(),
+                                });
                               }}
                               className="font-montreal text-2xl"
                             >
@@ -175,6 +187,11 @@ export default function NavbarClient({ tree }: NavbarClientProps) {
                                         href={href}
                                         onClick={() => {
                                           setOpen(false);
+                                          posthog.capture("buttonClicked", {
+                                            location: "navbar-mobile",
+                                            section: "labs",
+                                            value: `featured-${name.toLowerCase()}`,
+                                          });
                                         }}
                                       >
                                         {name}
@@ -218,6 +235,15 @@ export default function NavbarClient({ tree }: NavbarClientProps) {
                                                   href={item.url}
                                                   onClick={() => {
                                                     setOpen(false);
+                                                    posthog.capture(
+                                                      "buttonClicked",
+                                                      {
+                                                        location:
+                                                          "navbar-mobile",
+                                                        section: "labs",
+                                                        value: `${item.url.split("/").pop()?.toLowerCase()}`,
+                                                      },
+                                                    );
                                                   }}
                                                 >
                                                   {item.name}
@@ -257,7 +283,17 @@ export default function NavbarClient({ tree }: NavbarClientProps) {
             {isMounted && !isMobile && (
               <nav className="flex gap-4 font-montreal-mono text-xs transition-opacity duration-300">
                 {navItems.map((item) => (
-                  <Link key={item.title} href={item.href}>
+                  <Link
+                    key={item.title}
+                    href={item.href}
+                    onClick={() => {
+                      posthog.capture("buttonClicked", {
+                        location: "navbar",
+                        section: "main-nav",
+                        value: item.title.toLowerCase(),
+                      });
+                    }}
+                  >
                     {item.title}
                   </Link>
                 ))}

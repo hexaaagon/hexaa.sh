@@ -20,6 +20,7 @@ import {
   EXCLUDED_SECTIONS,
   TOP_LEVEL_SECTIONS,
 } from "@/content/navigation/labs";
+import posthog from "posthog-js";
 
 export function DocsSidebar({
   tree,
@@ -48,7 +49,16 @@ export function DocsSidebar({
                       isActive={pathname === href}
                       className="after:-inset-y-1 relative h-[30px] 3xl:fixed:w-full w-fit 3xl:fixed:max-w-48 overflow-visible border border-transparent font-medium text-[0.8rem] after:absolute after:inset-x-0 after:z-0 after:rounded-md data-[active=true]:border-accent data-[active=true]:bg-accent"
                     >
-                      <Link href={href}>
+                      <Link
+                        href={href}
+                        onClick={() => {
+                          posthog.capture("buttonClicked", {
+                            location: "labs",
+                            section: "sidebar",
+                            value: `featured-${name.toLowerCase()}`,
+                          });
+                        }}
+                      >
                         <span className="absolute inset-0 flex w-(--sidebar-width) bg-transparent" />
                         {name}
                       </Link>
@@ -85,7 +95,16 @@ export function DocsSidebar({
                               isActive={item.url === pathname}
                               className="after:-inset-y-1 relative h-[30px] 3xl:fixed:w-full w-fit 3xl:fixed:max-w-48 overflow-visible border border-transparent font-medium text-[0.8rem] after:absolute after:inset-x-0 after:z-0 after:rounded-md data-[active=true]:border-accent data-[active=true]:bg-accent"
                             >
-                              <Link href={item.url}>
+                              <Link
+                                href={item.url}
+                                onClick={() => {
+                                  posthog.capture("buttonClicked", {
+                                    location: "labs",
+                                    section: "sidebar",
+                                    value: `${item.url.split("/").pop()?.toLowerCase()}`,
+                                  });
+                                }}
+                              >
                                 <span className="absolute inset-0 flex w-(--sidebar-width) bg-transparent" />
                                 {item.name}
                               </Link>
