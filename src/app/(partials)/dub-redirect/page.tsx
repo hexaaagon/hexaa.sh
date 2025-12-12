@@ -36,7 +36,7 @@ function DubRedirectContent() {
 
   // Update document metadata
   useEffect(() => {
-    if (!dubLink) {
+    if (!dubLink || !dubLink.startsWith("https://go.hexaa.sh/")) {
       window.location.href = "/";
       return;
     }

@@ -14,7 +14,11 @@ declare global {
       NEXT_PUBLIC_STACK_PROJECT_ID: string;
       NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY: string;
       STACK_SECRET_SERVER_KEY: string;
-      NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: string;
+
+      // Posthog
+      NEXT_PUBLIC_POSTHOG_KEY: string;
+      NEXT_PUBLIC_POSTHOG_HOST_API: string;
+      NEXT_PUBLIC_POSTHOG_HOST_UI: string;
 
       // Auth
       BETTER_AUTH_SECRET: string;

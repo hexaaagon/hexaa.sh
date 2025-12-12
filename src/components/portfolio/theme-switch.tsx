@@ -1,11 +1,11 @@
 "use client";
-import { sendGAEvent } from "@next/third-parties/google";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import posthog from "posthog-js";
 
 export default function ThemeSwitch({
   className,
@@ -30,8 +30,11 @@ export default function ThemeSwitch({
       variant="outline"
       onClick={(e) => {
         setTheme(resolvedTheme === "dark" ? "light" : "dark");
-        sendGAEvent("event", "buttonClicked", {
-          value: "theme-switch",
+        posthog.capture("buttonClicked", {
+          location: "navbar",
+          section: "theme-switch",
+          current: resolvedTheme,
+          value: resolvedTheme === "dark" ? "light" : "dark",
         });
         onClick?.(e);
       }}
