@@ -1,15 +1,8 @@
-import dynamic from "next/dynamic";
+import { GrainGradient } from "@paper-design/shaders-react";
 import {
   ParallaxScroll,
   ParallaxLayer,
 } from "@/labs-registry/components-v1/parallax-scroll";
-
-const GrainGradient = dynamic(
-  () => import("@paper-design/shaders-react").then((mod) => mod.GrainGradient),
-  {
-    ssr: false,
-  },
-);
 
 export default function ParallaxScrollPage() {
   return (
