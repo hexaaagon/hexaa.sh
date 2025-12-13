@@ -4,6 +4,7 @@
 
 export const routePatterns = [
   /^dub-redirect$/,
+  /^error-pages\/internal-server-error$/,
   /^error-pages\/not-found$/,
   /^error-pages\/page-unavailable$/,
   /^error-pages\/lab-not-found$/,
