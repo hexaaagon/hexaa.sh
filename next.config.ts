@@ -28,11 +28,9 @@ const nextConfig: NextConfig = {
         hostname: "cdn.discordapp.com",
         pathname: "/avatars/**",
       },
-      {
-        protocol: "https",
-        hostname: "**", // Allow all HTTPS images for Dub link previews
-      },
+      // Dub images excluded - use regular <img> tags for Dub URLs to avoid optimization
     ],
+    minimumCacheTTL: 60 * 60 * 24 * 28, // 28 days
   },
   allowedDevOrigins: ["192.168.1.*"],
   reactCompiler: true,
