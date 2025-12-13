@@ -39,6 +39,7 @@ export default function BlogPage() {
                     "mb-4 rounded-xs object-cover",
                     !post.data.image && "invert-100 dark:invert-0",
                   )}
+                  unoptimized
                 />
               </span>
               <p className="mt-5 font-medium text-lg leading-5">
