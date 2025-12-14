@@ -190,6 +190,7 @@ function RedirectWithCountdown({
             width={400}
             height={200}
             className="h-48 w-full rounded-md object-cover"
+            unoptimized
           />
         )}
         <div>
