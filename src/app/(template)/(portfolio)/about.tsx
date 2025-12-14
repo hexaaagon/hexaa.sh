@@ -12,6 +12,7 @@ import {
 import { wakaTimeData } from "@/lib/actions/wakatime";
 import { cn } from "@/lib/utils";
 
+import helloBanner from "#/static/images/typography/hello.webp";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 
@@ -35,7 +36,7 @@ export default function AboutSection() {
         <div className="inner relative flex h-full flex-col border-separator/10 border-x px-2 text-sm sm:px-4 sm:text-base xl:flex-row xl:justify-between xl:px-8">
           <div className="py-24 xl:max-w-7/11">
             <Image
-              src="/static/images/typography/hello.webp"
+              src={helloBanner}
               alt="hello."
               height={60}
               width={120}

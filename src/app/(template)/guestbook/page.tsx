@@ -1,6 +1,7 @@
 "use client";
 import moment from "moment";
 import { useEffect, useRef, useState } from "react";
+import guestbookImage from "#/static/images/typography/hexaas-guestbook.webp";
 import Image from "next/image";
 import { Turnstile } from "@marsidev/react-turnstile";
 
@@ -171,7 +172,7 @@ export default function GuestbookPage() {
               <div className="absolute top-4 left-4 size-16 bg-foreground blur-[10rem] transition-all group-hover:blur-[7rem]"></div>
               <div className="absolute right-4 bottom-4 size-16 bg-foreground blur-[7rem] transition-all group-hover:blur-[6rem]"></div>
               <Image
-                src="/static/images/typography/hexaas-guestbook.webp"
+                src={guestbookImage}
                 alt="Hexaas Guestbook"
                 width={1080}
                 height={1080}

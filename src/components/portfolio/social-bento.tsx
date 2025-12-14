@@ -435,6 +435,7 @@ export default function SocialBento({
                       width={32}
                       height={32}
                       className="m-auto rounded-full"
+                      unoptimized
                     />
                   </ProgressCircle>
                   <div className="flex flex-col mix-blend-difference *:z-10 *:line-clamp-1 *:text-white">
@@ -969,8 +970,8 @@ export default function SocialBento({
                     src={status?.spotify.album_art_url}
                     alt={"Album Art Background"}
                     fill
-                    unoptimized
                     className="overflow-clip opacity-50 blur-lg transition duration-300 ease-in-out group-hover:opacity-60 group-hover:blur-none dark:opacity-40 dark:group-hover:opacity-30"
+                    unoptimized
                   />
                 </div>
               </Link>
