@@ -967,13 +967,7 @@ export default function SocialBento({
                   <img
                     src={status?.spotify.album_art_url}
                     alt={"Album Art Background"}
-                    className="overflow-clip opacity-50 blur-lg transition duration-300 ease-in-out group-hover:opacity-60 group-hover:blur-none dark:opacity-40 dark:group-hover:opacity-30"
-                    style={{
-                      position: "absolute",
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
+                    className="absolute inset-0 h-full w-full overflow-clip object-cover opacity-50 blur-lg transition duration-300 ease-in-out group-hover:opacity-60 group-hover:blur-none dark:opacity-40 dark:group-hover:opacity-30"
                   />
                 </div>
               </Link>

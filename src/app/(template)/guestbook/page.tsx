@@ -219,7 +219,7 @@ export default function GuestbookPage() {
                         <img
                           src={msg.user.image}
                           alt={msg.user.name || "Guestbook User Avatar"}
-                          className="absolute inset-0 h-full w-full object-cover"
+                          className="absolute inset-0 object-cover"
                         />
                       ) : (
                         <span className="absolute inset-0 grid place-items-center text-2xl text-muted-foreground">
@@ -378,7 +378,7 @@ export default function GuestbookPage() {
                             <img
                               src={session.data.user.image}
                               alt={session.data.user.name || "User Avatar"}
-                              className="h-full w-full object-cover"
+                              className="absolute inset-0 object-cover"
                             />
                           </div>
                         ) : (
