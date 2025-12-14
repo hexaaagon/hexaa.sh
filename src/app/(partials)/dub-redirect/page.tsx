@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -184,13 +183,12 @@ function RedirectWithCountdown({
     <div className="flex min-h-screen flex-col items-center justify-center gap-8 p-4 md:flex-row md:gap-12">
       <div className="max-w-sm space-y-4 rounded-lg border bg-card p-6 text-card-foreground shadow-sm">
         {image && (
-          <Image
+          <img
             src={image}
             alt={title || "Link preview"}
             width={400}
             height={200}
             className="h-48 w-full rounded-md object-cover"
-            unoptimized
           />
         )}
         <div>

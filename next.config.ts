@@ -18,19 +18,13 @@ const nextConfig: NextConfig = {
   },
   images: {
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "avatars.githubusercontent.com",
-        pathname: "/u/**",
-      },
-      {
-        protocol: "https",
-        hostname: "cdn.discordapp.com",
-        pathname: "/avatars/**",
-      },
-      // Dub images excluded - use regular <img> tags for Dub URLs to avoid optimization
+      // Remote patterns intentionally minimal - external images (Spotify, Discord, Last.fm, etc.)
+      // use regular <img> tags to avoid Vercel image optimization costs
     ],
     minimumCacheTTL: 60 * 60 * 24 * 28, // 28 days
+    formats: ["image/avif", "image/webp"], // Use modern formats for better compression
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840], // Default device sizes
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384], // Default image sizes
   },
   allowedDevOrigins: ["192.168.1.*"],
   reactCompiler: true,

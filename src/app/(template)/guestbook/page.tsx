@@ -177,7 +177,6 @@ export default function GuestbookPage() {
                 width={1080}
                 height={1080}
                 className="h-full w-full object-cover opacity-70 transition group-hover:opacity-100 dark:opacity-80 dark:invert group-hover:dark:opacity-100"
-                unoptimized
               />
             </div>
             <div className="flex w-full">
@@ -217,12 +216,10 @@ export default function GuestbookPage() {
                   <div className="flex gap-4 px-8 py-3">
                     <div className="relative size-12 shrink-0 overflow-hidden rounded-full bg-muted">
                       {msg.user.image ? (
-                        <Image
+                        <img
                           src={msg.user.image}
                           alt={msg.user.name || "Guestbook User Avatar"}
-                          fill
-                          className="object-cover"
-                          unoptimized
+                          className="absolute inset-0 h-full w-full object-cover"
                         />
                       ) : (
                         <span className="absolute inset-0 grid place-items-center text-2xl text-muted-foreground">
@@ -378,12 +375,10 @@ export default function GuestbookPage() {
                       >
                         {session.data.user.image ? (
                           <div className="relative size-6 overflow-hidden rounded-full bg-muted">
-                            <Image
+                            <img
                               src={session.data.user.image}
                               alt={session.data.user.name || "User Avatar"}
-                              fill
-                              className="object-cover"
-                              unoptimized
+                              className="h-full w-full object-cover"
                             />
                           </div>
                         ) : (

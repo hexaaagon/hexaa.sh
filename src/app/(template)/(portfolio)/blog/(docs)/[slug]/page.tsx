@@ -67,7 +67,6 @@ export default async function Page(props: PageProps<"/blog/[slug]">) {
             "mb-2 max-w-full rounded-md md:max-w-prose",
             image.invertable && "invert-100 dark:invert-0",
           )}
-          unoptimized
         />
         <div className="prose dark:prose-invert min-w-0 flex-1">
           {page.data.flags?.includes("personal-opinion") && (
