@@ -1,5 +1,6 @@
 "use client";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import hackclub from "#/static/images/hackclub.svg";
 import Image from "next/image";
 
 import Link from "next/link";
@@ -54,7 +55,7 @@ export default function HCWebring() {
             }
           >
             <Image
-              src="/static/images/hackclub.svg"
+              src={hackclub}
               alt="Hack Club Webring"
               width={18}
               height={18}

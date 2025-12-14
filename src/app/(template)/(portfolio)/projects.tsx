@@ -1,6 +1,8 @@
 import { ProjectCard } from "@/components/portfolio/project-card";
 import { PlusSeparator } from "@/components/ui/plus-separator";
 import { projectsData } from "@/content/portfolio/projects";
+
+import ditherImage from "#/static/images/br-dither-gradient.png";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,7 +25,7 @@ export default function ProjectSection() {
           </div>
           <div className="group relative flex flex-col justify-center gap-4 overflow-hidden px-5 py-8 sm:px-10 md:px-18">
             <Image
-              src="/static/images/br-dither-gradient.png"
+              src={ditherImage}
               alt="Dither"
               fill
               className="-z-10 absolute top-0 left-0 h-full w-full object-cover object-right opacity-30 invert dark:invert-0"
