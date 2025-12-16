@@ -289,6 +289,10 @@
   @apply top-12 mr-2 h-auto;
 }
 
+#nd-page[data-full="true"] {
+  @apply max-w-[1800px];
+}
+
 [data-toc-popover-trigger] {
   @apply bg-transparent;
 }

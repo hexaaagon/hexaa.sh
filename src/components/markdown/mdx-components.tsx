@@ -4,6 +4,7 @@ import type { MDXComponents } from "mdx/types";
 import { CodeBlock } from "@/components/code-block";
 
 import { ComponentPreview } from "./component-preview";
+import { ComponentsShowcase } from "./components-showcase";
 import { ShadcnInstall } from "./installation-tabs";
 import * as TabsComponents from "./tabs";
 
@@ -20,6 +21,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     ),
     CodeBlock,
     ComponentPreview,
+    ComponentsShowcase,
     ShadcnInstall,
     ...TabsComponents,
     ...components,
