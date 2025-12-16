@@ -7,7 +7,7 @@ import { CodeBlock } from "@/components/code-block";
 import { ComponentPreview } from "./component-preview";
 import { ComponentsShowcase } from "./components-showcase";
 import { ShadcnInstall } from "./installation-tabs";
-import * as ChangelogComponents from "./changelog-showcase";
+import * as ChangelogComponents from "./changelog";
 import * as TabsComponents from "./tabs";
 
 import { createGenerator } from "fumadocs-typescript";
