@@ -22,7 +22,7 @@ export const hackathons: Array<Hackathon> = [
     dates: "September, 2025",
     location: "Jakarta, Indonesia",
     description:
-      "All-day game jams in 5 cities, where teens worked together to make amazing games, alongside events in 100+ other cities worldwide in a global event by Hack Club.",
+      "All-day game jams in Jakarta, where teens worked together to make amazing games, alongside events in 100+ other cities worldwide in a global event by Hack Club.",
     flags: ["committee"],
     image: "/static/images/hackathons/daydream-jakarta.png",
     links: [

@@ -10,6 +10,7 @@ import { getMDXComponents } from "@/components/markdown/mdx-components";
 import type { Metadata } from "next";
 import { createRelativeLink } from "fumadocs-ui/mdx";
 import { createMetadata, getLabPageImage } from "@/lib/metadata";
+import { cn } from "@/lib/utils";
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
@@ -38,7 +39,17 @@ export default async function Page(props: {
         <MDX
           components={getMDXComponents({
             // this allows you to link to other pages with relative file paths
-            a: createRelativeLink(source, page),
+            a: ({ className, ...props }) =>
+              createRelativeLink(
+                source,
+                page,
+              )({
+                ...props,
+                className: cn(
+                  "underline transition hover:text-muted-foreground",
+                  className,
+                ),
+              }),
           })}
         />
       </DocsBody>

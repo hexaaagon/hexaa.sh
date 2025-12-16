@@ -1,14 +1,17 @@
-import { PlusSeparator } from "@/components/ui/plus-separator";
-import { HeaderBanner } from "./banner.client";
-import { AnimatedBackground } from "@/components/portfolio/animated-background";
 import Link from "next/link";
+
+import { HeaderBanner, SideNoise } from "./banner.client";
+
 import { ArrowRight } from "lucide-react";
 import { contacts, techStacks } from "@/content/portfolio/about";
+import { AnimatedBackground } from "@/components/portfolio/animated-background";
 import SocialBento from "@/components/portfolio/social-bento";
 import { getGithubContributions } from "@/lib/portfolio/social";
 import { HackathonCard } from "@/components/portfolio/hackathon-card";
+
+import { PlusSeparator } from "@/components/ui/plus-separator";
+
 import { hackathons } from "@/content/portfolio/hackathons";
-import { SimplexNoise } from "@paper-design/shaders-react";
 import SoonSection from "../soon";
 
 export default async function AboutSection() {
@@ -28,7 +31,7 @@ export default async function AboutSection() {
           <div className="w-full">
             <SoonSection />
           </div>
-          <div className="xl:max-w-3/5">
+          <div className="md:mr-8 xl:max-w-3/5">
             <span className="relative">
               <h4 className="font-medium text-xl">hey there, hexaa's here.</h4>
               <div className="absolute bottom-0 h-4 w-full bg-linear-to-b from-transparent to-background/60" />
@@ -54,14 +57,7 @@ export default async function AboutSection() {
           />
           <div className="relative hidden min-h-full w-[10%] border-separator/10 border-r md:block">
             <PlusSeparator position={["top-right", "bottom-right"]} />
-            <SimplexNoise
-              colors={["#ffffff00", "#121212", "#262626", "#4d4d4d", "#6e6e6e"]}
-              stepsPerColor={3}
-              softness={0}
-              speed={0.38}
-              scale={0.64}
-              className="h-full w-full opacity-50 invert-100 dark:invert-0"
-            />
+            <SideNoise className="h-full w-full opacity-50 invert-100 dark:invert-0" />
           </div>
           <div className="w-full px-4 py-12">
             <span className="relative">
@@ -87,12 +83,7 @@ export default async function AboutSection() {
           </div>
           <div className="relative hidden min-h-full w-[10%] border-separator/10 border-l md:block">
             <PlusSeparator position={["top-left", "bottom-left"]} />
-            <SimplexNoise
-              colors={["#000000", "#121212", "#262626", "#4d4d4d", "#6e6e6e"]}
-              stepsPerColor={3}
-              softness={0}
-              speed={0.38}
-              scale={0.64}
+            <SideNoise
               offsetX={5}
               offsetY={5}
               className="h-full w-full opacity-50 invert-100 dark:invert-0"

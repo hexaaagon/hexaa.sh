@@ -1,8 +1,8 @@
+import { GrainGradient } from "@paper-design/shaders-react";
 import {
   ParallaxScroll,
   ParallaxLayer,
 } from "@/labs-registry/components-v1/parallax-scroll";
-import { GrainGradient } from "@paper-design/shaders-react";
 
 export default function ParallaxScrollPage() {
   return (

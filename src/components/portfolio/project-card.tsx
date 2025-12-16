@@ -41,7 +41,7 @@ export function ProjectCard({
   return (
     <div
       className={cn(
-        "group rou relative overflow-hidden rounded-xs border border-separator/10 bg-background transition-all hover:border-foreground/20",
+        "group relative overflow-hidden rounded-xs border border-separator/10 bg-background transition-all hover:border-foreground/20",
         classNames?.container,
       )}
     >
