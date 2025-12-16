@@ -31,7 +31,7 @@ export default async function AboutSection() {
           <div className="w-full">
             <SoonSection />
           </div>
-          <div className="xl:max-w-3/5">
+          <div className="md:mr-8 xl:max-w-3/5">
             <span className="relative">
               <h4 className="font-medium text-xl">hey there, hexaa's here.</h4>
               <div className="absolute bottom-0 h-4 w-full bg-linear-to-b from-transparent to-background/60" />

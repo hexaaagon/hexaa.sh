@@ -46,7 +46,7 @@ export function HeaderBanner() {
           <div className="h-[250px] w-full" />
         )}
         <div className="absolute top-0 right-0 bottom-0 left-0 z-10 h-full w-full text-white mix-blend-difference">
-          <div className="mt-12 ml-10 flex h-full flex-col">
+          <div className="mx-10 mt-12 flex h-full flex-col">
             <h2 className="text-2xl md:text-4xl">attributes.</h2>
             <p className="max-w-2xl text-sm md:text-base">
               thank you very much for taking the time to explore my portfolio. i
