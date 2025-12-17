@@ -1,7 +1,7 @@
 import type { Metadata } from "next/types";
 import type { BlogPage, LabsPage } from "./source";
 
-export function createMetadata(override: Metadata): Metadata {
+export function createMetadataBlog(override: Metadata): Metadata {
   return {
     ...override,
     openGraph: {
@@ -24,12 +24,32 @@ export function createMetadata(override: Metadata): Metadata {
       types: {
         "application/rss+xml": [
           {
-            title: "Fumadocs Blog",
+            title: "Hexaa's Blog",
             url: "https://hexaa.sh/blog/rss.xml",
           },
         ],
       },
       ...override.alternates,
+    },
+  };
+}
+
+export function createMetadataLabs(override: Metadata): Metadata {
+  return {
+    ...override,
+    openGraph: {
+      title: override.title ?? undefined,
+      description: override.description ?? undefined,
+      url: "https://hexaa.sh/labs",
+      siteName: "hexaa's labs.",
+      ...override.openGraph,
+    },
+    twitter: {
+      card: "summary_large_image",
+      creator: "@Scoooolzs",
+      title: override.title ?? undefined,
+      description: override.description ?? undefined,
+      ...override.twitter,
     },
   };
 }

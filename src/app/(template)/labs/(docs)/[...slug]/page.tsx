@@ -9,7 +9,7 @@ import { notFound } from "next/navigation";
 import { getMDXComponents } from "@/components/markdown/mdx-components";
 import type { Metadata } from "next";
 import { createRelativeLink } from "fumadocs-ui/mdx";
-import { createMetadata, getLabPageImage } from "@/lib/metadata";
+import { createMetadataLabs, getLabPageImage } from "@/lib/metadata";
 import { cn } from "@/lib/utils";
 
 export default async function Page(props: {
@@ -75,7 +75,7 @@ export async function generateMetadata(
     height: 630,
   };
 
-  return createMetadata({
+  return createMetadataLabs({
     title: page.data.title,
     description: page.data.description ?? "Another hexaa's lab component.",
     openGraph: {
