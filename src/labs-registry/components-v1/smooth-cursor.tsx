@@ -34,6 +34,7 @@ export function SmoothCursor({
   const [hasMoved, setHasMoved] = useState(false);
   const [isMoving, setIsMoving] = useState(false);
   const [isOverPointer, setIsOverPointer] = useState(false);
+  const [isOverPrevent, setIsOverPrevent] = useState(false);
   const lastMousePos = useRef<Position>({ x: 0, y: 0 });
   const velocity = useRef<Position>({ x: 0, y: 0 });
   const lastUpdateTime = useRef(Date.now());
@@ -88,6 +89,10 @@ export function SmoothCursor({
           element.closest("a, button") !== null ||
           window.getComputedStyle(element).cursor === "pointer";
         setIsOverPointer(isPointerElement);
+
+        const isPreventElement =
+          element.closest("[data-smoothcursor-prevent]") !== null;
+        setIsOverPrevent(isPreventElement);
       }
     };
 
@@ -170,7 +175,7 @@ export function SmoothCursor({
     prefersReducedMotion,
   ]);
 
-  if (isMobile || !hasMoved) {
+  if (isMobile || !hasMoved || isOverPrevent) {
     return null;
   }
 

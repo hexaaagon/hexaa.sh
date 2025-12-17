@@ -13,6 +13,7 @@
       "**/*.js",
       "**/*.jsx",
       "**/*.json",
+      "!src/constants/blog/jakarta-transport-coords.ts",
       "!node_modules",
       "!.next",
       "!dist",
