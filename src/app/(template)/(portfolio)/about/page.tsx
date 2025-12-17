@@ -3,7 +3,7 @@ import Link from "next/link";
 import { HeaderBanner, SideNoise } from "./banner.client";
 
 import { ArrowRight } from "lucide-react";
-import { contacts, techStacks } from "@/content/portfolio/about";
+import { contacts, techStacks } from "@/constants/portfolio/about";
 import { AnimatedBackground } from "@/components/portfolio/animated-background";
 import SocialBento from "@/components/portfolio/social-bento";
 import { getGithubContributions } from "@/lib/portfolio/social";
@@ -11,7 +11,7 @@ import { HackathonCard } from "@/components/portfolio/hackathon-card";
 
 import { PlusSeparator } from "@/components/ui/plus-separator";
 
-import { hackathons } from "@/content/portfolio/hackathons";
+import { hackathons } from "@/constants/portfolio/hackathons";
 import SoonSection from "../soon";
 
 export default async function AboutSection() {

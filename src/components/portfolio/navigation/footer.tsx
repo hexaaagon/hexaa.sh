@@ -7,7 +7,7 @@ import { useThemeStore } from "@/lib/store/site-theme";
 import HCWebring from "@/components/portfolio/navigation/hackclub-webring";
 import { PlusSeparator } from "@/components/ui/plus-separator";
 
-import { socials, pages } from "@/content/navigation/footer";
+import { socials, pages } from "@/constants/navigation/footer";
 import posthog from "posthog-js";
 
 export default function Footer() {

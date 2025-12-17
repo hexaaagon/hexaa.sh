@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import type { Hackathon } from "@/content/portfolio/hackathons";
+import type { Hackathon } from "@/constants/portfolio/hackathons";
 import Link from "next/link";
 
 export function HackathonCard({

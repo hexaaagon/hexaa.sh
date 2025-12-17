@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import type { ProjectItem } from "@/content/portfolio/projects";
+import type { ProjectItem } from "@/constants/portfolio/projects";
 
 import { cn } from "@/lib/utils";
 import {

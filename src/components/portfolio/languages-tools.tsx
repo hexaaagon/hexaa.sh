@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import type { ToolItem } from "@/content/portfolio/skills";
+import type { ToolItem } from "@/constants/portfolio/skills";
 
 interface LanguagesToolsProps {
   className?: string;

@@ -1,7 +1,7 @@
 import { PathUtils } from "fumadocs-core/source";
 
 import { HeaderBanner } from "./banner.client";
-import { projectsData } from "@/content/portfolio/projects";
+import { projectsData } from "@/constants/portfolio/projects";
 import { ProjectCard } from "@/components/portfolio/project-card";
 
 export default function ProjectsPage() {

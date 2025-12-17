@@ -1,4 +1,4 @@
-import { attributes } from "@/content/portfolio/attribute";
+import { attributes } from "@/constants/portfolio/attribute";
 import { HeaderBanner } from "./banner.client";
 import { PlusSeparator } from "@/components/ui/plus-separator";
 

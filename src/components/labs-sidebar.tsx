@@ -19,7 +19,7 @@ import {
   EXCLUDED_PAGES,
   EXCLUDED_SECTIONS,
   TOP_LEVEL_SECTIONS,
-} from "@/content/navigation/labs";
+} from "@/constants/navigation/labs";
 import posthog from "posthog-js";
 
 export function DocsSidebar({

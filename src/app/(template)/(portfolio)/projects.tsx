@@ -1,6 +1,6 @@
 import { ProjectCard } from "@/components/portfolio/project-card";
 import { PlusSeparator } from "@/components/ui/plus-separator";
-import { projectsData } from "@/content/portfolio/projects";
+import { projectsData } from "@/constants/portfolio/projects";
 
 import ditherImage from "#/static/images/br-dither-gradient.png";
 import Image from "next/image";

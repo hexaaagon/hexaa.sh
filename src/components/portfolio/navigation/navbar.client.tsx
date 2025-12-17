@@ -23,12 +23,12 @@ import {
   navItems,
   separatorItems,
   shadeExcludeItems,
-} from "@/content/navigation/navbar";
+} from "@/constants/navigation/navbar";
 import {
   EXCLUDED_PAGES,
   EXCLUDED_SECTIONS,
   TOP_LEVEL_SECTIONS,
-} from "@/content/navigation/labs";
+} from "@/constants/navigation/labs";
 import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils";
 import { sidebarMenuButtonVariants } from "@/components/ui/sidebar";
