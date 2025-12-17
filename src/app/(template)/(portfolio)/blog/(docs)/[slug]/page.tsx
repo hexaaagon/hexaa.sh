@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { InlineTOC } from "@/components/markdown/inline-toc";
 import { blog } from "@/lib/source";
-import { createMetadata, getBlogPageImage } from "@/lib/metadata";
+import { createMetadataBlog, getBlogPageImage } from "@/lib/metadata";
 import { ShareButton } from "./page.client";
 import { getMDXComponents } from "@/components/markdown/mdx-components";
 import path from "node:path";
@@ -100,7 +100,7 @@ export async function generateMetadata(
     height: 630,
   };
 
-  return createMetadata({
+  return createMetadataBlog({
     title: page.data.title,
     description: page.data.description ?? "Another hexaa's blog post.",
     openGraph: {

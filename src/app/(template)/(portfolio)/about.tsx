@@ -97,7 +97,7 @@ export default function AboutSection() {
               seemed impossible to fix.
             </p>
           </div>
-          <div className="relative mx-auto flex w-full max-w-sm items-center justify-center">
+          <div className="relative mx-auto mb-2 flex w-full max-w-sm items-center justify-center md:mb-6 lg:mb-12 xl:mb-0">
             <div className="flex flex-col justify-between rounded-xs border bg-muted/50 p-4 shadow-sm dark:bg-muted/20">
               <h2 className="font-semibold text-lg">philosophy</h2>
               <p className="mt-1 leading-tight">
