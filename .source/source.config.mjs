@@ -14,7 +14,8 @@ var blog = defineCollections({
     date: z.iso.date().or(z.date()),
     image: z.string().optional(),
     hashtags: z.array(z.string().startsWith("#")).optional(),
-    flags: z.array(z.string()).optional()
+    flags: z.array(z.string()).optional(),
+    subpage: z.boolean().optional()
   }),
   async: true
 });

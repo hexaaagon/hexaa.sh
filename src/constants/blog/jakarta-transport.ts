@@ -52,7 +52,7 @@ export const krlTransportation: JakartaTransportation = {
   lines: [
     {
       id: "krl-rangkasbitung",
-      name: "Rangkasbitung Line",
+      name: "Commuter Rangkasbitung Line",
       code: {
         color: "#98C93F",
         short: "R",
@@ -66,7 +66,7 @@ export const krlTransportation: JakartaTransportation = {
     },
     {
       id: "krl-cikarang-loop",
-      name: "Cikarang Loop Line",
+      name: "Commuter Cikarang Loop Line",
       code: {
         color: "#26BAED",
         short: "C",
@@ -90,7 +90,7 @@ export const krlTransportation: JakartaTransportation = {
     },
     {
       id: "krl-bogor",
-      name: "Bogor Line",
+      name: "Commuter Bogor Line",
       code: {
         color: "#EC2329",
         short: "B",
@@ -107,7 +107,7 @@ export const krlTransportation: JakartaTransportation = {
     },
     {
       id: "krl-tangerang",
-      name: "Tangerang Line",
+      name: "Commuter Tangerang Line",
       code: {
         color: "#C25F28",
         short: "T",
@@ -121,7 +121,7 @@ export const krlTransportation: JakartaTransportation = {
     },
     {
       id: "krl-tanjung-priok",
-      name: "Tanjung Priok Line",
+      name: "Commuter Tanjung Priok Line",
       code: {
         color: "#EF509A",
         short: "TP",

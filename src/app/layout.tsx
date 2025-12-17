@@ -8,6 +8,7 @@ import {
   Instrument_Serif,
 } from "next/font/google";
 import localFont from "next/font/local";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { ThemeProvider } from "@/components/portfolio/theme-provider";
 
@@ -67,7 +68,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${grotesque.variable} ${instrumentSerif.variable} ${neueMontreal.variable} ${neueMontrealMono.variable} font-grotesque antialiased`}
         suppressHydrationWarning
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <NuqsAdapter>
+          <ThemeProvider>{children}</ThemeProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );

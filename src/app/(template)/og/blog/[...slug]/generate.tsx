@@ -55,8 +55,9 @@ export async function generate({ path, title, description }: GenerateProps) {
   // Title sizing: scale down for longer titles
   const titleLength = titleText.length;
   let titleSize = "96px"; // text-8xl equivalent
-  if (titleLength > 60) titleSize = "60px";
-  else if (titleLength > 40) titleSize = "72px";
+
+  if (titleLength > 45) titleSize = "60px";
+  else if (titleLength > 35) titleSize = "72px";
   else if (titleLength > 25) titleSize = "84px";
 
   // Description sizing
@@ -96,7 +97,7 @@ export async function generate({ path, title, description }: GenerateProps) {
         </section>
       </header>
 
-      <main tw="flex flex-col justify-center items-center flex-1 px-16 py-12 w-full z-10 gap-[-5rem] -mt-8">
+      <main tw="flex flex-col justify-center items-center flex-1 px-32 py-12 w-full z-10 gap-[-5rem] -mt-8">
         <h1
           tw="font-semibold text-center"
           style={{
@@ -110,7 +111,7 @@ export async function generate({ path, title, description }: GenerateProps) {
         </h1>
         {description && (
           <p
-            tw="text-gray-300 text-center"
+            tw="text-gray-300 text-center mt-12"
             style={{
               fontSize: descSize,
               lineHeight: 1.3,
