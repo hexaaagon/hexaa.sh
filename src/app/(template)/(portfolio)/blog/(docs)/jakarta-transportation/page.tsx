@@ -2,7 +2,7 @@
 
 import { JakartaTransportMap } from "@/components/jakarta-transport-map";
 import { useQueryState } from "nuqs";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -33,7 +33,7 @@ const contentMap: Record<string, React.ComponentType> = {
   "mrt-east-west-3": MrtEastWest3,
 };
 
-export default function JakartaTransportMapPage() {
+function JakartaTransportMapContent() {
   const [line, setLine] = useQueryState("line", { defaultValue: "" });
   const [isMounted, setIsMounted] = useState(false);
 
@@ -179,5 +179,19 @@ export default function JakartaTransportMapPage() {
         </div>
       </div>
     </>
+  );
+}
+
+export default function JakartaTransportMapPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex h-screen items-center justify-center">
+          Loading...
+        </div>
+      }
+    >
+      <JakartaTransportMapContent />
+    </Suspense>
   );
 }

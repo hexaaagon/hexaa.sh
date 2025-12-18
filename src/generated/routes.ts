@@ -10,6 +10,7 @@ export const routePatterns = [
   /^error-pages\/lab-not-found$/,
   /^about$/,
   /^blog\/[^\/]+$/,
+  /^blog\/jakarta-transportation$/,
   /^blog$/,
   /^blog\/rss.xml$/,
   /^$/,
