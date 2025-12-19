@@ -76,16 +76,21 @@ export default function GuestbookPage() {
   const [reactionListVisible, setReactionListVisible] = useState<
     false | string
   >(false);
-  const { data: guestbook, mutate: mutateGuestbook } = useSWR(
-    "guestbook-messages",
-    getMessages,
-  );
+  const {
+    data: guestbook,
+    mutate: mutateGuestbook,
+    isLoading,
+    isValidating,
+  } = useSWR("guestbook-messages", getMessages);
   const { data: session } = useSWR("auth-session", () =>
     authClient.getSession(),
   );
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Only run scroll behavior when data is loaded
+    if (!guestbook || isLoading) return;
+
     const container = scrollContainerRef.current;
     if (container) {
       container.style.pointerEvents = "none";
@@ -103,7 +108,7 @@ export default function GuestbookPage() {
           container.style.pointerEvents = "auto";
         }, scrollDuration);
       }
-    }, 3000);
+    }, 300);
 
     return () => {
       clearTimeout(timeout);
@@ -111,7 +116,7 @@ export default function GuestbookPage() {
         container.style.pointerEvents = "auto";
       }
     };
-  }, []);
+  }, [guestbook, isLoading]);
 
   async function sendMessageGuestbook(turnstileToken?: string) {
     if (sending) return;
@@ -208,92 +213,134 @@ export default function GuestbookPage() {
             data-lenis-prevent
             className="inner relative flex h-128 max-w-5xl touch-pan-y flex-col overflow-y-auto border-separator/10 border-x"
           >
-            <div className="flex grow flex-col">
-              {(guestbook || []).map((msg) => (
-                <div
-                  key={msg.id}
-                  className="border-separator/10 border-b last:border-0"
-                >
-                  <div className="flex gap-4 px-8 py-3">
-                    <div className="relative size-12 shrink-0 overflow-hidden rounded-full bg-muted">
-                      {msg.user.image ? (
+            {isLoading ? (
+              <div className="flex h-full flex-col items-center justify-center text-center">
+                <div className="relative size-16">
+                  <Image
+                    src="/static/images/assets/mona-loading-default.gif"
+                    alt="Loading..."
+                    fill
+                    className="dark:hidden"
+                  />
+                  <Image
+                    src="/static/images/assets/mona-loading-dark.gif"
+                    alt="Loading..."
+                    fill
+                    className="hidden dark:block"
+                  />
+                </div>
+                <p className="mt-4 text-muted-foreground">
+                  Loading messages...
+                </p>
+              </div>
+            ) : (
+              <div className="relative flex grow flex-col">
+                {isValidating && (
+                  <div className="sticky top-5 right-0 left-0">
+                    <div className="absolute right-5 flex items-center justify-center">
+                      <div className="relative size-16 animate-fd-fade-in">
                         <Image
-                          src={msg.user.image}
-                          alt={msg.user.name || "Guestbook User Avatar"}
+                          src="/static/images/assets/mona-loading-default.gif"
+                          alt="Loading..."
                           fill
-                          className="object-cover"
-                          unoptimized
+                          className="opacity-50 dark:hidden"
                         />
-                      ) : (
-                        <span className="absolute inset-0 grid place-items-center text-2xl text-muted-foreground">
-                          {msg.user.name
-                            ? msg.anonymous
-                              ? "?"
-                              : msg.user.name.charAt(0).toUpperCase()
-                            : "G"}
-                        </span>
-                      )}
+                        <Image
+                          src="/static/images/assets/mona-loading-dark.gif"
+                          alt="Loading..."
+                          fill
+                          className="hidden opacity-50 dark:block"
+                        />
+                      </div>
                     </div>
-                    <div className="flex grow flex-col gap-2">
-                      <span className="line-clamp-1 flex items-center gap-2 truncate">
-                        <p className="font-semibold text-lg">
-                          {msg.user.name || "Anonymous User"}
-                        </p>
-                        {msg.userId === authorUserId && (
-                          <Badge
-                            variant="secondary"
-                            className="flex items-center gap-1 text-2xs"
-                          >
-                            <Crown />
-                            Author
-                          </Badge>
+                  </div>
+                )}
+                {(guestbook || []).map((msg) => (
+                  <div
+                    key={msg.id}
+                    className="border-separator/10 border-b last:border-0"
+                  >
+                    <div className="flex gap-4 px-8 py-3">
+                      <div className="relative size-12 shrink-0 overflow-hidden rounded-full bg-muted">
+                        {msg.user.image ? (
+                          <Image
+                            src={msg.user.image}
+                            alt={msg.user.name || "Guestbook User Avatar"}
+                            fill
+                            className="object-cover"
+                            unoptimized
+                          />
+                        ) : (
+                          <span className="absolute inset-0 grid place-items-center text-2xl text-muted-foreground">
+                            {msg.user.name
+                              ? msg.anonymous
+                                ? "?"
+                                : msg.user.name.charAt(0).toUpperCase()
+                              : "G"}
+                          </span>
                         )}
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <p className="text-muted-foreground text-sm">
-                              • {moment(msg.createdAt).fromNow()}
-                            </p>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>{moment(msg.createdAt).format("LLLL")}</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </span>
-                      <p className="whitespace-pre-wrap rounded-b-2xl rounded-tr-2xl bg-accent p-2 px-4">
-                        {msg.message}
-                      </p>
-                      <div className="flex items-center gap-1">
-                        {msg.reactions.map((reaction) => (
+                      </div>
+                      <div className="flex grow flex-col gap-2">
+                        <span className="line-clamp-1 flex items-center gap-2 truncate">
+                          <p className="font-semibold text-lg">
+                            {msg.user.name || "Anonymous User"}
+                          </p>
+                          {msg.userId === authorUserId && (
+                            <Badge
+                              variant="secondary"
+                              className="flex items-center gap-1 text-2xs"
+                            >
+                              <Crown />
+                              Author
+                            </Badge>
+                          )}
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <p className="text-muted-foreground text-sm">
+                                • {moment(msg.createdAt).fromNow()}
+                              </p>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>{moment(msg.createdAt).format("LLLL")}</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </span>
+                        <p className="whitespace-pre-wrap rounded-b-2xl rounded-tr-2xl bg-accent p-2 px-4">
+                          {msg.message}
+                        </p>
+                        <div className="flex items-center gap-1">
+                          {msg.reactions.map((reaction) => (
+                            <ReactionBadge
+                              type="existing"
+                              key={reaction.id}
+                              details={reaction}
+                              currentUserId={session?.data?.user?.id || ""}
+                              messageDetails={msg}
+                              setIsTurnstileDialogVisible={
+                                setIsTurnstileDialogVisible
+                              }
+                              setSending={setSending}
+                              mutateGuestbook={mutateGuestbook}
+                            />
+                          ))}
                           <ReactionBadge
-                            type="existing"
-                            key={reaction.id}
-                            details={reaction}
-                            currentUserId={session?.data?.user?.id || ""}
+                            type="new"
                             messageDetails={msg}
+                            reactionListVisible={reactionListVisible}
+                            setReactionListVisible={setReactionListVisible}
                             setIsTurnstileDialogVisible={
                               setIsTurnstileDialogVisible
                             }
                             setSending={setSending}
                             mutateGuestbook={mutateGuestbook}
                           />
-                        ))}
-                        <ReactionBadge
-                          type="new"
-                          messageDetails={msg}
-                          reactionListVisible={reactionListVisible}
-                          setReactionListVisible={setReactionListVisible}
-                          setIsTurnstileDialogVisible={
-                            setIsTurnstileDialogVisible
-                          }
-                          setSending={setSending}
-                          mutateGuestbook={mutateGuestbook}
-                        />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
           <div className="border-separator/10 border-y border-dashed">
             <div className="inner absolute right-0 left-0 mx-auto h-32 w-full max-w-5xl">
