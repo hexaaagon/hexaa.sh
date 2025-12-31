@@ -9,8 +9,5 @@ export function cloudflareLoader({ src, width, quality }: ImageLoaderProps) {
   if (quality) {
     params.push(`quality=${quality}`);
   }
-  if (process.env.NODE_ENV === "development") {
-    return `${src}?${params.join("&")}`;
-  }
-  return `/cdn-cgi/image/${params.join(",")}/${normalizeSrc(src)}`;
+  return `https://files.hexaa.sh/cdn-cgi/image/${params.join(",")}/${normalizeSrc(src)}`;
 }
