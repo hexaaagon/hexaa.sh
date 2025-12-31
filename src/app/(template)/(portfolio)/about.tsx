@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import useSWR from "swr/immutable";
 
@@ -12,9 +11,9 @@ import {
 import { wakaTimeData } from "@/lib/actions/wakatime";
 import { cn } from "@/lib/utils";
 
-import helloBanner from "#/static/images/typography/hello.webp";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { CloudflareImage } from "@/components/image";
 
 const SkillsSection = dynamic(() => import("./about-skills"), { ssr: false });
 
@@ -35,14 +34,14 @@ export default function AboutSection() {
       <main className="w-full border-separator/10 border-t">
         <div className="inner relative flex h-full flex-col border-separator/10 border-x px-2 text-sm sm:px-4 sm:text-base xl:flex-row xl:justify-between xl:px-8">
           <div className="py-24 xl:max-w-7/11">
-            <Image
-              src={helloBanner}
+            <CloudflareImage
+              category="assets"
+              src="/typography/hello.webp"
               alt="hello."
               height={60}
               width={120}
-              className="-mt-5 pointer-events-none mb-4 select-none dark:invert"
+              className="-mt-5 pointer-events-none mb-4 aspect-auto select-none [image-rendering:pixelated] dark:invert"
               fetchPriority="high"
-              unoptimized
             />
             <p>
               i'm hexaa, but my real name is bagas. i am a{" "}

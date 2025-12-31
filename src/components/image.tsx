@@ -3,7 +3,7 @@ import { cloudflareLoader } from "@/lib/cloudflare-images";
 import { cn } from "@/lib/utils";
 import Image, { type ImageProps } from "next/image";
 
-export type categories = "blog";
+export type categories = "assets" | "blog" | "projects";
 
 export function CloudflareImage({
   src,
