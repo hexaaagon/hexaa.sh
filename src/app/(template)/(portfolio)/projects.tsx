@@ -2,9 +2,8 @@ import { ProjectCard } from "@/components/portfolio/project-card";
 import { PlusSeparator } from "@/components/ui/plus-separator";
 import { projectsData } from "@/constants/portfolio/projects";
 
-import ditherImage from "#/static/images/br-dither-gradient.png";
-import Image from "next/image";
 import Link from "next/link";
+import { CloudflareImage } from "@/components/image";
 
 export default function ProjectSection() {
   return (
@@ -24,13 +23,14 @@ export default function ProjectSection() {
             <div className="size-8 border-separator/10 border-b border-l sm:size-14"></div>
           </div>
           <div className="group relative flex flex-col justify-center gap-4 overflow-hidden px-5 py-8 sm:px-10 md:px-18">
-            <Image
-              src={ditherImage}
+            <CloudflareImage
+              src="/br-dither-gradient.png"
               alt="Dither"
-              fill
+              category="assets"
+              height={400}
+              width={1000}
               className="-z-10 absolute top-0 left-0 h-full w-full object-cover object-right opacity-30 invert dark:invert-0"
               fetchPriority="low"
-              unoptimized
             />
             <h2 className="bg-linear-to-b from-foreground to-foreground/50 bg-clip-text font-montreal font-semibold text-transparent text-xl sm:text-2xl lg:text-3xl">
               the projects i've built
