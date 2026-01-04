@@ -1,7 +1,6 @@
 "use client";
 import moment from "moment";
 import { useEffect, useRef, useState } from "react";
-import guestbookImage from "#/static/images/typography/hexaas-guestbook.webp";
 import Image from "next/image";
 import { Turnstile } from "@marsidev/react-turnstile";
 
@@ -60,6 +59,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { EventEmitter } from "@/lib/helpers";
+import { CloudflareImage } from "@/components/image";
 
 // hexaa's user ID
 // yeah ik it's hardcoded, i'm lazy asf
@@ -176,13 +176,13 @@ export default function GuestbookPage() {
             <div className="group relative flex h-48 overflow-hidden bg-background/50">
               <div className="absolute top-4 left-4 size-16 bg-foreground blur-[10rem] transition-all group-hover:blur-[7rem]"></div>
               <div className="absolute right-4 bottom-4 size-16 bg-foreground blur-[7rem] transition-all group-hover:blur-[6rem]"></div>
-              <Image
-                src={guestbookImage}
+              <CloudflareImage
+                src="/typography/hexaas-guestbook.webp"
+                category="assets"
                 alt="Hexaas Guestbook"
                 width={1080}
                 height={1080}
-                className="h-full w-full object-cover opacity-70 transition group-hover:opacity-100 dark:opacity-80 dark:invert group-hover:dark:opacity-100"
-                unoptimized
+                className="aspect-auto h-full w-full object-cover opacity-70 transition group-hover:opacity-100 dark:opacity-80 dark:invert group-hover:dark:opacity-100"
               />
             </div>
             <div className="flex w-full">
