@@ -1,28 +1,12 @@
 {
   "items": [
     {
-      "name": "button",
-      "description": "basically a button but more cooler",
+      "name": "trailing-scroll",
+      "description": "element go slower or faster based on scroll and more cooler",
       "type": "registry:component",
       "files": [
         {
-          "path": "labs-registry/components-v1/button.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "dependencies": [],
-      "registryDependencies": [],
-      "categories": [
-        "interactive"
-      ]
-    },
-    {
-      "name": "card-overlap-scroll",
-      "description": "basically a card but it",
-      "type": "registry:component",
-      "files": [
-        {
-          "path": "labs-registry/components-v1/card-overlap-scroll.tsx",
+          "path": "labs-registry/components-v1/trailing-scroll.tsx",
           "type": "registry:component"
         }
       ],
@@ -30,7 +14,7 @@
       "registryDependencies": [],
       "categories": [
         "scroll",
-        "cards"
+        "effects"
       ]
     },
     {
@@ -48,23 +32,6 @@
       "categories": [
         "scroll",
         "cards"
-      ]
-    },
-    {
-      "name": "parallax-scroll",
-      "description": "definitely just a scroll component but with parallax effect and more cooler",
-      "type": "registry:component",
-      "files": [
-        {
-          "path": "labs-registry/components-v1/parallax-scroll.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "dependencies": [],
-      "registryDependencies": [],
-      "categories": [
-        "scroll",
-        "effects"
       ]
     },
     {
@@ -101,12 +68,45 @@
       ]
     },
     {
-      "name": "trailing-scroll",
-      "description": "element go slower or faster based on scroll and more cooler",
+      "name": "card-overlap-scroll",
+      "description": "basically a card but it",
       "type": "registry:component",
       "files": [
         {
-          "path": "labs-registry/components-v1/trailing-scroll.tsx",
+          "path": "labs-registry/components-v1/card-overlap-scroll.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "scroll",
+        "cards"
+      ]
+    },
+    {
+      "name": "button",
+      "description": "basically a button but more cooler",
+      "type": "registry:component",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/button.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "interactive"
+      ]
+    },
+    {
+      "name": "parallax-scroll",
+      "description": "definitely just a scroll component but with parallax effect and more cooler",
+      "type": "registry:component",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/parallax-scroll.tsx",
           "type": "registry:component"
         }
       ],
@@ -115,24 +115,6 @@
       "categories": [
         "scroll",
         "effects"
-      ]
-    },
-    {
-      "name": "demo-button",
-      "description": "Demo of the button component",
-      "type": "registry:example",
-      "files": [
-        {
-          "path": "labs-registry/components-v1/demo/button.tsx",
-          "type": "registry:example"
-        }
-      ],
-      "dependencies": [],
-      "registryDependencies": [
-        "button"
-      ],
-      "categories": [
-        "interactive"
       ]
     },
     {
@@ -166,6 +148,24 @@
       "dependencies": [],
       "registryDependencies": [
         "smooth-cursor"
+      ],
+      "categories": [
+        "interactive"
+      ]
+    },
+    {
+      "name": "demo-button",
+      "description": "Demo of the button component",
+      "type": "registry:example",
+      "files": [
+        {
+          "path": "labs-registry/components-v1/demo/button.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "button"
       ],
       "categories": [
         "interactive"

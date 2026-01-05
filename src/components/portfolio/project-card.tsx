@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 
 import type { ProjectItem } from "@/constants/portfolio/projects";
@@ -17,6 +16,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import posthog from "posthog-js";
+import { CloudflareImage } from "../image";
 
 export function ProjectCard({
   project,
@@ -52,15 +52,16 @@ export function ProjectCard({
           classNames?.imageWrapper,
         )}
       >
-        <Image
-          src={project.image}
+        <CloudflareImage
+          src={project.imageId}
           alt={project.title}
-          fill
+          height={628}
+          width={1024}
           className={cn(
-            "object-cover transition-transform duration-300 group-hover:scale-105",
+            "absolute top-0 right-0 bottom-0 left-0 aspect-auto h-full w-full object-cover transition-transform duration-300 group-hover:scale-105",
             classNames?.image,
           )}
-          unoptimized={typeof project.image === "string"}
+          category="projects"
         />
       </div>
 

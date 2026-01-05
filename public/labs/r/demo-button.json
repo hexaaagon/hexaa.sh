@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "labs-registry/components-v1/demo/button.tsx",
-      "content": "import { Button } from \"@/labs-registry/components-v1/button\";\r\n\r\nexport default function DemoButton() {\r\n  return (\r\n    <div className=\"flex items-center gap-5\">\r\n      <Button>This is a button</Button>\r\n      <Button variant=\"link\">This is a link</Button>\r\n    </div>\r\n  );\r\n}\r\n",
+      "content": "import { Button } from \"@/labs-registry/components-v1/button\";\n\nexport default function DemoButton() {\n  return (\n    <div className=\"flex items-center gap-5\">\n      <Button>This is a button</Button>\n      <Button variant=\"link\">This is a link</Button>\n    </div>\n  );\n}\n",
       "type": "registry:example"
     }
   ]

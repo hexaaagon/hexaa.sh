@@ -4,6 +4,8 @@ import type { MDXComponents } from "mdx/types";
 import { Accordion, Accordions } from "@/components/accordion";
 import { CodeBlock } from "@/components/code-block";
 
+import * as Image from "@/components/image";
+
 import { ComponentPreview } from "./component-preview";
 import { ComponentsShowcase } from "./components-showcase";
 import { ShadcnInstall } from "./installation-tabs";
@@ -27,6 +29,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     CodeBlock,
     ComponentPreview,
     ComponentsShowcase,
+    ...Image,
     ShadcnInstall,
     ...TabsComponents,
     ...components,
