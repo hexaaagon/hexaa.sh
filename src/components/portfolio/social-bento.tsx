@@ -2,12 +2,25 @@
 /** biome-ignore-all lint/suspicious/noArrayIndexKey: false-positive - using array index for token keys is acceptable here */
 "use client";
 import { SiDiscord, SiSpotify } from "@icons-pack/react-simple-icons";
-
-import { useLanyard } from "react-use-lanyard";
-import { Skeleton } from "../ui/skeleton";
+import { GitBranch } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import {
+  type HTMLProps,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { useLanyard } from "react-use-lanyard";
 import useSWR from "swr";
 import useSWRImmutable from "swr/immutable";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import {
   getGithubContributionsSummaryForYear,
   getLyrics,
@@ -15,30 +28,16 @@ import {
   getWakaTimeLast7Days,
 } from "@/lib/portfolio/social";
 import { useLyricsStore } from "@/lib/store/lyrics-store";
-import {
-  useEffect,
-  useState,
-  useRef,
-  useMemo,
-  useCallback,
-  type HTMLProps,
-} from "react";
+import { cn } from "@/lib/utils";
 import type {
-  Lyrics,
   LineLyric,
+  Lyrics,
   StaticLyric,
   SyllableLyric,
 } from "@/shared/types/lyrics";
-import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { ProgressCircle } from "../ui/progress";
-import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
-import { GitBranch } from "lucide-react";
+import { Skeleton } from "../ui/skeleton";
 
 const codeActivities = ["visual studio code"];
 
@@ -267,7 +266,7 @@ export default function SocialBento({
               <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 p-1">
                 <Avatar>
                   <AvatarImage
-                    src={`https://cdn.discordapp.com/avatars/${status?.discord_user.id}/${status?.discord_user.avatar}`}
+                    src={`https://cdn.discordapp.com/avatars/${status?.discord_user.id}/${status?.discord_user.avatar}?size=48`}
                     alt="Discord Avatar"
                   />
                   <AvatarFallback>
@@ -337,7 +336,7 @@ export default function SocialBento({
                     {activity.assets?.small_image && (
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <span className="-bottom-1 -right-1 absolute inline-block rounded-full border-2 border-background bg-background">
+                          <span className="absolute -right-1 -bottom-1 inline-block rounded-full border-2 border-background bg-background">
                             <Avatar className="size-4 rounded-lg">
                               <AvatarImage
                                 src={`https://media.discordapp.net/${activity.assets.small_image.replace("mp:", "")}`}
@@ -1063,7 +1062,7 @@ export default function SocialBento({
           <p className="lg:text-sm xl:text-base">contributions this year.</p>
           <Contributions
             calendars={githubContributions || []}
-            className="-z-10 absolute top-0 right-0 bottom-0 left-0 m-auto h-auto w-auto opacity-30 blur-[0.5px] transition duration-300 ease-out hover:blur-none group-hover:opacity-50 lg:opacity-20"
+            className="absolute top-0 right-0 bottom-0 left-0 -z-10 m-auto h-auto w-auto opacity-30 blur-[0.5px] transition duration-300 ease-out hover:blur-none group-hover:opacity-50 lg:opacity-20"
           />
         </Link>
       </section>

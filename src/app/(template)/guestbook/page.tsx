@@ -1,27 +1,14 @@
 "use client";
-import moment from "moment";
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import { Turnstile } from "@marsidev/react-turnstile";
-
-import useSWR, { type KeyedMutator } from "swr";
-import {
-  getMessages,
-  type MessageWithReactions,
-  reactMessage,
-  submitMessage,
-} from "@/lib/actions/guestbook";
-import { authClient } from "@/lib/auth/client";
 
 import { SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
+import { Turnstile } from "@marsidev/react-turnstile";
 import { Crown, LogOut, SendHorizonal, SmilePlus } from "lucide-react";
+import moment from "moment";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-
-import type {
-  guestbookReactionTable,
-  guestbookTable,
-} from "@/lib/db/schema/guestbook";
-
+import useSWR, { type KeyedMutator } from "swr";
+import { CloudflareImage } from "@/components/image";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -32,6 +19,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
@@ -58,8 +46,18 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  getMessages,
+  type MessageWithReactions,
+  reactMessage,
+  submitMessage,
+} from "@/lib/actions/guestbook";
+import { authClient } from "@/lib/auth/client";
+import type {
+  guestbookReactionTable,
+  guestbookTable,
+} from "@/lib/db/schema/guestbook";
 import { EventEmitter } from "@/lib/helpers";
-import { CloudflareImage } from "@/components/image";
 
 // hexaa's user ID
 // yeah ik it's hardcoded, i'm lazy asf
@@ -177,7 +175,7 @@ export default function GuestbookPage() {
               <div className="absolute top-4 left-4 size-16 bg-foreground blur-[10rem] transition-all group-hover:blur-[7rem]"></div>
               <div className="absolute right-4 bottom-4 size-16 bg-foreground blur-[7rem] transition-all group-hover:blur-[6rem]"></div>
               <CloudflareImage
-                src="/typography/hexaas-guestbook.webp"
+                src="/typography/hexaas-guestbook.webp.unoptimized"
                 category="assets"
                 alt="Hexaas Guestbook"
                 width={1080}
@@ -263,13 +261,16 @@ export default function GuestbookPage() {
                     <div className="flex gap-4 px-8 py-3">
                       <div className="relative size-12 shrink-0 overflow-hidden rounded-full bg-muted">
                         {msg.user.image ? (
-                          <Image
-                            src={msg.user.image}
-                            alt={msg.user.name || "Guestbook User Avatar"}
-                            fill
-                            className="object-cover"
-                            unoptimized
-                          />
+                          <Avatar className="m-auto size-12 border">
+                            <AvatarImage
+                              src={`${msg.user.image}?size=32`}
+                              alt={msg.user.name || "Guestbook User Avatar"}
+                              className="object-cover"
+                            />
+                            <AvatarFallback>
+                              {msg.user.name.charAt(0).toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
                         ) : (
                           <span className="absolute inset-0 grid place-items-center text-2xl text-muted-foreground">
                             {msg.user.name

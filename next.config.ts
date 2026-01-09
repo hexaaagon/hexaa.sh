@@ -1,6 +1,6 @@
-import type { NextConfig } from "next";
 import createBundleAnalyzer from "@next/bundle-analyzer";
 import { createMDX } from "fumadocs-mdx/next";
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   serverExternalPackages: [
@@ -34,6 +34,7 @@ const nextConfig: NextConfig = {
   },
   allowedDevOrigins: ["192.168.1.*"],
   reactCompiler: true,
+  reactStrictMode: true,
 };
 
 const withMDX = createMDX();

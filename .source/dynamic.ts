@@ -5,4 +5,4 @@ import * as Config from '../source.config';
 const create = await dynamic<typeof Config, import("fumadocs-mdx/runtime/types").InternalTypeConfig & {
   DocData: {
   }
-}>(Config, {"environment":"next","outDir":".source","configPath":"source.config.ts"}, {"doc":{"passthroughs":["extractedReferences"]}});
+}>(Config, {"configPath":"source.config.ts","environment":"next","outDir":".source"}, {"doc":{"passthroughs":["extractedReferences"]}});
