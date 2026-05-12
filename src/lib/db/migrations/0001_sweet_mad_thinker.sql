@@ -1,1 +1,0 @@
-ALTER TABLE "guestbook_reaction" ALTER COLUMN "user_id" SET DEFAULT '{}';
