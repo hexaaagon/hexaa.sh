@@ -58,14 +58,14 @@ export default function LabsPage() {
         <div className="inner relative flex flex-col items-center justify-center border-separator/10 border-x py-24">
           <LightRays className="-z-10 absolute inset-0 flex items-center justify-center bg-[linear-gradient(to_right,#80808033_1px,transparent_1px),linear-gradient(to_bottom,#80808033_1px,transparent_1px)] bg-position-[center_center] bg-size-[70px_70px]" />
           <div className="space-y-6 px-6 text-center">
-            <h2 className="font-inter font-semibold text-3xl md:text-4xl">
+            <h2 className="font-grotesque font-semibold text-3xl md:text-4xl">
               Make your components{" "}
               <b className="font-bold italic underline decoration-wavy">
                 more unique
               </b>
               .
             </h2>
-            <p className="mx-auto max-w-2xl text-xl">
+            <p className="font-inter mx-auto max-w-2xl text-xl">
               Explore Hexaa's Labs to find innovative UI compounds that can
               elevate your projects.
             </p>

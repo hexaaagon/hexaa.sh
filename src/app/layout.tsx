@@ -70,7 +70,7 @@ export default function RootLayout({
     /* Suppress Hydration Warning because of Next Themes. */
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${grotesque.variable} ${instrumentSerif.variable} ${inter.variable} ${neueMontreal.variable} ${neueMontrealMono.variable} font-grotesque antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${grotesque.variable} ${instrumentSerif.variable} ${inter.variable} ${neueMontreal.variable} ${neueMontrealMono.variable} font-inter antialiased`}
         suppressHydrationWarning
       >
         <NuqsAdapter>
